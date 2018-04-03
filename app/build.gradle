@@ -1,0 +1,49 @@
+buildscript
+        {
+            repositories
+                    {
+                        jcenter()
+                        google()
+                        maven { url 'https://maven.fabric.io/public' }
+                    }
+
+            dependencies
+                    {
+                        classpath 'com.google.gms:google-services:3.0.0'
+                        classpath 'io.fabric.tools:gradle:1.22.1'
+                    }
+        }
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion project.COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion project.BUILD_TOOLS_VERSION
+    defaultConfig {
+        applicationId "eu.benayoun.badassweather"
+        minSdkVersion 16
+        targetSdkVersion project.COMPILE_SDK_VERSION.toInteger()
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':..:Badass:app')
+    implementation project.GOOGLEPLAY_LOCATION
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation ('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
+}

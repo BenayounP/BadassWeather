@@ -1,0 +1,51 @@
+<manifest package="eu.benayoun.badassweather"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <!-- Crashlytics -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- receivers-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- location -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+
+    <!-- debug -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+                 android:icon="@mipmap/ic_launcher"
+                 android:label="@string/app_name"
+                 android:roundIcon="@mipmap/ic_launcher_round"
+                 android:theme="@style/AppTheme">
+
+        <!-- MAIN ACTIVITY -->
+        <activity
+            android:name=".badass.ui.activity.AppActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- SERVICES -->
+        <service
+            android:name="eu.benayoun.badass.backgroundworker.schedulemanager.ScheduleJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+
+
+        <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="ef31296d79d30ce0bef820dc5781836fa456f0e2" />
+    </application>
+</manifest>

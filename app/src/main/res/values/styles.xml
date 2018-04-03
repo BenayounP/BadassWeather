@@ -1,0 +1,77 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- remove black screen at start -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/app_primary_color</item>
+        <item name="colorPrimaryDark">@color/app_primary_color</item>
+        <item name="colorAccent">@color/app_primary_color</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- Dark icons in the android notification bar-->
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <!-- navigation bar colors -->
+        <item name="android:windowTranslucentNavigation" tools:targetApi="19">false</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">@color/nice_translucent_darkest_grey</item>
+        <!-- switch compat theme-->
+        <item name="colorControlActivated">@color/app_accent_text</item>
+        <item name="colorSwitchThumbNormal">@color/app_primary_text</item>
+        <item name="android:colorForeground">@color/app_primary_text</item>
+    </style>
+
+    <!-- VIEWS -->
+
+    <!-- TEXTS -->
+
+    <style name="text" parent="">
+        <item name="android:textColor">@color/app_primary_text</item>
+        <item name="android:textSize">@dimen/nominal_textSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="BigText" parent="text">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/big_textSize</item>
+    </style>
+
+    <style name="BiggerText" parent="BigText">
+        <item name="android:textSize">@dimen/bigger_textSize</item>
+    </style>
+
+    <style name="MediumText" parent="BigText">
+        <item name="android:textSize">@dimen/medium_textSize</item>
+    </style>
+
+    <style name="NominalText" parent="BigText">
+        <item name="android:textSize">@dimen/nominal_textSize</item>
+    </style>
+
+    <style name="LittleText" parent="BigText">
+        <item name="android:textSize">@dimen/little_textSize</item>
+    </style>
+
+    <style name="TinyText" parent="BigText">
+        <item name="android:textSize">@dimen/tiny_textSize</item>
+    </style>
+
+    <style name="TiniestText" parent="BigText">
+        <item name="android:textSize">@dimen/tiniest_textSize</item>
+    </style>
+
+    <!-- BUTTONS -->
+
+    <style name="classicButton" parent="text">
+        <item name="android:background">@color/selector_button_background</item>
+        <item name="android:textSize">@dimen/medium_textSize</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/padding_big</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+
+    </style>
+
+</resources>
