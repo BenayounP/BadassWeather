@@ -1,9 +1,9 @@
-package eu.benayoun.badassweather.badass.backgroundworker.receivers;
+package eu.benayoun.badassweather.badass.background.receivers;
 
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.backgroundworker.androidevents.AndroidEventsManager;
-import eu.benayoun.badassweather.badass.backgroundworker.AppBackgroundWorker;
+import eu.benayoun.badass.background.androidevents.AndroidEventsManager;
+import eu.benayoun.badassweather.badass.background.ThisAppAppBgndManager;
 import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
 
 
@@ -12,13 +12,13 @@ import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
  */
 public class AppAndroidEventsManager extends AndroidEventsManager
 {
-	AppBackgroundWorker                      appBackgroundWorker;
+	ThisAppAppBgndManager thisAppBgndManager;
 
-	public AppAndroidEventsManager(AppBackgroundWorker appBackgroundWorker)
+	public AppAndroidEventsManager(ThisAppAppBgndManager thisAppBgndManager)
 	{
 		listenToInternetConnectivity();
 		listenToScreenActivity();
-		this.appBackgroundWorker = appBackgroundWorker;
+		this.thisAppBgndManager = thisAppBgndManager;
 	}
 
 	// PERMISSION
@@ -31,7 +31,7 @@ public class AppAndroidEventsManager extends AndroidEventsManager
 	public void onConnectedToInternet()
 	{
 		Badass.logInFile("******! onConnectedToInternet");
-		appBackgroundWorker.onConnectedToInternet();
+		thisAppBgndManager.onConnectedToInternet();
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class AppAndroidEventsManager extends AndroidEventsManager
 	public void onScreenOn()
 	{
 		Badass.logInFile("** onScreenOn");
-		appBackgroundWorker.onScreenOn();
+		thisAppBgndManager.onScreenOn();
 		Badass.broadcastUIEvent(UIEvents.UI_EVENT_SCREEN_ON);
 	}
 

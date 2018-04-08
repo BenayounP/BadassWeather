@@ -1,8 +1,8 @@
 package eu.benayoun.badassweather.badass.data.application;
 
 import eu.benayoun.badass.Badass;
+import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.AppBadass;
 import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
 
 
@@ -59,11 +59,10 @@ public class AppStatusManager
 
 	public void updateStatus()
 	{
-		String locationPbString = AppBadass.getAppBackgroundWorker().getAppBackgroundTasksConductor().getLocationPbString();
-		String fusedLocationApiProblemString = AppBadass.getAppBackgroundWorker().getAppBackgroundTasksConductor().getFusedLocationAPIPbString();
-		Badass.log("$$!! fusedLocationApiProblemString: " + ((fusedLocationApiProblemString == null)? "NULL": fusedLocationApiProblemString));
+		String locationPbString = ThisApp.getThisAppBgndManager().getLocationPbString();
+		String fusedLocationApiProblemString = ThisApp.getThisAppBgndManager().getFusedLocationAPIPbString();
 
-		if (fusedLocationApiProblemString != null  && AppBadass.getDataContainer().appPreferencesAndAssets.isUserDoesntwantToGiveLocationPermission()==false)
+		if (fusedLocationApiProblemString != null  && ThisApp.getDataContainer().appPreferencesAndAssets.isUserDoesntwantToGiveLocationPermission()==false)
 		{
 			setPermissionFineLocationPB(fusedLocationApiProblemString);
 			Badass.broadcastUIEvent(UIEvents.UI_EVENT_PERMISSION_STATUS_CHANGE_RESULT);
@@ -92,7 +91,7 @@ public class AppStatusManager
 	{
 		if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
 		{
-			AppBadass.getDataContainer().appPreferencesAndAssets.setUserDoesntwantToGiveLocationPermission(true);
+			ThisApp.getDataContainer().appPreferencesAndAssets.setUserDoesntwantToGiveLocationPermission(true);
 			updateStatus();
 		}
 	}

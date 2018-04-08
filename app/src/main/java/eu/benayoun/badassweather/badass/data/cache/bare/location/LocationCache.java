@@ -31,7 +31,7 @@ public class LocationCache implements SharedPreferencesSubCache
 
 	public LocationCache()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName()).setSubCache(this);
+		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
 		lastLatitude = INVALID_LATITUDE_VALUE;
 		lastLongitude = INVALID_LONGITUDE_VALUE;
 		lastLocationUpdateInMs=-1;
@@ -42,6 +42,7 @@ public class LocationCache implements SharedPreferencesSubCache
 	public void load()
 	{
 		sharedPreferencesFile.load();
+		Badass.broadcastUIEvent(UIEvents.UI_EVENT_LOCATION_CHANGE);
 	}
 
 

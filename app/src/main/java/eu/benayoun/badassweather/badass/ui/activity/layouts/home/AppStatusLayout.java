@@ -7,8 +7,8 @@ import android.widget.TextView;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
 import eu.benayoun.badass.utility.ui.ViewUtils;
+import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.AppBadass;
 import eu.benayoun.badassweather.badass.data.application.AppStatusManager;
 import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
 
@@ -30,14 +30,14 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 		resolveButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v)
 			{
-				AppBadass.getDataContainer().appStatusManager.onUserAction();
+				ThisApp.getDataContainer().appStatusManager.onUserAction();
 			}
 		});
 		dismissButton = mainView.findViewById(R.id.screen_home_status_dismiss);
 		dismissButton.setOnClickListener(new View.OnClickListener() {
 		public void onClick(View v)
 		{
-			AppBadass.getDataContainer().appStatusManager.onUserDismiss();
+			ThisApp.getDataContainer().appStatusManager.onUserDismiss();
 		}
 	});
 		mainTextView = mainView.findViewById(R.id.screen_home_status_text);
@@ -53,34 +53,31 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 	@Override
 	protected void internalRefresh(int eventId, long eventTimeInMs)
 	{
-		AppStatusManager appStatusManager = AppBadass.getDataContainer().appStatusManager;
-		boolean thereIsNoSolution=true;
+		AppStatusManager appStatusManager = ThisApp.getDataContainer().appStatusManager;
+		boolean weNeedUserAction=true;
 		if (appStatusManager.thereIsProblem())
 		{
 			mainView.setBackgroundResource(R.drawable.gradient_background);
 			ViewUtils.setGradientBackgroundView(mainView,Badass.getColor(R.color.app_problem_1), Badass.getColor(R.color.app_problem_2));
 			if (appStatusManager.thereIsFineLocationPermissionPb())
 			{
-				thereIsNoSolution = false;
+				weNeedUserAction = false;
 			}
 		}
 		else
 		{
 			mainView.setBackgroundResource(0);
 		}
-		if (thereIsNoSolution)
+		if (weNeedUserAction)
 		{
-			Badass.log("$$!! AppStatusLayout there is no solution");
 			resolveButton.setVisibility(View.GONE);
 			dismissButton.setVisibility(View.GONE);
 		}
 		else
 		{
-			Badass.log("$$!! AppStatusLayout there is solution");
 			resolveButton.setVisibility(View.VISIBLE);
 			dismissButton.setVisibility(View.VISIBLE);
 		}
-		Badass.log("$$!! getDisplayedString" + appStatusManager.getDisplayedString());
 		mainTextView.setText(appStatusManager.getDisplayedString());
 	}
 }

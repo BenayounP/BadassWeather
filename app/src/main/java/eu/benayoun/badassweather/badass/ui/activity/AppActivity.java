@@ -11,9 +11,10 @@ import android.widget.FrameLayout;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.activity.BadassActivity;
+import eu.benayoun.badass.utility.os.permissions.BadassPermissionManager;
 import eu.benayoun.badass.utility.os.time.TimeUtils;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.AppBadass;
+import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.activity.receivers.ActivityReceiverManager;
 import eu.benayoun.badassweather.badass.ui.activity.screenmanagement.ScreenManager;
 import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
@@ -60,6 +61,14 @@ public class AppActivity extends BadassActivity
 	protected void onResume()
 	{
 		super.onResume();
+		if(Badass.isAllowLogInFile())
+		{
+			BadassPermissionManager logInFilePermissionManager = Badass.getLogInFilePermissionManager();
+			if (logInFilePermissionManager.isGranted()==false)
+			{
+				Badass.requestPermission(this,logInFilePermissionManager);
+			}
+		}
 		onEvent(UIEvents.UI_EVENT_RESUME, TimeUtils.getCurrentTimeInMs());
 	}
 
@@ -74,7 +83,7 @@ public class AppActivity extends BadassActivity
 	{
 		if (eventId == UIEvents.UI_EVENT_ASK_FINE_LOCATION_PERMISSION)
 		{
-			Badass.requestPermission(this, AppBadass.getAppBackgroundWorker().getAppBackgroundTasksConductor().getFusedLocationAPIPermission().getId());
+			Badass.requestPermission(this, ThisApp.getThisAppBgndManager().getFusedLocationAPIPermission());
 		}
 		else
 		{

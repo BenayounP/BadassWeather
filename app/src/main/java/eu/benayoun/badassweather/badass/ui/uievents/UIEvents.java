@@ -2,13 +2,13 @@ package eu.benayoun.badassweather.badass.ui.uievents;
 
 import java.util.ArrayList;
 
-import eu.benayoun.badass.ui.events.UIEventsInterface;
+import eu.benayoun.badass.ui.events.AppUIEvents;
 
 /**
  * Created by PierreB on 31/07/2017.
  */
 
-public class UIEvents implements UIEventsInterface
+public class UIEvents implements AppUIEvents
 {
 	/**
 	 * EVENT TYPE

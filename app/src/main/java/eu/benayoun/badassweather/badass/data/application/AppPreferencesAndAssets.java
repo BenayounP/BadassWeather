@@ -22,7 +22,7 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCache
 
 	public AppPreferencesAndAssets()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName()).setSubCache(this);
+		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
 		sharedPreferencesFile.load();
 
 	}

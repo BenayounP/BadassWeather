@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
 import eu.benayoun.badass.utility.ui.ViewUtils;
+import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.AppBadass;
 import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
 
 
@@ -49,22 +49,22 @@ public class HomeScreen extends RefreshableLayoutTemplate
 		addEventTrigger(UIEvents.UI_EVENT_RESUME);
 		addEventTrigger(UIEvents.UI_EVENT_COMPUTE);
 		addEventTrigger(UIEvents.UI_EVENT_LOCATION_CHANGE);
+		addEventTrigger(UIEvents.UI_EVENT_UIDATA_AVAILABLE);
 	}
 
-	@Override
-	public void onEvent(int eventId, long eventTimeInMs)
-	{
-		super.onEvent(eventId, eventTimeInMs);
-	}
 
 	@Override
 	protected void internalRefresh(int eventId, long eventTimeInMs)
 	{
 		homeSwipeRefreshLayoutListener.refresh(eventId);
 		String toDisplay ="";
-		if (false == AppBadass.getDataContainer().bareDataContainer.locationCache.isEmpty())
+		if (false == ThisApp.getDataContainer().bareDataContainer.locationCache.isEmpty())
 		{
-			toDisplay= "Lon: " + AppBadass.getDataContainer().bareDataContainer.locationCache.getLastLongitude();
+			toDisplay= "Lon: " + ThisApp.getDataContainer().bareDataContainer.locationCache.getLastLongitude();
+		}
+		else
+		{
+			toDisplay = "No Data";
 		}
 		mainTextView.setText(toDisplay);
 	}

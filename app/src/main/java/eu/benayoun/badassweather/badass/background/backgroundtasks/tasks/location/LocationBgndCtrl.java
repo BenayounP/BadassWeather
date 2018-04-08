@@ -1,54 +1,52 @@
-package eu.benayoun.badassweather.badass.backgroundworker.backgroundtasks.tasks.location;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location;
 
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 
-import com.google.android.gms.location.LocationListener;
-
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.backgroundworker.backgroundtask.BadassBgndTaskCntrl;
-import eu.benayoun.badass.backgroundworker.backgroundtask.BgndTaskCntrlManager;
+import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTaskCntrl;
+import eu.benayoun.badass.background.backgroundtask.tasks.BgndTaskCntrl;
 import eu.benayoun.badass.utility.os.time.TimeCST;
 import eu.benayoun.badass.utility.os.time.TimeUtils;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.AppBadass;
-import eu.benayoun.badassweather.badass.backgroundworker.backgroundtasks.AppBackgroundTasksConductor;
+import eu.benayoun.badassweather.ThisApp;
 
 
 /**
  * Created by PierreB on 21/05/2017.
  */
 
-public class LocationBgndCtrl extends BgndTaskCntrlManager implements LocationListener
+public class LocationBgndCtrl implements AppBgndTaskCntrl
 {
 	protected static long TYPICAL_DELAY= 2*TimeCST.HOUR_IN_MS;
 
+	LocationBgndManager locationBgndManager;
 
-	protected AppBackgroundTasksConductor appBackgroundTasksConductor;
 	protected Location lastFusedLocation = null;
 
-	public LocationBgndCtrl(AppBackgroundTasksConductor appBackgroundTasksConductor)
+
+	public LocationBgndCtrl(LocationBgndManager locationBgndManager)
 	{
-		badassBgndTaskCntrl.setGlobalProblemStringId(R.string.app_status_problem_location);
-		this.appBackgroundTasksConductor = appBackgroundTasksConductor;
+		this.locationBgndManager = locationBgndManager;
 	}
 
-	public void setLastFusedLocation(Location lastFusedLocation)
+	void setLastFusedLocation(Location lastFusedLocation)
 	{
 		this.lastFusedLocation = lastFusedLocation;
 	}
 
+
 	@Override
 	public int getOnAppInitialisationStatus()
 	{
-		return badassBgndTaskCntrl.getCurrentStatus();
+		return locationBgndManager.getBgndTaskCntrl().getCurrentStatus();
 	}
 
 	@Override
 	public int getFirstStatusEver()
 	{
-		return BadassBgndTaskCntrl.STATUS_UPDATE_ASAP;
+		return BgndTaskCntrl.STATUS_UPDATE_ASAP;
 	}
 
 
@@ -58,14 +56,6 @@ public class LocationBgndCtrl extends BgndTaskCntrlManager implements LocationLi
 		getLocation();
 	}
 
-	@Override
-	public void onLocationChanged(Location location)
-	{
-		Badass.logInFile("** on location changed");
-		setLastFusedLocation(lastFusedLocation);
-		badassBgndTaskCntrl.performTaskASAP();
-		AppBadass.getAppBackgroundWorker().launchBackgroundWork();
-	}
 
 
 
@@ -77,7 +67,7 @@ public class LocationBgndCtrl extends BgndTaskCntrlManager implements LocationLi
 
 	protected void getLocation()
 	{
-		AppBadass.getDataContainer().appStatusManager.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
+		ThisApp.getDataContainer().appStatusManager.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
 		Location lastLocation = getBestLocation();
 
 		if (lastLocation != null)
@@ -85,10 +75,10 @@ public class LocationBgndCtrl extends BgndTaskCntrlManager implements LocationLi
 			double lastLatitude  = lastLocation.getLatitude();
 			double lastLongitude = lastLocation.getLongitude();
 
-			if (AppBadass.getDataContainer().bareDataContainer.locationCache.isAwayOfSavedLocation(lastLocation))
+			if (ThisApp.getDataContainer().bareDataContainer.locationCache.isAwayOfSavedLocation(lastLocation))
 			{
 				Badass.log("## last location is away of last one -> setNextWorkInTheBackground currentAddress and forecast");
-				AppBadass.getDataContainer().bareDataContainer.locationCache.setLocation(lastLatitude, lastLongitude);
+				ThisApp.getDataContainer().bareDataContainer.locationCache.setLocation(lastLatitude, lastLongitude);
 			}
 			else
 			{
@@ -132,14 +122,14 @@ public class LocationBgndCtrl extends BgndTaskCntrlManager implements LocationLi
 
 		if (bestLocation!=null)
 		{
-			if (bestLocationIsFused) badassBgndTaskCntrl.sleep();
-			else badassBgndTaskCntrl.waitForNextCall(TimeUtils.getCurrentTimeInMs()+ TYPICAL_DELAY);
+			if (bestLocationIsFused) locationBgndManager.getBgndTaskCntrl().sleep();
+			else locationBgndManager.getBgndTaskCntrl().waitForNextCall(TimeUtils.getCurrentTimeInMs()+ TYPICAL_DELAY);
 		}
 		else
 		{
 			Badass.logInFile("## LocationBgndCtrl: location is null");
-			badassBgndTaskCntrl.setSpecificReasonProblemStringId(R.string.app_status_problem_location_null);
-			badassBgndTaskCntrl.onProblem();
+			locationBgndManager.getBgndTaskCntrl().setSpecificReasonProblemStringId(R.string.app_status_problem_location_null);
+			locationBgndManager.getBgndTaskCntrl().onProblem();
 		}
 		return bestLocation;
 	}
