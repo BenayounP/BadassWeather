@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_remoteview_main_layout"
+    android:padding="@dimen/global_layout_padding"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/gradient_background"
+    android:weightSum="2">
+
+
+        <TextView
+            android:id="@+id/layout_remoteview_current_weather_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/MediumText"/>
+
+        <TextView
+            android:id="@+id/layout_remoteview_next_weather_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            style="@style/MediumText"/>
+
+
+</LinearLayout>
+
+
+
+
+

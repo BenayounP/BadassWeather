@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
-import eu.benayoun.badass.utility.ui.ViewUtils;
-import eu.benayoun.badassweather.ThisApp;
+import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
+import eu.benayoun.badassweather.ThisApp;
+import eu.benayoun.badassweather.badass.model.ui.UIModel;
+import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
 /**
@@ -40,16 +41,18 @@ public class HomeScreen extends RefreshableLayoutTemplate
 		contentView = mainView.findViewById(R.id.screen_home_content);
 
 		mainTextView = mainView.findViewById(R.id.screen_home_main_text);
+		BadassViewUtils.doNotDisplayOnHorizontalAndroidNavigationBar(mainTextView);
 
 		View appStatusView = mainView.findViewById(R.id.screen_home_status_layout);
-		ViewUtils.doNotDisplayOnAndroidNavigationBar(appStatusView);
+		BadassViewUtils.doNotDisplayOnVerticalAndroidNavigationBar(appStatusView);
+		BadassViewUtils.doNotDisplayOnHorizontalAndroidNavigationBar(appStatusView);
+
 		appStatusLayout = new AppStatusLayout(appStatusView);
 		addSubLayout(appStatusLayout);
 
 		addEventTrigger(UIEvents.UI_EVENT_RESUME);
 		addEventTrigger(UIEvents.UI_EVENT_COMPUTE);
-		addEventTrigger(UIEvents.UI_EVENT_LOCATION_CHANGE);
-		addEventTrigger(UIEvents.UI_EVENT_UIDATA_AVAILABLE);
+		addEventTrigger(UIEvents.UI_EVENT_WEATHER_CHANGE);
 	}
 
 
@@ -57,14 +60,19 @@ public class HomeScreen extends RefreshableLayoutTemplate
 	protected void internalRefresh(int eventId, long eventTimeInMs)
 	{
 		homeSwipeRefreshLayoutListener.refresh(eventId);
-		String toDisplay ="";
-		if (false == ThisApp.getDataContainer().bareDataContainer.locationCache.isEmpty())
+		String  toDisplay ="";
+		UIModel uIModel   = ThisApp.getModel().uIModel;
+		if (uIModel.isEmpty())
 		{
-			toDisplay= "Lon: " + ThisApp.getDataContainer().bareDataContainer.locationCache.getLastLongitude();
+			toDisplay = "";
 		}
 		else
 		{
-			toDisplay = "No Data";
+			toDisplay = uIModel.getCurrentWeather();
+			if (uIModel.getNextWeather().equals("")==false)
+			{
+				toDisplay+="\n\n"+uIModel.getNextWeather();
+			}
 		}
 		mainTextView.setText(toDisplay);
 	}

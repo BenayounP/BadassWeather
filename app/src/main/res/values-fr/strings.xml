@@ -5,6 +5,13 @@
 
     <!--<string name="app_name" translatable="false">BadassWeather</string>-->
 
+    <!-- ************** -->
+    <!--      HOME      -->
+    <!-- ************** -->
+
+    <string name="home_now_weather">Maintenant:\n%1$s</string>
+    <string name="home_next_weather">Suivant:%1$s</string>
+
 
     <!-- ************** -->
     <!-- APP STATUS  -->
@@ -27,6 +34,60 @@
     <string name="app_status_problem_forecast">Impossible de récupérer le bulletin météo</string>
     <string name="app_status_display_forecast_report">Mise à jour des informations météo</string>
     <string name="app_status_next_weather_report">Prochain bulletin metéo : %1$s</string>
+
+    <!-- ****** -->
+    <!-- YR NO  -->
+    <!-- ****** -->
+
+    <string name="Sun">Clair</string>
+    <string name="LightCloud">Légèrement\nnuageux</string>
+    <string name="PartlyCloud">Partiellement\nnuageux</string>
+    <string name="Cloud">Nuageux</string>
+    <string name="LightRainSun">Pluies légères\navec éclaircies</string>
+    <string name="LightRainThunderSun">Orageux\navec pluies légères\net éclaircies</string>
+    <string name="SleetSun">Neige fondue\navec éclaircies</string>
+    <string name="SnowSun">Neige\navec éclaircies</string>
+    <string name="LightRain">Pluies\nlégères</string>
+    <string name="Rain">Pluvieux</string>
+    <string name="RainThunder">Orages\navec pluies</string>
+    <string name="Sleet">Neige\nfondue</string>
+    <string name="Snow">Neige</string>
+    <string name="SnowThunder">Orages\navec neige</string>
+    <string name="Fog">Brouillard</string>
+    <string name="SleetSunThunder">Orages\navec neige fondue\net éclaircies</string>
+    <string name="SnowSunThunder">Orage\navec neige\net éclaircies</string>
+    <string name="LightRainThunder">Orages\navec Pluies légères</string>
+    <string name="SleetThunder">Orages\navec neige fondue</string>
+    <string name="DrizzleThunderSun">Orages\navec bruines\net éclaircies</string>
+    <string name="RainThunderSun">Orage\navec pluies\net éclaircies</string>
+    <string name="LightSleetThunderSun">Orage\navec légères neige fondues\net éclaircies</string>
+    <string name="HeavySleetThunderSun">Orage\navec importantes neiges fondues\net éclaircies</string>
+    <string name="LightSnowThunderSun">Orage\navec légères neiges\net éclaircies</string>
+    <string name="HeavySnowThunderSun">Orage\navec neige importante\net éclaircies</string>
+    <string name="DrizzleThunder">Orage\navec bruines</string>
+    <string name="LightSleetThunder">Orage\navec légères neiges fondues</string>
+    <string name="HeavySleetThunder">Orage\navec importantes neiges fondues</string>
+    <string name="LightSnowThunder">Orage\navec légères neiges</string>
+    <string name="HeavySnowThunder">Orage\navec importantes neiges</string>
+    <string name="DrizzleSun">Bruines\navec éclaircies</string>
+    <string name="RainSun">Pluvieux\navec éclaircies</string>
+    <string name="LightSleetSun">Légères neiges fondues\navec éclaircies</string>
+    <string name="HeavySleetSun">Importantes neiges fondues\navec éclaircies</string>
+    <string name="LightSnowSun">Légères neige\navec éclaircies</string>
+    <string name="HeavySnowSun">Importantes neiges\navec éclaircies</string>
+    <string name="Drizzle">Bruines</string>
+    <string name="LightSleet">Légères\nneiges fondues</string>
+    <string name="HeavySleet">Importantes\nneiges fondues</string>
+    <string name="LightSnow">Légères\nneiges</string>
+    <string name="HeavySnow">Importantes\nneiges</string>
+
+    <!-- ************** -->
+    <!-- NOTIFICATIONS  -->
+    <!-- ************** -->
+    <!--<string name="notification_channel_ID">%1$s_NOTIFICATIONS_ID</string>-->
+    <string name="notification_name_ID">%1$s notifications</string>
+    <string name="notification_description_ID">Notifications de %1$s</string>
+
 
 
     <!-- ************** -->

@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:padding="@dimen/global_layout_padding">
+            android:padding="@dimen/global_layout_padding"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/screen_home_status_text"

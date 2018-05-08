@@ -8,8 +8,8 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
 
-import eu.benayoun.badass.ui.UIBroadCastManager;
-import eu.benayoun.badass.utility.os.time.TimeUtils;
+import eu.benayoun.badass.ui.BadassUIBroadCastMngr;
+import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
 
 
@@ -24,10 +24,10 @@ public class ActivityOnEventReceiver extends BroadcastReceiver
 	@Override
     public void onReceive(Context context, Intent intent)
     {
-	    int eventId = UIBroadCastManager.getEventId(intent);
+	    int eventId = BadassUIBroadCastMngr.getEventId(intent);
         if (mainActivityWeakReference != null)
         {
-	        mainActivityWeakReference.get().onEvent(eventId, TimeUtils.getCurrentTimeInMs());
+	        mainActivityWeakReference.get().onEvent(eventId, BadassTimeUtils.getCurrentTimeInMs());
         }
     }
 
@@ -36,7 +36,7 @@ public class ActivityOnEventReceiver extends BroadcastReceiver
 	    mainActivityWeakReference = new WeakReference<>(mainActivity);
         localBroadcastManager.registerReceiver(this,
                 new IntentFilter(
-		                UIBroadCastManager.ACTION_EVENT));
+		                BadassUIBroadCastMngr.ACTION_EVENT));
     }
 
     public void unregister(LocalBroadcastManager localBroadcastManager)

@@ -6,11 +6,11 @@ import android.widget.TextView;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
-import eu.benayoun.badass.utility.ui.ViewUtils;
-import eu.benayoun.badassweather.ThisApp;
+import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.data.application.AppStatusManager;
-import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
+import eu.benayoun.badassweather.ThisApp;
+import eu.benayoun.badassweather.badass.model.application.AppStatusCtrl;
+import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 /**
  * Created by PierreB on 24/07/2017.
@@ -30,17 +30,16 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 		resolveButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v)
 			{
-				ThisApp.getDataContainer().appStatusManager.onUserAction();
+				ThisApp.getModel().appStatusCtrl.onUserAction();
 			}
 		});
 		dismissButton = mainView.findViewById(R.id.screen_home_status_dismiss);
 		dismissButton.setOnClickListener(new View.OnClickListener() {
 		public void onClick(View v)
 		{
-			ThisApp.getDataContainer().appStatusManager.onUserDismiss();
+			ThisApp.getModel().appStatusCtrl.onUserDismiss();
 		}
 	});
-		mainTextView = mainView.findViewById(R.id.screen_home_status_text);
 		addEventTrigger(UIEvents.UI_EVENT_PERMISSION_STATUS_CHANGE_RESULT);
 		addEventTrigger(UIEvents.UI_EVENT_APP_STATUS_CHANGE);
 		addEventTrigger(UIEvents.UI_EVENT_RESUME);
@@ -53,13 +52,13 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 	@Override
 	protected void internalRefresh(int eventId, long eventTimeInMs)
 	{
-		AppStatusManager appStatusManager = ThisApp.getDataContainer().appStatusManager;
-		boolean weNeedUserAction=true;
-		if (appStatusManager.thereIsProblem())
+		AppStatusCtrl appStatusCtrl    = ThisApp.getModel().appStatusCtrl;
+		boolean       weNeedUserAction =true;
+		if (appStatusCtrl.thereIsProblem())
 		{
 			mainView.setBackgroundResource(R.drawable.gradient_background);
-			ViewUtils.setGradientBackgroundView(mainView,Badass.getColor(R.color.app_problem_1), Badass.getColor(R.color.app_problem_2));
-			if (appStatusManager.thereIsFineLocationPermissionPb())
+			BadassViewUtils.setGradientBackgroundView(mainView,Badass.getColor(R.color.app_problem_1), Badass.getColor(R.color.app_problem_2));
+			if (appStatusCtrl.thereIsFineLocationPermissionPb())
 			{
 				weNeedUserAction = false;
 			}
@@ -78,6 +77,6 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 			resolveButton.setVisibility(View.VISIBLE);
 			dismissButton.setVisibility(View.VISIBLE);
 		}
-		mainTextView.setText(appStatusManager.getDisplayedString());
+		mainTextView.setText(appStatusCtrl.getDisplayedString());
 	}
 }

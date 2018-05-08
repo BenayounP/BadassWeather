@@ -11,13 +11,13 @@ import android.widget.FrameLayout;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.activity.BadassActivity;
-import eu.benayoun.badass.utility.os.permissions.BadassPermissionManager;
-import eu.benayoun.badass.utility.os.time.TimeUtils;
+import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
+import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.activity.receivers.ActivityReceiverManager;
 import eu.benayoun.badassweather.badass.ui.activity.screenmanagement.ScreenManager;
-import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
+import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
 /**
@@ -49,6 +49,8 @@ public class AppActivity extends BadassActivity
 		activityReceiverManager.registerInActivity(this);
 	}
 
+
+
 	@Override
 	protected void onDestroy()
 	{
@@ -63,13 +65,13 @@ public class AppActivity extends BadassActivity
 		super.onResume();
 		if(Badass.isAllowLogInFile())
 		{
-			BadassPermissionManager logInFilePermissionManager = Badass.getLogInFilePermissionManager();
+			BadassPermissionCtrl logInFilePermissionManager = Badass.getLogInFilePermissionCtrl();
 			if (logInFilePermissionManager.isGranted()==false)
 			{
 				Badass.requestPermission(this,logInFilePermissionManager);
 			}
 		}
-		onEvent(UIEvents.UI_EVENT_RESUME, TimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 
 	@Override
@@ -79,11 +81,19 @@ public class AppActivity extends BadassActivity
 		if (processed ==false) super.onBackPressed();
 	}
 
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		super.onRestoreInstanceState(savedInstanceState);
+		Badass.log("$$!! onRestoreInstanceState");
+		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
+	}
+
 	public void onEvent(int eventId, long onEventTimeInMs)
 	{
 		if (eventId == UIEvents.UI_EVENT_ASK_FINE_LOCATION_PERMISSION)
 		{
-			Badass.requestPermission(this, ThisApp.getThisAppBgndManager().getFusedLocationAPIPermission());
+			Badass.requestPermission(this, ThisApp.getThisAppBgndMngr().getFusedLocationAPIPermission());
 		}
 		else
 		{
@@ -95,13 +105,6 @@ public class AppActivity extends BadassActivity
 		}
 	}
 
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode,
-	                                       String permissions[], int[] grantResults)
-	{
-		Badass.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
-	}
 
 
 	/**

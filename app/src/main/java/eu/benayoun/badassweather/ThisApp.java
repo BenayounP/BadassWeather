@@ -6,10 +6,11 @@ import android.os.StrictMode;
 import com.crashlytics.android.Crashlytics;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.os.time.TimeUtils;
-import eu.benayoun.badassweather.badass.background.ThisAppAppBgndManager;
-import eu.benayoun.badassweather.badass.data.DataContainer;
-import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
+import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badassweather.badass.background.ThisAppBgndMngr;
+import eu.benayoun.badassweather.badass.model.Model;
+import eu.benayoun.badassweather.badass.ui.events.UIEvents;
+import eu.benayoun.badassweather.badass.ui.notifications.NotificationMngr;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -18,8 +19,8 @@ import io.fabric.sdk.android.Fabric;
  */
 public class ThisApp extends Application
 {
-	static protected ThisAppAppBgndManager thisAppBgndManager;
-	static protected DataContainer         dataContainer;
+	static protected ThisAppBgndMngr thisAppBgndMngr;
+	static protected Model           model;
 
 	@Override
 	public void onCreate()
@@ -27,15 +28,16 @@ public class ThisApp extends Application
 		super.onCreate();
 		// BADASS
 		Badass.init(this, new UIEvents());
-		dataContainer = new DataContainer();
+		Badass.setBadassNotificationMngr(new NotificationMngr());
+		model = new Model();
 
 		// enable logging
-		if (dataContainer.isDevVersion)
+		if (model.isDevVersion)
 		{
 			Badass.enableLogging();
 			Badass.allowLogInFile("badassweather_log.txt");
 			Badass.defineTag("BADASS_DEBUG");
-			if (dataContainer.isStrictMode)
+			if (model.isStrictMode)
 			{
 				StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 						.detectAll()
@@ -46,21 +48,21 @@ public class ThisApp extends Application
 						.penaltyLog()
 						.build());
 			}
-			Badass.finalLog("%%!!!(model)##!!!(bgnd/ctrler)$$!!!(UI)******* INITIALISATION ************************* "+ TimeUtils.getDateString(TimeUtils.getCurrentTimeInMs())+" ***********************************");
+			Badass.finalLog("%%!!!(model)##!!!(bgnd)$$!!!(UI)******* INITIALISATION ************************* "+ BadassTimeUtils.getDateString(BadassTimeUtils.getCurrentTimeInMs())+" ***********************************");
 
 			// Badass
 			Fabric.with(this, new Crashlytics());
 		}
-		thisAppBgndManager = new ThisAppAppBgndManager();
+		thisAppBgndMngr = new ThisAppBgndMngr();
 	}
 
-	public static ThisAppAppBgndManager getThisAppBgndManager()
+	public static ThisAppBgndMngr getThisAppBgndMngr()
 	{
-		return thisAppBgndManager;
+		return thisAppBgndMngr;
 	}
 
-	public static DataContainer getDataContainer()
+	public static Model getModel()
 	{
-		return dataContainer;
+		return model;
 	}
 }

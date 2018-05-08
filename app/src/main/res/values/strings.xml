@@ -7,6 +7,13 @@
     <string name="app_name" translatable="false">BadassWeather</string>
 
     <!-- ************** -->
+    <!--      HOME      -->
+    <!-- ************** -->
+
+    <string name="home_now_weather">Now:\n%1$s</string>
+    <string name="home_next_weather">Next %1$s</string>
+
+    <!-- ************** -->
     <!-- APP STATUS  -->
     <!-- ************** -->
     <string name="app_status_init">Initialisation</string>
@@ -25,6 +32,59 @@
     <string name="app_status_display_forecast_report">Updating forecast display</string>
     <string name="app_status_problem_forecast">Can\'t get your forecast</string>
     <string name="app_status_next_weather_report">Next weather report: %1$s</string>
+
+    <!-- ****** -->
+    <!-- YR NO  -->
+    <!-- ****** -->
+
+    <string name="Sun">Clear</string>
+    <string name="LightCloud">Light cloud</string>
+    <string name="PartlyCloud">Partly cloudy</string>
+    <string name="Cloud">Cloudy</string>
+    <string name="LightRainSun">Light rain\nwith sunny spells</string>
+    <string name="LightRainThunderSun">Light rain\nthunderstorm\nwith sunny spells</string>
+    <string name="SleetSun">Sleet\nwith sunny spells</string>
+    <string name="SnowSun">Snow\nwith sunny spells</string>
+    <string name="LightRain">Light rain</string>
+    <string name="Rain">Rain</string>
+    <string name="RainThunder">rain\nthunderstorm</string>
+    <string name="Sleet">Sleet</string>
+    <string name="Snow">Snow</string>
+    <string name="SnowThunder">Snow\nthunderstorm</string>
+    <string name="Fog">Fog</string>
+    <string name="SleetSunThunder">Sleet\nthunderstorm\nwith sunny spells</string>
+    <string name="SnowSunThunder">Snow\nthunderstorm\nwith sunny spells</string>
+    <string name="LightRainThunder">Light rain\nthunderstorm</string>
+    <string name="SleetThunder">Sleet\nthunderstorm</string>
+    <string name="DrizzleThunderSun">Drizzle\nthunderstorm\nwith sunny spells</string>
+    <string name="RainThunderSun">Rain\nwith sunny spells</string>
+    <string name="LightSleetThunderSun">Light sleet\nwith sunny spells</string>
+    <string name="HeavySleetThunderSun">Heavy sleet\nwith sunny spells</string>
+    <string name="LightSnowThunderSun">Light snow\nthunderstorm\nwith sunny spells</string>
+    <string name="HeavySnowThunderSun">Heavy snow\nthunderstorm\nwith sunny spells</string>
+    <string name="DrizzleThunder">Drizzle\nthunderstorm</string>
+    <string name="LightSleetThunder">Light sleet\nthunderstorm</string>
+    <string name="HeavySleetThunder">Heavy sleet\nthunderstorm</string>
+    <string name="LightSnowThunder">Light snow\nthunderstorm</string>
+    <string name="HeavySnowThunder">Heavy snow\nthunderstorm</string>
+    <string name="DrizzleSun">Drizzle\nwith sunny spells</string>
+    <string name="RainSun">Rain\nwith sunny spells</string>
+    <string name="LightSleetSun">Light Sleet\nwith sunny spells</string>
+    <string name="HeavySleetSun">Heavy sleet\nwith sunny spells</string>
+    <string name="LightSnowSun">Light snow\nwith sunny spells</string>
+    <string name="HeavySnowSun">Heavy snow\nwith sunny spells</string>
+    <string name="Drizzle">Drizzle</string>
+    <string name="LightSleet">Light sleet</string>
+    <string name="HeavySleet">Heavy sleet</string>
+    <string name="LightSnow">Light snow</string>
+    <string name="HeavySnow">Heavy snow</string>
+
+    <!-- ************** -->
+    <!-- NOTIFICATIONS  -->
+    <!-- ************** -->
+    <string name="notification_channel_ID" translatable="false">%1$s_NOTIFICATIONS_ID</string>
+    <string name="notification_channel_name_ID">%1$s notifications</string>
+    <string name="notification_channel_description_ID">%1$s notifications</string>
 
 
     <!-- ************** -->

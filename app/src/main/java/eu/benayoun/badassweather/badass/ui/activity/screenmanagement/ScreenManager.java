@@ -4,11 +4,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
-import eu.benayoun.badass.utility.os.time.TimeUtils;
-import eu.benayoun.badass.utility.ui.ViewUtils;
+import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.badass.ui.activity.layouts.home.HomeScreen;
-import eu.benayoun.badassweather.badass.ui.uievents.UIEvents;
+import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
 /**
@@ -54,12 +54,12 @@ public class ScreenManager
 	{
 		if (homeScreen ==null)
 		{
-			homeView = ViewUtils.inflateView(mainView, R.layout.screen_home);
+			homeView = BadassViewUtils.inflateView(mainView, R.layout.screen_home);
 			mainView.addView(homeView);
 			homeScreen = new HomeScreen(homeView);
 		}
 		homeScreen.setVisible();
 		currentLayout = homeScreen;
-		onEvent(UIEvents.UI_EVENT_RESUME, TimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 }
