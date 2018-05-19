@@ -6,11 +6,16 @@
     <!--<string name="app_name" translatable="false">BadassWeather</string>-->
 
     <!-- ************** -->
-    <!--      HOME      -->
+    <!--        HOME    -->
+    <!-- ************** -->
+    <string name="home_notification_switch">Notification\u0020</string>
+
+    <!-- ************** -->
+    <!--     WEATHER    -->
     <!-- ************** -->
 
-    <string name="home_now_weather">Maintenant:\n%1$s</string>
-    <string name="home_next_weather">Suivant:%1$s</string>
+    <string name="now_weather">Maintenant:\n%1$s</string>
+    <string name="next_weather">Suivant:%1$s</string>
 
 
     <!-- ************** -->

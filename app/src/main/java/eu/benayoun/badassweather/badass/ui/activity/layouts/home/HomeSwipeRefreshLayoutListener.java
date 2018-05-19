@@ -24,13 +24,13 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	public void onRefresh()
 	{
 		ThisApp.getThisAppBgndMngr().updateAllData();
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_RESUME);
+		Badass.broadcastUIEvent(UIEvents.RESUME);
 	}
 
 
 	public void refresh(int eventId)
 	{
-		if (eventId == UIEvents.UI_EVENT_RESUME || eventId == UIEvents.UI_EVENT_COMPUTE)
+		if (eventId == UIEvents.RESUME || eventId == UIEvents.COMPUTE)
 		{
 			if (Badass.getBadassBackgroundMngr().isDoingTasks()==false)
 			{

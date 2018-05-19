@@ -2,8 +2,8 @@ package eu.benayoun.badassweather.badass.ui.activity.layouts.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
-
 import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
 import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
@@ -47,13 +47,27 @@ public class HomeScreen extends RefreshableLayoutTemplate
 		BadassViewUtils.doNotDisplayOnVerticalAndroidNavigationBar(appStatusView);
 		BadassViewUtils.doNotDisplayOnHorizontalAndroidNavigationBar(appStatusView);
 
-		appStatusLayout = new AppStatusLayout(appStatusView);
-		addSubLayout(appStatusLayout);
+		// switch
+		final Switch notificationSwitch = mainView.findViewById(R.id.screen_home_switch_notification);
+		notificationSwitch.setChecked(ThisApp.getModel().appPreferencesAndAssets.isUserWantsToDisplayNotification());
+		notificationSwitch.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+					ThisApp.getNotificationAndWidgetsMngr().onNotificationSwitchClick();
+			}
+		});
 
-		addEventTrigger(UIEvents.UI_EVENT_RESUME);
-		addEventTrigger(UIEvents.UI_EVENT_COMPUTE);
-		addEventTrigger(UIEvents.UI_EVENT_WEATHER_CHANGE);
-	}
+	appStatusLayout = new AppStatusLayout(appStatusView);
+	addSubLayout(appStatusLayout);
+
+
+
+	addEventTrigger(UIEvents.RESUME);
+	addEventTrigger(UIEvents.COMPUTE);
+	addEventTrigger(UIEvents.WEATHER_CHANGE);
+}
 
 
 	@Override

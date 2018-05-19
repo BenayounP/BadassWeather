@@ -30,7 +30,7 @@ public class UIModel implements SharedPreferencesSubCache
 		this.currentWeather = currentWeather;
 		this.nextWeather = nextWeather;
 		sharedPreferencesFile.save();
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_WEATHER_CHANGE);
+		Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
 	}
 
 	public boolean isEmpty()
@@ -51,7 +51,7 @@ public class UIModel implements SharedPreferencesSubCache
 	public void load()
 	{
 		sharedPreferencesFile.load();
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_WEATHER_CHANGE);
+		Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
 	}
 
 	@Override

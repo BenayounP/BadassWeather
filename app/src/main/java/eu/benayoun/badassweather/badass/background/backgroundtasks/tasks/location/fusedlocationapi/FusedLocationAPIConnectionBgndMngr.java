@@ -65,7 +65,7 @@ public class FusedLocationAPIConnectionBgndMngr implements GoogleApiClient.OnCon
 	public void onAppPermissionResult()
 	{
 
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_PERMISSION_STATUS_CHANGE_RESULT);
+		Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
 		bgndTask.performTaskASAP();
 		Badass.launchBackgroundTasks();
 	}

@@ -71,7 +71,7 @@ public class AppActivity extends BadassActivity
 				Badass.requestPermission(this,logInFilePermissionManager);
 			}
 		}
-		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 
 	@Override
@@ -86,18 +86,18 @@ public class AppActivity extends BadassActivity
 	{
 		super.onRestoreInstanceState(savedInstanceState);
 		Badass.log("$$!! onRestoreInstanceState");
-		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 
 	public void onEvent(int eventId, long onEventTimeInMs)
 	{
-		if (eventId == UIEvents.UI_EVENT_ASK_FINE_LOCATION_PERMISSION)
+		if (eventId == UIEvents.ASK_FINE_LOCATION_PERMISSION)
 		{
 			Badass.requestPermission(this, ThisApp.getThisAppBgndMngr().getFusedLocationAPIPermission());
 		}
 		else
 		{
-			if (eventId == UIEvents.UI_EVENT_SCREEN_ON) eventId = UIEvents.UI_EVENT_RESUME;
+			if (eventId == UIEvents.SCREEN_ON) eventId = UIEvents.RESUME;
 			if (screenManager != null)
 			{
 				screenManager.onEvent(eventId, onEventTimeInMs);

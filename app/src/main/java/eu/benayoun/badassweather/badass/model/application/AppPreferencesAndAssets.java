@@ -53,9 +53,9 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCache
 		return userWantsToDisplayNotification;
 	}
 
-	public void setUserWantsToDisplayNotification(boolean userWantsToDisplayNotification)
+	public void toggleUserWantsToDisplayNotification()
 	{
-		this.userWantsToDisplayNotification = userWantsToDisplayNotification;
+		this.userWantsToDisplayNotification = !userWantsToDisplayNotification;
 		sharedPreferencesFile.save();
 	}
 

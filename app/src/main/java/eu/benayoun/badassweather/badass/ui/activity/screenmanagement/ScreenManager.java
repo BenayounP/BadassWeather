@@ -60,6 +60,6 @@ public class ScreenManager
 		}
 		homeScreen.setVisible();
 		currentLayout = homeScreen;
-		onEvent(UIEvents.UI_EVENT_RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 }

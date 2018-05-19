@@ -2,15 +2,13 @@ package eu.benayoun.badassweather;
 
 import android.app.Application;
 import android.os.StrictMode;
-
 import com.crashlytics.android.Crashlytics;
-
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.badass.background.ThisAppBgndMngr;
 import eu.benayoun.badassweather.badass.model.Model;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
-import eu.benayoun.badassweather.badass.ui.notifications.NotificationMngr;
+import eu.benayoun.badassweather.badass.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -21,6 +19,8 @@ public class ThisApp extends Application
 {
 	static protected ThisAppBgndMngr thisAppBgndMngr;
 	static protected Model           model;
+	static protected NotificationAndWidgetsMngr notificationAndWidgetsMngr;
+
 
 	@Override
 	public void onCreate()
@@ -28,7 +28,8 @@ public class ThisApp extends Application
 		super.onCreate();
 		// BADASS
 		Badass.init(this, new UIEvents());
-		Badass.setBadassNotificationMngr(new NotificationMngr());
+		notificationAndWidgetsMngr =new NotificationAndWidgetsMngr();
+		Badass.setNotificationAndWidgetsEventsLister(notificationAndWidgetsMngr);
 		model = new Model();
 
 		// enable logging
@@ -65,4 +66,10 @@ public class ThisApp extends Application
 	{
 		return model;
 	}
+
+	public static NotificationAndWidgetsMngr getNotificationAndWidgetsMngr()
+	{
+		return notificationAndWidgetsMngr;
+	}
+
 }

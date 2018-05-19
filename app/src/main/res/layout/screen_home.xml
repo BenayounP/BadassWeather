@@ -1,61 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/screen_home_swiperefreshlayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
-
-    <LinearLayout
-        android:id="@+id/screen_home_content"
+        android:id="@+id/screen_home_swiperefreshlayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/gradient_background">
+
+    <LinearLayout
+            android:id="@+id/screen_home_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <TextView
-            android:id="@+id/screen_home_main_text"
-            style="@style/BigText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/screen_home_status_layout"
-            android:gravity="center"/>
+                android:id="@+id/screen_home_main_text"
+                style="@style/BigText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/screen_home_status_layout"
+                android:gravity="center"/>
 
         <LinearLayout
-            android:id="@+id/screen_home_status_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="@dimen/global_layout_padding"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/screen_home_status_text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/NominalText"/>
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:gravity="center">
+            
+            <Switch
+                    android:id="@+id/screen_home_switch_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/global_layout_padding"
+                    android:text="@string/home_notification_switch"
+                    style="@style/MediumText">
 
-            <Button
-                android:id="@+id/screen_home_status_resolve"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/classicButton"
-                android:text="@string/check"/>
+            </Switch>
 
-            <FrameLayout
-                android:layout_width="@dimen/global_layout_padding"
-                android:layout_height="0dp"/>
+            <LinearLayout
+                    android:id="@+id/screen_home_status_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    
+                    android:padding="@dimen/global_layout_padding"
+                    android:gravity="center">
 
-            <Button
-                android:id="@+id/screen_home_status_dismiss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/classicButton"
-                android:layout_marginRight="@dimen/global_layout_padding"
-                android:text="X"/>
+                <TextView
+                        android:id="@+id/screen_home_status_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/NominalText"/>
+
+                <Button
+                        android:id="@+id/screen_home_status_resolve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/classicButton"
+                        android:text="@string/check"/>
+
+                <FrameLayout
+                        android:layout_width="@dimen/global_layout_padding"
+                        android:layout_height="0dp"/>
+
+                <Button
+                        android:id="@+id/screen_home_status_dismiss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/classicButton"
+                        android:layout_marginRight="@dimen/global_layout_padding"
+                        android:text="X"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

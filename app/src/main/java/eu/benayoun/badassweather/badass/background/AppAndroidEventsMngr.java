@@ -50,7 +50,7 @@ public class AppAndroidEventsMngr extends AndroidEventsMngr
 	{
 		Badass.logInFile("** onScreenOn");
 		thisAppBgndMngr.onScreenOn();
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_SCREEN_ON);
+		Badass.broadcastUIEvent(UIEvents.SCREEN_ON);
 	}
 
 	@Override

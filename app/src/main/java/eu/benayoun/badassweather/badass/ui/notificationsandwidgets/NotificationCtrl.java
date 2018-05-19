@@ -1,33 +1,36 @@
-package eu.benayoun.badassweather.badass.ui.notifications;
+package eu.benayoun.badassweather.badass.ui.notificationsandwidgets;
 
 
 import android.support.v4.app.NotificationCompat;
-
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.notification.factory.BadassNotificationMngr;
+import eu.benayoun.badass.ui.notification.BadassNotificationCtrl;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.applicationreceivers.NotificationDeleteReceiver;
 import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
-import eu.benayoun.badassweather.badass.ui.notifications.remoteview.RemoteViewCtrlr;
 
 
-
-public class NotificationMngr extends BadassNotificationMngr
+public class NotificationCtrl extends BadassNotificationCtrl
 {
 	final protected int GLOBAL_NOTIFICATION_ID = 1976;
 	final public int ALERT_NOTIFICATION_ID = 1;
-	protected RemoteViewCtrlr remoteViewCtrlr;
+
+	RemoteViewCtrlr remoteViewCtrlr;
+
+	public NotificationCtrl(RemoteViewCtrlr remoteViewCtrlr)
+	{
+		this.remoteViewCtrlr = remoteViewCtrlr;
+	}
 
 	/**
 	 * METHODS
 	 */
 
 	@Override
-	public void onEvent(int eventId)
+	public void onEvent(int eventId, long eventTimeInMs)
 	{
-		if (eventId == UIEvents.UI_EVENT_WEATHER_CHANGE)
+		if (eventId == UIEvents.WEATHER_CHANGE || eventId == UIEvents.USER_NOTIFICATION_PREFERENCE)
 		{
 			manageLaunch();
 		}
@@ -42,10 +45,6 @@ public class NotificationMngr extends BadassNotificationMngr
 	{
 		if (ThisApp.getModel().appPreferencesAndAssets != null && ThisApp.getModel().appPreferencesAndAssets.isUserWantsToDisplayNotification())
 		{
-			if (remoteViewCtrlr ==null)
-			{
-				remoteViewCtrlr = new RemoteViewCtrlr();
-			}
 			if (notificationChannelDataContainer==null)
 			{
 				String appName = Badass.getString(R.string.app_name);

@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.ui.notifications.remoteview;
+package eu.benayoun.badassweather.badass.ui.notificationsandwidgets;
 
 import android.view.View;
 import android.widget.RemoteViews;
@@ -19,7 +19,7 @@ public class RemoteViewCtrlr
 
 	public RemoteViews getRemoteViews()
 	{
-		setView();
+		updateView();
 		return remoteViews;
 	}
 
@@ -27,7 +27,7 @@ public class RemoteViewCtrlr
 	 * INTERNAL COOKING
 	 */
 
-	protected void setView()
+	protected void updateView()
 	{
 		if (remoteViews == null)
 		{

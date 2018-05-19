@@ -146,7 +146,7 @@ public class ThisAppBgndMngr implements AppBgndTasksCtrl
 	public void onTaskEnd()
 	{
 		ThisApp.getModel().appStatusCtrl.updateStatus();
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_COMPUTE);
+		Badass.broadcastUIEvent(UIEvents.COMPUTE);
 	}
 
 }

@@ -40,9 +40,9 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 			ThisApp.getModel().appStatusCtrl.onUserDismiss();
 		}
 	});
-		addEventTrigger(UIEvents.UI_EVENT_PERMISSION_STATUS_CHANGE_RESULT);
-		addEventTrigger(UIEvents.UI_EVENT_APP_STATUS_CHANGE);
-		addEventTrigger(UIEvents.UI_EVENT_RESUME);
+		addEventTrigger(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
+		addEventTrigger(UIEvents.APP_STATUS_CHANGE);
+		addEventTrigger(UIEvents.RESUME);
 	}
 
 	/**

@@ -76,7 +76,7 @@ public class UiUpdateBgndTask implements AppBgndTask
 				processedWeather = YrNoForecastUtils.getWeatherSymbolString(atomicBareForecastModel.getWeatherSymbol());
 				if (processedWeather.equals(bareCurrentWeather)==false)
 				{
-					NextWeather = Badass.getString(R.string.home_next_weather,
+					NextWeather = Badass.getString(R.string.next_weather,
 							BadassTimeUtils.getNiceTimeString(atomicBareForecastModel.getUTCDurationInMs().startTime)
 							+ Badass.getString(R.string.colon_with_spaces)+"\n"+processedWeather);
 					break;
@@ -86,7 +86,7 @@ public class UiUpdateBgndTask implements AppBgndTask
 		String currentWeather ="";
 		if (bareCurrentWeather!="")
 		{
-			currentWeather = Badass.getString(R.string.home_now_weather,bareCurrentWeather);
+			currentWeather = Badass.getString(R.string.now_weather,bareCurrentWeather);
 		}
 		ThisApp.getModel().uIModel.setWeather(currentWeather,NextWeather);
 		if (bareCurrentWeather.equals("")==false)

@@ -59,7 +59,7 @@ public class AppStatusCtrl
 	{
 		currentStatus = STATUS_BGND_TASKS_ONGOING;
 		displayedString = displayedStringArg;
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_COMPUTE);
+		Badass.broadcastUIEvent(UIEvents.COMPUTE);
 	}
 
 	public void updateStatus()
@@ -72,7 +72,7 @@ public class AppStatusCtrl
 		if (fusedLocationApiProblemString != null  && ThisApp.getModel().appPreferencesAndAssets.isUserDoesntwantToGiveLocationPermission()==false)
 		{
 			setPermissionFineLocationPB(fusedLocationApiProblemString);
-			Badass.broadcastUIEvent(UIEvents.UI_EVENT_PERMISSION_STATUS_CHANGE_RESULT);
+			Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
 		}
 		else if (locationPbString != null)
 		{
@@ -86,7 +86,7 @@ public class AppStatusCtrl
 		{
 			setWait(Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getCompleteDateString(ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs())));
 		}
-		Badass.broadcastUIEvent(UIEvents.UI_EVENT_APP_STATUS_CHANGE);
+		Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
 	}
 
 	// ACTION
@@ -94,7 +94,7 @@ public class AppStatusCtrl
 	{
 		if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
 		{
-			Badass.broadcastUIEvent(UIEvents.UI_EVENT_ASK_FINE_LOCATION_PERMISSION);
+			Badass.broadcastUIEvent(UIEvents.ASK_FINE_LOCATION_PERMISSION);
 		}
 	}
 
