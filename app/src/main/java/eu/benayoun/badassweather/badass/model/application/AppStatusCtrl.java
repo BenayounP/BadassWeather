@@ -84,7 +84,7 @@ public class AppStatusCtrl
 		}
 		else
 		{
-			setWait(Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getCompleteDateString(ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs())));
+			setWait(Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs())));
 		}
 		Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
 	}

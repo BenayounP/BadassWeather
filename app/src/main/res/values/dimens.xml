@@ -15,7 +15,7 @@
     <dimen name="tiniest_textSize">6sp</dimen>
 
     <!-- button -->
-    <dimen name="rounded_rectangle_corner">@dimen/global_layout_padding</dimen>
+    <dimen name="rounded_corner">@dimen/global_layout_padding</dimen>
     <dimen name="rounded_rectangle_stroke">@dimen/padding_tiny</dimen>
 
 

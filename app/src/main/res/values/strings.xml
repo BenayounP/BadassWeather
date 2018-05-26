@@ -7,6 +7,13 @@
     <string name="app_name" translatable="false">BadassWeather</string>
 
     <!-- ************** -->
+    <!--   UI    -->
+    <!-- ************** -->
+
+    <string name="no_data">No data...yet!</string>
+
+
+    <!-- ************** -->
     <!--        HOME    -->
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>

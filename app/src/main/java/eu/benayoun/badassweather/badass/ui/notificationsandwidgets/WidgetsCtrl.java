@@ -9,16 +9,17 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 public class WidgetsCtrl implements UIEventListenerContract
 {
-    RemoteViewCtrlr remoteViewCtrlr;
+    RemoteViewCtrl remoteViewCtrl;
 
-    public WidgetsCtrl(RemoteViewCtrlr remoteViewCtrlr)
+    public WidgetsCtrl(RemoteViewCtrl remoteViewCtrl)
     {
-        this.remoteViewCtrlr = remoteViewCtrlr;
+        this.remoteViewCtrl = remoteViewCtrl;
     }
 
     @Override
     public void onEvent(int eventId, long eventTimeInMs)
     {
+        Badass.log("WidgetsCtrl onEvent: " + Badass.getEventName(eventId));
         if (eventId == UIEvents.WEATHER_CHANGE || eventId == UIEvents.WIDGET_INSTALLED)
         {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(Badass.getApplicationContext());
@@ -28,7 +29,7 @@ public class WidgetsCtrl implements UIEventListenerContract
 
             if (widgetIds.length != 0)
             {
-                RemoteViews widgetView = remoteViewCtrlr.getRemoteViews();
+                RemoteViews widgetView = remoteViewCtrl.getWidgetsRemoteViews(Widget.class,Widget.ON_WIDGET_CLICK_ACTION);
                 for (int wid : widgetIds)
                 {
                     appWidgetManager.updateAppWidget(wid, widgetView);

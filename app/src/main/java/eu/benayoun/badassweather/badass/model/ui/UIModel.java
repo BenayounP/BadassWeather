@@ -1,10 +1,10 @@
 package eu.benayoun.badassweather.badass.model.ui;
 
 import android.content.SharedPreferences;
-
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
 import eu.benayoun.badass.utility.cache.SharedPreferencesSubCache;
+import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 /**
@@ -17,12 +17,14 @@ public class UIModel implements SharedPreferencesSubCache
 
 	protected String currentWeather;
 	protected String nextWeather;
+	protected String noData;
 
 	public UIModel()
 	{
 		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
 		currentWeather ="";
 		nextWeather="";
+		noData = Badass.getString(R.string.no_data);
 	}
 
 	public void setWeather(String currentWeather, String nextWeather)
@@ -38,6 +40,11 @@ public class UIModel implements SharedPreferencesSubCache
 		return currentWeather.equals("") && nextWeather.equals("");
 	}
 
+	public String getNoDataString()
+	{
+		return noData;
+	}
+
 	public String getCurrentWeather()
 	{
 		return currentWeather;
@@ -47,6 +54,7 @@ public class UIModel implements SharedPreferencesSubCache
 	{
 		return nextWeather;
 	}
+
 
 	public void load()
 	{

@@ -45,6 +45,7 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.ACTION_WIDGET_CLICK" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"

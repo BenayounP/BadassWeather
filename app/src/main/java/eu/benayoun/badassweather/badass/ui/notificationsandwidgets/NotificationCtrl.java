@@ -16,11 +16,11 @@ public class NotificationCtrl extends BadassNotificationCtrl
 	final protected int GLOBAL_NOTIFICATION_ID = 1976;
 	final public int ALERT_NOTIFICATION_ID = 1;
 
-	RemoteViewCtrlr remoteViewCtrlr;
+	RemoteViewCtrl remoteViewCtrl;
 
-	public NotificationCtrl(RemoteViewCtrlr remoteViewCtrlr)
+	public NotificationCtrl(RemoteViewCtrl remoteViewCtrl)
 	{
-		this.remoteViewCtrlr = remoteViewCtrlr;
+		this.remoteViewCtrl = remoteViewCtrl;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class NotificationCtrl extends BadassNotificationCtrl
 
 				setNotificationChannelDataContainer(channelId,channelName,channelDescription);
 			}
-			setCustomNotification(GLOBAL_NOTIFICATION_ID, ALERT_NOTIFICATION_ID, NotificationCompat.PRIORITY_DEFAULT,IS_NOT_ONGOING, R.drawable.ic_notification, remoteViewCtrlr.getRemoteViews(),AppActivity.class, NotificationDeleteReceiver.class);
+			setCustomNotification(GLOBAL_NOTIFICATION_ID, ALERT_NOTIFICATION_ID, NotificationCompat.PRIORITY_DEFAULT,IS_NOT_ONGOING, R.drawable.ic_notification, remoteViewCtrl.getNotificationRemoteViews(),AppActivity.class, NotificationDeleteReceiver.class);
 		}
 		else cancelNotification(GLOBAL_NOTIFICATION_ID);
 	}

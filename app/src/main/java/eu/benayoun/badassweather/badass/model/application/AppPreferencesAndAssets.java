@@ -64,7 +64,7 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCache
 	{
 		userHasrespondedToPermissionsDemands = sharedPreferences.getBoolean("userHasrespondedToPermissionsDemands",false);
 		userDoesntwantToGiveLocationPermission = sharedPreferences.getBoolean("userDoesntwantToGiveLocationPermission",false);
-		userWantsToDisplayNotification = sharedPreferences.getBoolean("userWantsToDisplayNotification",true);
+		userWantsToDisplayNotification = sharedPreferences.getBoolean("userWantsToDisplayNotification",false);
 	}
 
 	@Override

@@ -9,14 +9,14 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 public class NotificationAndWidgetsMngr implements UIEventListenerContract
 {
     protected NotificationCtrl notificationCtrl;
-    protected RemoteViewCtrlr remoteViewCtrlr;
+    protected RemoteViewCtrl remoteViewCtrl;
     protected WidgetsCtrl widgetsCtrl;
 
     public NotificationAndWidgetsMngr()
     {
-        remoteViewCtrlr = new RemoteViewCtrlr();
-        notificationCtrl = new NotificationCtrl(remoteViewCtrlr);
-        widgetsCtrl = new WidgetsCtrl(remoteViewCtrlr);
+        remoteViewCtrl = new RemoteViewCtrl();
+        notificationCtrl = new NotificationCtrl(remoteViewCtrl);
+        widgetsCtrl = new WidgetsCtrl(remoteViewCtrl);
     }
 
     @Override

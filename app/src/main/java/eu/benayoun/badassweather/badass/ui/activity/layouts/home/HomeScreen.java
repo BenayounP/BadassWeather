@@ -78,7 +78,7 @@ public class HomeScreen extends RefreshableLayoutTemplate
 		UIModel uIModel   = ThisApp.getModel().uIModel;
 		if (uIModel.isEmpty())
 		{
-			toDisplay = "";
+			toDisplay = uIModel.getNoDataString();
 		}
 		else
 		{

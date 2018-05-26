@@ -40,6 +40,7 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 			ThisApp.getModel().appStatusCtrl.onUserDismiss();
 		}
 	});
+		addEventTrigger(UIEvents.COMPUTE);
 		addEventTrigger(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
 		addEventTrigger(UIEvents.APP_STATUS_CHANGE);
 		addEventTrigger(UIEvents.RESUME);
@@ -67,6 +68,7 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 		{
 			mainView.setBackgroundResource(0);
 		}
+
 		if (weNeedUserAction)
 		{
 			resolveButton.setVisibility(View.GONE);

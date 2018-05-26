@@ -5,7 +5,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
+import eu.benayoun.badass.Badass;
+import eu.benayoun.badass.utility.model.XmlParser;
+import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badassweather.R;
+import eu.benayoun.badassweather.ThisApp;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.ForecastBgndCtrl;
+import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -15,13 +21,6 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
-import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.model.XmlParser;
-import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.ForecastBgndCtrl;
-import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
-
 
 /**
  * Created by PierreB on 05/06/2017.
@@ -29,9 +28,11 @@ import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastMo
 
 public class YrNoForecastBgndCtrl
 {
-	long nextWeatherReportInMs =-1;
+    long UTCOffsetInMs;
+    long nextWeatherReportInMs =-1;
 	ArrayList<AtomicBareForecastModel> oneHourForecastList;
 	ForecastBgndCtrl                   forecastBgndCtrl;
+
 
 	AtomicBareForecastModel readAtomicBareForecastModel;
 
@@ -52,6 +53,7 @@ public class YrNoForecastBgndCtrl
 		{
 			// MAIN METHOD
 			setForecastData(websiteStringResponse);
+			UTCOffsetInMs = BadassTimeUtils.getUTCOffsetInMs();
 		}
 	}
 
@@ -198,7 +200,7 @@ public class YrNoForecastBgndCtrl
 		int month = Integer.valueOf(timeString.substring(5,7));
 		int dayOfMonth = Integer.valueOf(timeString.substring(8,10));
 		int hour = Integer.valueOf(timeString.substring(11,13));
-		return getMsFromCalendar(hour,dayOfMonth,month,year);
+		return getMsFromCalendar(hour,dayOfMonth,month,year)-UTCOffsetInMs;
 	}
 
 
