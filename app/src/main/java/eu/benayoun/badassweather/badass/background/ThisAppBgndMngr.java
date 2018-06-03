@@ -1,5 +1,6 @@
 package eu.benayoun.badassweather.badass.background;
 
+import android.location.Location;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.backgroundtask.AppBgndTasksCtrl;
 import eu.benayoun.badass.background.backgroundtask.BadassBgndTasksMngr;
@@ -9,7 +10,7 @@ import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.datainit.DataInitBgndCtrlr;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.ForecastBgndCtrl;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.LocationBgndCtrlr;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi.FusedLocationAPIConnectionBgndMngr;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi.FusedLocationAPIConnectionBgndCtrl;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.uiupdate.UiUpdateBgndCtrl;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
@@ -25,7 +26,7 @@ public class ThisAppBgndMngr implements AppBgndTasksCtrl
 	BadassBgndTasksMngr badassBgndTasksMngr;
 
 	//tasks
-	FusedLocationAPIConnectionBgndMngr fusedLocationAPIConnectionBgndMngr;
+	FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr;
 	LocationBgndCtrlr                  locationBgndCtrlr;
 	ForecastBgndCtrl forecastBgndCtrl;
 	UiUpdateBgndCtrl uiUpdateBgndCtrl;
@@ -38,9 +39,9 @@ public class ThisAppBgndMngr implements AppBgndTasksCtrl
 
 		badassBgndTasksMngr.addBgndTask(new DataInitBgndCtrlr().getBgndTask());
 
-		fusedLocationAPIConnectionBgndMngr = new FusedLocationAPIConnectionBgndMngr();
+		fusedLocationAPIConnectionBgndMngr = new FusedLocationAPIConnectionBgndCtrl();
 		badassBgndTasksMngr.addBgndTask(fusedLocationAPIConnectionBgndMngr.getBgndTask());
-		locationBgndCtrlr = new LocationBgndCtrlr();
+		locationBgndCtrlr = new LocationBgndCtrlr(this);
 		badassBgndTasksMngr.addBgndTask(locationBgndCtrlr.getBgndTask());
 		forecastBgndCtrl = new ForecastBgndCtrl();
 		badassBgndTasksMngr.addBgndTask(forecastBgndCtrl.getBgndTask());
@@ -102,6 +103,10 @@ public class ThisAppBgndMngr implements AppBgndTasksCtrl
 
 
 	// GETTERS
+	public Location fetchFusedLocationAPILocation()
+	{
+		return fusedLocationAPIConnectionBgndMngr.fetchLocation();
+	}
 
 
 	public AppAndroidEventsMngr getThisAppAndroidEventsMngr()

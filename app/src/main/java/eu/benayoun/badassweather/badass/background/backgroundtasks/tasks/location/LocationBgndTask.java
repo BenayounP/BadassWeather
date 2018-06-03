@@ -1,10 +1,7 @@
 package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location;
 
-import android.content.Context;
 import android.location.Location;
-import android.location.LocationManager;
 import android.text.format.DateUtils;
-
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTask;
 import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
@@ -19,10 +16,10 @@ import eu.benayoun.badassweather.ThisApp;
 
 public class LocationBgndTask implements AppBgndTask
 {
-	protected static long TYPICAL_DELAY= 2* DateUtils.HOUR_IN_MILLIS;
-
 	LocationBgndCtrlr locationBgndCtrlr;
 	protected Location lastFusedLocation = null;
+
+	static protected final long DEFAULT_INTERVAL = DateUtils.HOUR_IN_MILLIS;
 
 
 	public LocationBgndTask(LocationBgndCtrlr locationBgndCtrlr)
@@ -30,11 +27,10 @@ public class LocationBgndTask implements AppBgndTask
 		this.locationBgndCtrlr = locationBgndCtrlr;
 	}
 
-	void onLastFusedLocationChange(Location lastFusedLocation)
+	public void setLastFusedLocation(Location lastFusedLocation)
 	{
 		this.lastFusedLocation = lastFusedLocation;
 	}
-
 
 	@Override
 	public int getOnAppInitialisationStatus()
@@ -52,135 +48,58 @@ public class LocationBgndTask implements AppBgndTask
 	@Override
 	public void performBgndTask()
 	{
-		loadIfNecessary();
 		updateLocation();
 	}
-
-
 
 
 	/**
 	 * INTERNAL COOKING
 	 */
 
-	protected void loadIfNecessary()
-	{
-		if (ThisApp.getModel().bareModel.locationBareCache.isLoaded)
-		{
-			ThisApp.getModel().bareModel.locationBareCache.load();
-		}
-	}
-
-
 
 	protected void updateLocation()
 	{
 		ThisApp.getModel().appStatusCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
-		Location bestLastLocation = getBestLastLocation();
+        if (ThisApp.getModel().bareModel.locationBareCache.isLoaded)
+        {
+            ThisApp.getModel().bareModel.locationBareCache.load();
+        }
 
-		if (bestLastLocation != null)
+        Location bestLocation = getBestLocation();
+		if (bestLocation != null)
 		{
-			double lastLatitude  = bestLastLocation.getLatitude();
-			double lastLongitude = bestLastLocation.getLongitude();
-
-			if (ThisApp.getModel().bareModel.locationBareCache.isAwayOfSavedLocation(bestLastLocation))
+			if (ThisApp.getModel().bareModel.locationBareCache.isAwayOfSavedLocation(bestLocation))
 			{
-				Badass.log("## last location is away of last one -> setNextWorkInTheBackground currentAddress and forecast");
-				ThisApp.getModel().bareModel.locationBareCache.setLocation(lastLatitude, lastLongitude);
+				Badass.log("## lastFusedLocation is away of last one -> setNextWorkInTheBackground currentAddress and forecast");
+				ThisApp.getModel().bareModel.locationBareCache.setLocation(bestLocation);
 			}
 			else
 			{
 				Badass.log("## last location is NOT away of last one -> do nothing");
 			}
+			locationBgndCtrlr.getBgndTask().waitForNextCall(BadassTimeUtils.getCurrentTimeInMs()+DEFAULT_INTERVAL);
 		}
 		else
 		{
 			Badass.log("## last location is null");
+            locationBgndCtrlr.getBgndTask().onProblem();
 		}
 	}
 
-
-	protected Location getBestLastLocation()
+	protected Location getBestLocation()
 	{
-		boolean bestLocationIsFused = false;
-		Location bestLocation = null;
-		long bestTimeInMs = -1;
-		LocationManager locationManager = (LocationManager)Badass.getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-		Location locationByNetwork = getLocationByNetwork(locationManager);
-		Location locationByGPS = getLocationByGPS(locationManager);
-
-		if (lastFusedLocation!=null)
-		{
-			bestLocation = lastFusedLocation;
-			bestTimeInMs = bestLocation.getTime();
-			bestLocationIsFused = true;
-			Badass.logInFile("## best location: fusedLocation");
-		}
-		if (locationByNetwork!=null && locationByNetwork.getTime()>= bestTimeInMs)
-		{
-			bestLocation = locationByNetwork;
-			bestTimeInMs = bestLocation.getTime();
-			Badass.logInFile("## best location: locationByNetwork");
-		}
-		if (locationByGPS!=null && locationByGPS.getTime()>= bestTimeInMs)
-		{
-			bestLocation = locationByGPS;
-			Badass.logInFile("## best location: locationByGPS");
-		}
-
-		if (bestLocation!=null)
-		{
-			if (bestLocationIsFused) locationBgndCtrlr.getBgndTask().sleep();
-			else locationBgndCtrlr.getBgndTask().waitForNextCall(BadassTimeUtils.getCurrentTimeInMs()+ TYPICAL_DELAY);
-		}
+		Location lastFetchedLocation  =locationBgndCtrlr.fetchFusedLocationAPILocation();
+		if (lastFusedLocation == null) return  lastFetchedLocation;
 		else
 		{
-			Badass.logInFile("## LocationBgndTask: location is null");
-			locationBgndCtrlr.getBgndTask().setSpecificReasonProblemStringId(R.string.app_status_problem_location_null);
-			locationBgndCtrlr.getBgndTask().onProblem();
-		}
-		return bestLocation;
-	}
-
-	protected Location getLocationByNetwork(LocationManager locationManager)
-	{
-		Location lastLocation = null;
-
-
-		if (locationManager!=null)
-		{
-			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+			if (lastFetchedLocation==null || lastFusedLocation.getTime() > lastFetchedLocation.getTime())
 			{
-				lastLocation = getLastLocation(LocationManager.NETWORK_PROVIDER,locationManager);
+				return lastFusedLocation;
+			}
+			else
+			{
+				return lastFetchedLocation;
 			}
 		}
-		return lastLocation;
-	}
-
-	protected Location getLocationByGPS(LocationManager locationManager)
-	{
-		Location lastLocation = null;
-		if (locationManager!=null)
-		{
-			if (lastLocation == null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-			{
-				lastLocation = getLastLocation(LocationManager.GPS_PROVIDER,locationManager);
-			}
-		}
-		return lastLocation;
-	}
-
-	protected Location getLastLocation(String provider,LocationManager locationManager)
-	{
-		Location lastLocation=null;
-		// try/catch MANDATORY to avoid error
-		try
-		{
-			lastLocation = locationManager.getLastKnownLocation(provider);
-		} catch (SecurityException e)
-		{
-			Badass.log("SecurityException: " + e.toString());
-		}
-		return lastLocation;
 	}
 }

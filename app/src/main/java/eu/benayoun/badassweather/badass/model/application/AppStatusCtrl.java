@@ -21,8 +21,6 @@ public class AppStatusCtrl
 	static final int STATUS_LOCATION_PROBLEM            = 4;
 	static final int STATUS_FORECAST_PROBLEM            = 5;
 
-
-
 	// displayed String and status
 	protected String displayedString = null;
 	protected int currentStatus;
@@ -82,9 +80,17 @@ public class AppStatusCtrl
 		{
 			setForecastProblem(forecastProblemString);
 		}
-		else
+		else // NO PROBLEM !!
 		{
-			setWait(Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs())));
+
+			long nextWeatherReportInMs = ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs();
+			String statusString ="";
+			if (nextWeatherReportInMs!=-1)
+			{
+				statusString = Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
+
+			}
+			setOkStatus(statusString);
 		}
 		Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
 	}
@@ -110,7 +116,7 @@ public class AppStatusCtrl
 
 
 
-	public void setWait(String displayedStringArg)
+	public void setOkStatus(String displayedStringArg)
 	{
 		currentStatus = STATUS_OK;
 		displayedString = displayedStringArg;

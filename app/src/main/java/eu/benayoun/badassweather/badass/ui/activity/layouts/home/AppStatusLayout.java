@@ -45,7 +45,6 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 		addEventTrigger(UIEvents.APP_STATUS_CHANGE);
 		addEventTrigger(UIEvents.RESUME);
 	}
-
 	/**
 	 * INTERNAL COOKING
 	 */

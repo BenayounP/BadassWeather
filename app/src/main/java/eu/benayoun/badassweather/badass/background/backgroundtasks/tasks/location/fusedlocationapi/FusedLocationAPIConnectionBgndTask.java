@@ -1,11 +1,10 @@
 package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi;
 
+import android.location.Location;
 import android.os.Looper;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTask;
 import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
@@ -24,10 +23,10 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 	protected LocationRequest         locationRequest;
 	protected boolean askedForLocationUpdate = false;
 
-	FusedLocationAPIConnectionBgndMngr fusedLocationAPIConnectionBgndMngr;
+	FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr;
 
 
-	public FusedLocationAPIConnectionBgndTask(FusedLocationAPIConnectionBgndMngr fusedLocationAPIConnectionBgndMngr)
+	public FusedLocationAPIConnectionBgndTask(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
 	{
 		this.fusedLocationAPIConnectionBgndMngr = fusedLocationAPIConnectionBgndMngr;
 	}
@@ -54,6 +53,15 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 	// GOOGLE API CLIENT
 
 
+	public Location fetchLocation()
+	{
+		if (client !=null)
+		{
+			return LocationServices.FusedLocationApi.getLastLocation(client);
+		}
+		else return null;
+
+	}
 
 	/**
 	 * INTERNAL COOKING

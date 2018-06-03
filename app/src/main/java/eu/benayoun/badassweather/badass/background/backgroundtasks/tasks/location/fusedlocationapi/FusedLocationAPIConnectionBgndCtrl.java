@@ -1,13 +1,12 @@
 package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi;
 
 import android.Manifest;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
@@ -16,13 +15,13 @@ import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class FusedLocationAPIConnectionBgndMngr implements GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, BadassPermissionListener
+public class FusedLocationAPIConnectionBgndCtrl implements GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, BadassPermissionListener
 {
 	BadassPermissionCtrl               badassPermissionCtrl;
 	FusedLocationAPIConnectionBgndTask fusedLocationAPIConnectionBgndTask;
 	BgndTask                           bgndTask;
 
-	public FusedLocationAPIConnectionBgndMngr()
+	public FusedLocationAPIConnectionBgndCtrl()
 	{
 		badassPermissionCtrl = Badass.getPermissionManager(Manifest.permission.ACCESS_FINE_LOCATION, R.string.permission_location, this);
 		fusedLocationAPIConnectionBgndTask = new FusedLocationAPIConnectionBgndTask(this);
@@ -37,6 +36,11 @@ public class FusedLocationAPIConnectionBgndMngr implements GoogleApiClient.OnCon
 	public BgndTask getBgndTask()
 	{
 		return bgndTask;
+	}
+
+	public Location fetchLocation()
+	{
+		return fusedLocationAPIConnectionBgndTask.fetchLocation();
 	}
 
 	@Override

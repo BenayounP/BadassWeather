@@ -5,18 +5,18 @@ import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTask;
 import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastBgndCtrl;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastBgndTask;
 import eu.benayoun.badassweather.badass.model.LocationUtils;
 
 public class ForecastBgndTask implements AppBgndTask
 {
 	ForecastBgndCtrl     forecastBgndCtrl;
-	YrNoForecastBgndCtrl yrNoForecastBgndCtrl;
+	YrNoForecastBgndTask yrNoForecastBgndTask;
 
 	public ForecastBgndTask(ForecastBgndCtrl forecastBgndCtrl)
 	{
 		this.forecastBgndCtrl = forecastBgndCtrl;
-		yrNoForecastBgndCtrl = new YrNoForecastBgndCtrl(forecastBgndCtrl);
+		yrNoForecastBgndTask = new YrNoForecastBgndTask(forecastBgndCtrl);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class ForecastBgndTask implements AppBgndTask
 		{
 			if (ThisApp.getThisAppBgndMngr().getThisAppAndroidEventsMngr().isConnectedToInternet())
 			{
-				yrNoForecastBgndCtrl.getYrNoForecast(latitude, longitude);
+				yrNoForecastBgndTask.getYrNoForecast(latitude, longitude);
 			}
 			else
 			{

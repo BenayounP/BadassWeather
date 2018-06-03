@@ -44,11 +44,11 @@ public class LocationBareCache implements SharedPreferencesSubCache
 	}
 
 
-	public void setLocation(double lastLatitude, double lastLongitude)
+	public void setLocation(Location location)
 	{
 		Badass.log("!!! setLocation: lastLatitude|lastLongitude: " + lastLatitude + "|" + lastLongitude);
-		this.lastLatitude = lastLatitude;
-		this.lastLongitude = lastLongitude;
+		this.lastLatitude = location.getLatitude();
+		this.lastLongitude = location.getLongitude();
 		lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
 		sharedPreferencesFile.save();
 		ThisApp.getThisAppBgndMngr().setForecast();

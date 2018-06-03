@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
  * Created by PierreB on 05/06/2017.
  */
 
-public class YrNoForecastBgndCtrl
+public class YrNoForecastBgndTask
 {
     long UTCOffsetInMs;
     long nextWeatherReportInMs =-1;
@@ -41,7 +41,7 @@ public class YrNoForecastBgndCtrl
 
 
 
-	public YrNoForecastBgndCtrl(ForecastBgndCtrl forecastBgndCtrl)
+	public YrNoForecastBgndTask(ForecastBgndCtrl forecastBgndCtrl)
 	{
 		this.forecastBgndCtrl = forecastBgndCtrl;
 	}

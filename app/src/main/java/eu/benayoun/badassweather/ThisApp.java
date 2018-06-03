@@ -28,8 +28,12 @@ public class ThisApp extends Application
 		super.onCreate();
 		// BADASS
 		Badass.init(this, new UIEvents());
+
+		// Notification and wdgets
 		notificationAndWidgetsMngr =new NotificationAndWidgetsMngr();
 		Badass.setNotificationAndWidgetsEventsLister(notificationAndWidgetsMngr);
+
+		// Model
 		model = new Model();
 
 		// enable logging
@@ -54,6 +58,8 @@ public class ThisApp extends Application
 			// Badass
 			Fabric.with(this, new Crashlytics());
 		}
+
+		// Bgnd Manager
 		thisAppBgndMngr = new ThisAppBgndMngr();
 	}
 
