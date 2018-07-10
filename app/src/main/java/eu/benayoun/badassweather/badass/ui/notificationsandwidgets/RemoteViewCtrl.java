@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RemoteViews;
+
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
@@ -51,37 +52,37 @@ public class RemoteViewCtrl
 
 	protected void updateViews(RemoteViews remoteViews)
 	{
-
 		String  currentWeatherString ="";
 		String  nextWeatherString ="";
 		UIModel uIModel   = ThisApp.getModel().uIModel;
 
+		// VISIILITY
 		int viewVisibility = (uIModel.isEmpty() ? View.GONE : View.VISIBLE);
+		int noDataViewVisibility = (uIModel.isEmpty() ? View.VISIBLE : View.GONE);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text,viewVisibility);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_separator,viewVisibility);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_current_weather_text,viewVisibility);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_no_data_text,noDataViewVisibility) ;
 
-		if (uIModel.isEmpty())
+		//CONTENT
+		if (uIModel.isEmpty()==false)
 		{
-            remoteViews.setTextViewText(R.id.layout_remoteview_current_weather_text, uIModel.getNoDataString());
+			currentWeatherString = uIModel.getCurrentWeather();
+			if (uIModel.getNextWeather().equals("") == false)
+			{
+				nextWeatherString = uIModel.getNextWeather();
+			}
+
+			remoteViews.setTextViewText(R.id.layout_remoteview_current_weather_text, currentWeatherString);
+
+			boolean nextWeatherIsEmpty = nextWeatherString.equals("");
+			int nextWeatherViewVisibility = (nextWeatherIsEmpty ? View.GONE : View.VISIBLE);
+			remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text, nextWeatherViewVisibility);
+			if (nextWeatherIsEmpty == false)
+			{
+				remoteViews.setTextViewText(R.id.layout_remoteview_next_weather_text, nextWeatherString);
+			}
 		}
-		else
-        {
-            currentWeatherString = uIModel.getCurrentWeather();
-            if (uIModel.getNextWeather().equals("") == false)
-            {
-                nextWeatherString = uIModel.getNextWeather();
-            }
-
-            remoteViews.setTextViewText(R.id.layout_remoteview_current_weather_text, currentWeatherString);
-
-            boolean nextWeatherIsEmpty = nextWeatherString.equals("");
-            int nextWeatherViewVisibility = (nextWeatherIsEmpty ? View.GONE : View.VISIBLE);
-            remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text, nextWeatherViewVisibility);
-            if (nextWeatherIsEmpty == false)
-            {
-                remoteViews.setTextViewText(R.id.layout_remoteview_next_weather_text, nextWeatherString);
-            }
-        }
 	}
 
 	protected PendingIntent getPendingSelfIntent(Context context, String action) {

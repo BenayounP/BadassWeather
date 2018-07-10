@@ -2,23 +2,28 @@ package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.locati
 
 import android.location.Location;
 import android.os.Looper;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTask;
-import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
+import eu.benayoun.badass.background.backgroundtask.tasks.TaskWorkerContract;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.LocationBareCache;
+
+import static eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl.Status.UPDATE_ASAP;
 
 
 /**
  * Created by PierreB on 21/05/2017.
  */
 
-public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
+public class FusedLocationAPIConnectionTaskWorker implements TaskWorkerContract
 {
+	protected BadassTaskCtrl badassTaskCtrl;
 	protected GoogleApiClient client = null;
 	protected LocationRequest         locationRequest;
 	protected boolean askedForLocationUpdate = false;
@@ -26,21 +31,16 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 	FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr;
 
 
-	public FusedLocationAPIConnectionBgndTask(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
+	public FusedLocationAPIConnectionTaskWorker(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
 	{
+        badassTaskCtrl = new BadassTaskCtrl(this);
 		this.fusedLocationAPIConnectionBgndMngr = fusedLocationAPIConnectionBgndMngr;
 	}
 
 	@Override
-	public int getOnAppInitialisationStatus()
+	public BadassTaskCtrl.Status getStartingStatus()
 	{
-		return BgndTask.STATUS_UPDATE_ASAP;
-	}
-
-	@Override
-	public int getFirstStatusEver()
-	{
-		return BgndTask.STATUS_UPDATE_ASAP;
+		return UPDATE_ASAP;
 	}
 
 
@@ -48,6 +48,12 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 	public void performBgndTask()
 	{
 		manageConnection();
+	}
+
+	@Override
+	public BadassTaskCtrl getBadassTaskCtrl()
+	{
+		return badassTaskCtrl;
 	}
 
 	// GOOGLE API CLIENT
@@ -69,7 +75,6 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 
 	protected void manageConnection()
 	{
-		BgndTask bgndTask = fusedLocationAPIConnectionBgndMngr.bgndTask;
 		if (fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().isGranted())
 		{
 			Badass.log("##!! manageConnection badassPermissionCtrl.isGranted()");
@@ -85,14 +90,14 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 				askedForLocationUpdate = false;
 				client.connect();
 
-				if (bgndTask.getCurrentStatus() == BgndTask.STATUS_UPDATE_ASAP) bgndTask.sleep();
+				if (badassTaskCtrl.getStatus() == UPDATE_ASAP) badassTaskCtrl.sleep();
 			}
 			else
 			{
 				if (client.isConnected() && askedForLocationUpdate == false)
 				{
 					askLocationUpdates();
-					bgndTask.sleep();
+					badassTaskCtrl.sleep();
 				}
 				else if (client.isConnecting())
 					Badass.finalLog("## No need to manage connection : client connecting");
@@ -103,9 +108,9 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 		else
 		{
 			Badass.log("##!! manageConnection badassPermissionCtrl.isNOTGranted()");
-			Badass.logInFile("##! " + bgndTask.getName()+ " " + bgndTask.getCompleteStatusString() + ":  Don't have Location permission");
-			bgndTask.setSpecificReasonProblemStringId(fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().getExplanationStringId());
-			bgndTask.performTaskOnOpportunity();
+			Badass.logInFile("##! " + badassTaskCtrl.getName()+ " " + badassTaskCtrl.getCompleteStatusString() + ":  Don't have Location permission");
+			badassTaskCtrl.setSpecificReasonProblemStringId(fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().getExplanationStringId());
+			badassTaskCtrl.performTaskOnOpportunity();
 		}
 	}
 
@@ -129,7 +134,7 @@ public class FusedLocationAPIConnectionBgndTask implements AppBgndTask
 		locationRequest.setFastestInterval(1);
 		locationRequest.setSmallestDisplacement(LocationBareCache.DELTA_DISTANCE_IN_METERS*2);
 		locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
-		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getThisAppBgndMngr().getLocationBgndCtrlr(), Looper.getMainLooper());
+		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getBgndTaskCtrl().getLocationBgndTask(), Looper.getMainLooper());
 	}
 
 

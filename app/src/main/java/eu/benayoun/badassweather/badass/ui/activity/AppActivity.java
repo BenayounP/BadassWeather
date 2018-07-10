@@ -93,7 +93,7 @@ public class AppActivity extends BadassActivity
 	{
 		if (eventId == UIEvents.ASK_FINE_LOCATION_PERMISSION)
 		{
-			Badass.requestPermission(this, ThisApp.getThisAppBgndMngr().getFusedLocationAPIPermission());
+			Badass.requestPermission(this, ThisApp.getBgndTaskCtrl().getFusedLocationAPIPermission());
 		}
 		else
 		{

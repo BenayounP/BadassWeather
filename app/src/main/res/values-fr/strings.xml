@@ -15,6 +15,10 @@
     <!--        HOME    -->
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>
+    <string name="home_notification_about">Cette application est un exemple d\'utilisation du framework <a href="http://bit.ly/badass_android">BADASS</a>\n\n
+        Prévisions météorologiques issues de <a href="https://www.yr.no/?spr=">Yr</a>, fournies par l\'Institut météorologique norvégien et NRK\n\n
+        Pour toute question envoyez-moi un mail : <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a>
+    </string>
 
     <!-- ************** -->
     <!--     WEATHER    -->
@@ -105,6 +109,7 @@
     <!--   PERMISSIONS  -->
     <!-- ************** -->
 
-    <string name="permission_location">Nous avons besoin de votre permission pour connaître votre localisation et donc les prévisions</string>
+    <string name="permission_location_standard">Nous avons besoin de votre permission pour connaître votre localisation et donc les prévisions</string>
+    <string name="permission_location_for_users_that_heck_never_ask_again">Nous avons VRAIMENT besoin de connaître votre localisation. Vous pouvez gérer la permission sur la page de votre application. </string>
 
 </resources>

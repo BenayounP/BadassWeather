@@ -3,11 +3,12 @@ package eu.benayoun.badassweather.badass.ui.notificationsandwidgets;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.widget.RemoteViews;
+
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerContract;
+import eu.benayoun.badass.ui.events.UIEventListenerBadassContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class WidgetsCtrl implements UIEventListenerContract
+public class WidgetsCtrl implements UIEventListenerBadassContract
 {
     RemoteViewCtrl remoteViewCtrl;
 
@@ -19,7 +20,6 @@ public class WidgetsCtrl implements UIEventListenerContract
     @Override
     public void onEvent(int eventId, long eventTimeInMs)
     {
-        Badass.log("WidgetsCtrl onEvent: " + Badass.getEventName(eventId));
         if (eventId == UIEvents.WEATHER_CHANGE || eventId == UIEvents.WIDGET_INSTALLED)
         {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(Badass.getApplicationContext());

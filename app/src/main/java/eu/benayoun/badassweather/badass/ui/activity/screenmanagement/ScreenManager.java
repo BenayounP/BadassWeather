@@ -7,7 +7,7 @@ import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.badass.ui.activity.layouts.home.HomeScreen;
+import eu.benayoun.badassweather.badass.ui.activity.screens.home.HomeScreen;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 

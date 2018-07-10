@@ -2,6 +2,7 @@ package eu.benayoun.badassweather.badass.ui.notificationsandwidgets;
 
 
 import android.support.v4.app.NotificationCompat;
+
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.notification.BadassNotificationCtrl;
 import eu.benayoun.badassweather.R;

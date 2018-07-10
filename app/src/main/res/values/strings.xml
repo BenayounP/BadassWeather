@@ -17,6 +17,10 @@
     <!--        HOME    -->
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>
+    <string name="home_notification_about">This app is an example of what you can achieve with the BADASS framework. More <a href="http://bit.ly/badass_android">here</a>\n\n
+        Weather forecast from <a href="https://www.yr.no/?spr=eng">Yr</a>, delivered by the Norwegian Meteorological Institute and NRK\n\n
+        If you have any question mail me: <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a>
+    </string>
 
     <!-- ************** -->
     <!--     WEATHER    -->
@@ -104,5 +108,6 @@
     <!--   PERMISSIONS  -->
     <!-- ************** -->
 
-    <string name="permission_location">We need your permission to get your precise location in order to get forecast </string>
+    <string name="permission_location_standard">We need your permission to get your precise location in order to get forecast</string>
+    <string name="permission_location_for_users_that_heck_never_ask_again">We REALLY need location permission in order to get forecast. You can check it in your app properties</string>
 </resources>

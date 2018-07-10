@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_remoteview_main_layout"
-        android:padding="@dimen/global_layout_padding"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:padding="@dimen/global_layout_padding"
         android:background="@drawable/rounded_stoked_gradient_background"
         android:weightSum="2">
 
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/layout_remoteview_app_name"
+                android:layout_gravity="center_horizontal"
+                android:weightSum="2">
+
+                <TextView
+                        android:id="@+id/layout_remoteview_current_weather_text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        style="@style/MediumText"/>
+
+                <FrameLayout android:layout_width="@dimen/padding_tiny"
+                             android:id="@+id/layout_remoteview_separator"
+                             android:layout_height="match_parent"
+                             android:background="@color/app_primary_text"/>
+
+                <TextView
+                        android:id="@+id/layout_remoteview_next_weather_text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        style="@style/MediumText"/>
+        </LinearLayout>
 
         <TextView
-                android:id="@+id/layout_remoteview_current_weather_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/LittleText"/>
+                android:id="@+id/layout_remoteview_no_data_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MediumText"
+                android:layout_centerInParent="true"
+                android:text="@string/no_data"/>
 
-        <FrameLayout
-                android:id="@+id/layout_remoteview_separator"
-                android:layout_width="@dimen/padding_tiny"
-                android:layout_height="match_parent"
-                android:background="@color/app_primary_text"
-                android:layout_margin="@dimen/padding_medium"/>
-
-        <TextView
-                android:id="@+id/layout_remoteview_next_weather_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/LittleText"/>
-
-
-</LinearLayout>
+</RelativeLayout>
 
 
 

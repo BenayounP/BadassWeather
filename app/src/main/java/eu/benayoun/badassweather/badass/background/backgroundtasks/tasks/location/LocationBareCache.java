@@ -5,19 +5,21 @@ import android.location.Location;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCache;
+import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
 import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.model.LocationUtils;
 
 
 /**
  * Created by PierreB on 22/03/2017.
  */
 
-public class LocationBareCache implements SharedPreferencesSubCache
+public class LocationBareCache implements SharedPreferencesSubCacheContract
 {
+	static public final double INVALID_LATITUDE_VALUE = -100d;
+	static public final double INVALID_LONGITUDE_VALUE = -200d;
+
 	public static float DELTA_DISTANCE_IN_METERS = 5000;
 
 	protected SharedPreferencesFile sharedPreferencesFile;
@@ -32,8 +34,8 @@ public class LocationBareCache implements SharedPreferencesSubCache
 	public LocationBareCache()
 	{
 		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
-		lastLatitude = LocationUtils.INVALID_LATITUDE_VALUE;
-		lastLongitude = LocationUtils.INVALID_LONGITUDE_VALUE;
+		lastLatitude = INVALID_LATITUDE_VALUE;
+		lastLongitude =INVALID_LONGITUDE_VALUE;
 		lastLocationUpdateInMs=-1;
 	}
 
@@ -46,12 +48,11 @@ public class LocationBareCache implements SharedPreferencesSubCache
 
 	public void setLocation(Location location)
 	{
-		Badass.log("!!! setLocation: lastLatitude|lastLongitude: " + lastLatitude + "|" + lastLongitude);
 		this.lastLatitude = location.getLatitude();
 		this.lastLongitude = location.getLongitude();
 		lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
 		sharedPreferencesFile.save();
-		ThisApp.getThisAppBgndMngr().setForecast();
+		ThisApp.getBgndTaskCtrl().setForecast();
 	}
 
 
@@ -63,6 +64,11 @@ public class LocationBareCache implements SharedPreferencesSubCache
 	public double getLastLongitude()
 	{
 		return lastLongitude;
+	}
+
+	public boolean isValid()
+	{
+		return lastLatitude!=INVALID_LATITUDE_VALUE && lastLongitude!=INVALID_LONGITUDE_VALUE;
 	}
 
 	public boolean isAwayOfSavedLocation(Location newLocation)
@@ -78,15 +84,15 @@ public class LocationBareCache implements SharedPreferencesSubCache
 
 
 	@Override
-	public void loadData(SharedPreferences sharedPreferences)
+	public void load(SharedPreferences sharedPreferences)
 	{
-		lastLatitude = MathUtils.toDouble(sharedPreferences.getLong("lastLatitude",MathUtils.toLong(LocationUtils.INVALID_LATITUDE_VALUE)));
-		lastLongitude = MathUtils.toDouble(sharedPreferences.getLong("lastLongitude",MathUtils.toLong(LocationUtils.INVALID_LONGITUDE_VALUE)));
+		lastLatitude = MathUtils.toDouble(sharedPreferences.getLong("lastLatitude",MathUtils.toLong(INVALID_LATITUDE_VALUE)));
+		lastLongitude = MathUtils.toDouble(sharedPreferences.getLong("lastLongitude",MathUtils.toLong(INVALID_LONGITUDE_VALUE)));
 		lastLocationUpdateInMs = sharedPreferences.getLong("lastLocationUpdateInMs", -1);
 	}
 
 	@Override
-	public void saveData(SharedPreferences.Editor editor)
+	public void save(SharedPreferences.Editor editor)
 	{
 		editor.putLong("lastLatitude",MathUtils.toLong(lastLatitude));
 		editor.putLong("lastLongitude",MathUtils.toLong(lastLongitude));
@@ -99,7 +105,7 @@ public class LocationBareCache implements SharedPreferencesSubCache
 
 	protected boolean isInvalid()
 	{
-		return lastLatitude == LocationUtils.INVALID_LATITUDE_VALUE;
+		return lastLatitude == INVALID_LATITUDE_VALUE;
 	}
 
 

@@ -1,10 +1,11 @@
 package eu.benayoun.badassweather.badass.model.application;
 
 import eu.benayoun.badass.Badass;
+import eu.benayoun.badass.utility.os.permissions.BadassPermissionsMngr;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.ThisAppBgndMngr;
+import eu.benayoun.badassweather.badass.background.TasksListCtrl;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
@@ -15,135 +16,135 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 public class AppStatusCtrl
 {
 
-	static final int STATUS_BGND_TASKS_ONGOING          =1;
-	static final int STATUS_OK                          =2;
-	static final int STATUS_PERMISSION_FINE_LOCATION_PB = 3;
-	static final int STATUS_LOCATION_PROBLEM            = 4;
-	static final int STATUS_FORECAST_PROBLEM            = 5;
+    static final int STATUS_BGND_TASKS_ONGOING          =1;
+    static final int STATUS_OK                          =2;
+    static final int STATUS_PERMISSION_FINE_LOCATION_PB = 3;
+    static final int STATUS_LOCATION_PROBLEM            = 4;
+    static final int STATUS_FORECAST_PROBLEM            = 5;
 
-	// displayed String and status
-	protected String displayedString = null;
-	protected int currentStatus;
-
-
-	public AppStatusCtrl()
-	{
-		displayedString = Badass.getString(R.string.app_status_init);
-		currentStatus = STATUS_BGND_TASKS_ONGOING;
-	}
-
-	// GETTERS
-
-	public String getDisplayedString()
-	{
-		return displayedString;
-	}
-
-	public boolean thereIsProblem()
-	{
-		return currentStatus == STATUS_LOCATION_PROBLEM || currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB || currentStatus == STATUS_FORECAST_PROBLEM;
-	}
-
-	public boolean thereIsFineLocationPermissionPb()
-	{
-		return currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB;
-	}
+    // displayed String and status
+    protected String displayedString = null;
+    protected int currentStatus;
 
 
+    public AppStatusCtrl()
+    {
+        displayedString = Badass.getString(R.string.app_status_init);
+        currentStatus = STATUS_BGND_TASKS_ONGOING;
+    }
 
-	// SETTERS
+    // GETTERS
 
-	public void setBgndTaskOngoing(String displayedStringArg)
-	{
-		currentStatus = STATUS_BGND_TASKS_ONGOING;
-		displayedString = displayedStringArg;
-		Badass.broadcastUIEvent(UIEvents.COMPUTE);
-	}
+    public String getDisplayedString()
+    {
+        return displayedString;
+    }
 
-	public void updateStatus()
-	{
-		ThisAppBgndMngr thisAppBgndMngr               = ThisApp.getThisAppBgndMngr();
-		String          locationPbString              = thisAppBgndMngr.getLocationPbString();
-		String          fusedLocationApiProblemString = thisAppBgndMngr.getFusedLocationAPIPbString();
-		String          forecastProblemString         = thisAppBgndMngr.getForecastPbString();
+    public boolean thereIsProblem()
+    {
+        return currentStatus == STATUS_LOCATION_PROBLEM || currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB || currentStatus == STATUS_FORECAST_PROBLEM;
+    }
 
-		if (fusedLocationApiProblemString != null  && ThisApp.getModel().appPreferencesAndAssets.isUserDoesntwantToGiveLocationPermission()==false)
-		{
-			setPermissionFineLocationPB(fusedLocationApiProblemString);
-			Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
-		}
-		else if (locationPbString != null)
-		{
-			setLocationProblem(locationPbString);
-		}
-		else if (forecastProblemString != null)
-		{
-			setForecastProblem(forecastProblemString);
-		}
-		else // NO PROBLEM !!
-		{
+    public boolean thereIsFineLocationPermissionPb()
+    {
+        return currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB;
+    }
 
-			long nextWeatherReportInMs = ThisApp.getModel().bareModel.forecastBareCacheContainer.getNextWeatherReportInMs();
-			String statusString ="";
-			if (nextWeatherReportInMs!=-1)
-			{
-				statusString = Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
+    // SETTERS
 
-			}
-			setOkStatus(statusString);
-		}
-		Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
-	}
+    public void setBgndTaskOngoing(String displayedStringArg)
+    {
+        currentStatus = STATUS_BGND_TASKS_ONGOING;
+        displayedString = displayedStringArg;
+        Badass.broadcastUIEvent(UIEvents.COMPUTE);
+    }
 
-	// ACTION
-	public void onUserAction()
-	{
-		if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
-		{
-			Badass.broadcastUIEvent(UIEvents.ASK_FINE_LOCATION_PERMISSION);
-		}
-	}
+    public void updateStatus()
+    {
+        TasksListCtrl thisAppBgndMngr               = ThisApp.getBgndTaskCtrl();
+        String          locationPbString              = thisAppBgndMngr.getLocationPbString();
+        String          fusedLocationApiProblemString = thisAppBgndMngr.getFusedLocationAPIPbString();
+        String          forecastProblemString         = thisAppBgndMngr.getForecastPbString();
 
-	public void onUserDismiss()
-	{
-		if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
-		{
-			ThisApp.getModel().appPreferencesAndAssets.setUserDoesntwantToGiveLocationPermission(true);
-			updateStatus();
-		}
-	}
+        if (fusedLocationApiProblemString != null)
+        {
+            setPermissionFineLocationPB(fusedLocationApiProblemString);
+            Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
+        }
+        else if (locationPbString != null)
+        {
+            setLocationProblem(locationPbString);
+        }
+        else if (forecastProblemString != null)
+        {
+            setForecastProblem(forecastProblemString);
+        }
+        else // NO PROBLEM !!
+        {
 
+            long nextWeatherReportInMs = ThisApp.getModel().bareModel.forecastBareCache.getNextWeatherReportInMs();
+            String statusString ="";
+            if (nextWeatherReportInMs!=-1)
+            {
+                statusString = Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
+            }
+            setOkStatus(statusString);
+        }
+        Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
+    }
 
+    // ACTION
+    public void onUserAction()
+    {
+        if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
+        {
+            if (ThisApp.getBgndTaskCtrl().getFusedLocationAPIConnectionBgndCtrl().getBadassPermissionCtrl().isUserHasCheckedNeverAskAgain())
+            {
+                Badass.log("onUserAction goToSettingsPage");
+                BadassPermissionsMngr.goToSettingsPage();
+            }
+            else
+            {
+                Badass.log("onUserAction goToSettingsPage");
+                Badass.broadcastUIEvent(UIEvents.ASK_FINE_LOCATION_PERMISSION);
+            }
+        }
+    }
 
-
-	public void setOkStatus(String displayedStringArg)
-	{
-		currentStatus = STATUS_OK;
-		displayedString = displayedStringArg;
-	}
-
-	/**
-	 * INTERNAL COOKING
-	 */
-
-	protected void setLocationProblem(String displayedStringArg)
-	{
-		currentStatus = STATUS_LOCATION_PROBLEM;
-		displayedString = displayedStringArg;
-	}
-
-	protected void setPermissionFineLocationPB(String displayedStringArg)
-	{
-		currentStatus = STATUS_PERMISSION_FINE_LOCATION_PB;
-		displayedString = displayedStringArg;
-	}
-
-	protected void setForecastProblem(String displayedStringArg)
-	{
-		currentStatus = STATUS_FORECAST_PROBLEM;
-		displayedString = displayedStringArg;
-	}
+    public void onUserDismiss()
+    {
+        if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
+        {
+            updateStatus();
+        }
+    }
 
 
+    public void setOkStatus(String displayedStringArg)
+    {
+        currentStatus = STATUS_OK;
+        displayedString = displayedStringArg;
+    }
 
+    /**
+     * INTERNAL COOKING
+     */
+
+    protected void setLocationProblem(String displayedStringArg)
+    {
+        currentStatus = STATUS_LOCATION_PROBLEM;
+        displayedString = displayedStringArg;
+    }
+
+    protected void setPermissionFineLocationPB(String displayedStringArg)
+    {
+        currentStatus = STATUS_PERMISSION_FINE_LOCATION_PB;
+        displayedString = displayedStringArg;
+    }
+
+    protected void setForecastProblem(String displayedStringArg)
+    {
+        currentStatus = STATUS_FORECAST_PROBLEM;
+        displayedString = displayedStringArg;
+    }
 }

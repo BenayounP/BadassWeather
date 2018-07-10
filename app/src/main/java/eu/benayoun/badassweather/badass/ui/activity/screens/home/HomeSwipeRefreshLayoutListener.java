@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.ui.activity.layouts.home;
+package eu.benayoun.badassweather.badass.ui.activity.screens.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -23,7 +23,7 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	@Override
 	public void onRefresh()
 	{
-		ThisApp.getThisAppBgndMngr().updateAllData();
+		ThisApp.getBgndTaskCtrl().updateAllData();
 		Badass.broadcastUIEvent(UIEvents.RESUME);
 	}
 

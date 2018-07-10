@@ -1,14 +1,14 @@
 package eu.benayoun.badassweather.badass.ui.events;
 
-import eu.benayoun.badass.ui.events.AppUIEvents;
-
 import java.util.ArrayList;
+
+import eu.benayoun.badass.ui.events.UIEventsBadassContract;
 
 /**
  * Created by PierreB on 31/07/2017.
  */
 
-public class UIEvents implements AppUIEvents
+public class UIEvents implements UIEventsBadassContract
 {
 	/**
 	 * EVENT TYPE
@@ -29,7 +29,7 @@ public class UIEvents implements AppUIEvents
 
 	public static final int WIDGET_INSTALLED          =9;
 
-	public static final int AMOUNT_OF_REFRESH_REASONS = WEATHER_CHANGE +1;
+	public static final int AMOUNT_OF_REFRESH_REASONS = WIDGET_INSTALLED +1;
 
 
 	public ArrayList<Boolean> getFreshUiEventsList()

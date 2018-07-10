@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.AppBgndTask;
-import eu.benayoun.badass.background.backgroundtask.tasks.BgndTask;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
+import eu.benayoun.badass.background.backgroundtask.tasks.TaskWorkerContract;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
@@ -15,32 +15,28 @@ import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastUtils;
 import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
 
-public class UiUpdateBgndTask implements AppBgndTask
+import static eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl.Status.UPDATE_ASAP;
+
+public class UiUpdateTaskWorker implements TaskWorkerContract
 {
-	UiUpdateBgndCtrl uiUpdateBgndCtrl;
+    BadassTaskCtrl badassTaskCtrl;
 
-	public UiUpdateBgndTask(UiUpdateBgndCtrl uiUpdateBgndCtrl)
+	public UiUpdateTaskWorker()
 	{
-		this.uiUpdateBgndCtrl = uiUpdateBgndCtrl;
+        badassTaskCtrl = new BadassTaskCtrl(this);
 	}
 
 	@Override
-	public int getOnAppInitialisationStatus()
+	public BadassTaskCtrl.Status getStartingStatus()
 	{
-		return BgndTask.STATUS_UPDATE_ASAP;
-	}
-
-	@Override
-	public int getFirstStatusEver()
-	{
-		return BgndTask.STATUS_SLEEPING;
+		return UPDATE_ASAP;
 	}
 
 	@Override
 	public void performBgndTask()
 	{
 		long                               nowInMs = BadassTimeUtils.getCurrentTimeInMs();
-		ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCacheContainer.getOneHourBareForecastList();
+		ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCache.getOneHourBareForecastList();
 
 		String bareCurrentWeather="";
 		String NextWeather="";
@@ -48,13 +44,6 @@ public class UiUpdateBgndTask implements AppBgndTask
 		if (ArrayListUtils.isNOTNullOrEmpty(oneHourBareForecastList))
 		{
 			AtomicBareForecastModel atomicBareForecastModel;
-
-			// TMP
-			for (int i=0; i< oneHourBareForecastList.size();i++)
-			{
-				atomicBareForecastModel = oneHourBareForecastList.get(i);
-				Badass.log("!!! "+ BadassTimeUtils.getNiceTimeString(atomicBareForecastModel.getUTCDurationInMs().startTime)+ Badass.getString(R.string.colon_with_spaces)+YrNoForecastUtils.getWeatherSymbolString(atomicBareForecastModel.getWeatherSymbol()));
-			}
 
 			// Current Weather;
 			int currentWeatherIndex;
@@ -91,12 +80,18 @@ public class UiUpdateBgndTask implements AppBgndTask
 		ThisApp.getModel().uIModel.setWeather(currentWeather,NextWeather);
 		if (bareCurrentWeather.equals("")==false)
 		{
-			uiUpdateBgndCtrl.getBgndTask().waitForNextCall(getStartOfNextHour());
+			badassTaskCtrl.waitForNextCall(getStartOfNextHour());
 		}
 		else
 		{
-			uiUpdateBgndCtrl.getBgndTask().sleep();
+            badassTaskCtrl.sleep();
 		}
+	}
+
+	@Override
+	public BadassTaskCtrl getBadassTaskCtrl()
+	{
+		return badassTaskCtrl;
 	}
 
 	// INTERNAl COOKING

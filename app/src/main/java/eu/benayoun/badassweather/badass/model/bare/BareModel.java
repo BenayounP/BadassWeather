@@ -2,7 +2,7 @@ package eu.benayoun.badassweather.badass.model.bare;
 
 
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.LocationBareCache;
-import eu.benayoun.badassweather.badass.model.bare.forecast.ForecastBareCacheContainer;
+import eu.benayoun.badassweather.badass.model.bare.forecast.ForecastBareCache;
 
 /**
  * Created by PierreB on 04/02/2018.
@@ -10,18 +10,18 @@ import eu.benayoun.badassweather.badass.model.bare.forecast.ForecastBareCacheCon
 
 public class BareModel
 {
-	public LocationBareCache          locationBareCache;
-	public ForecastBareCacheContainer forecastBareCacheContainer;
+	public LocationBareCache locationBareCache;
+	public ForecastBareCache forecastBareCache;
 
 	public BareModel()
 	{
 		locationBareCache = new LocationBareCache();
-		forecastBareCacheContainer = new ForecastBareCacheContainer();
+		forecastBareCache = new ForecastBareCache();
 	}
 
 	public void load()
 	{
 		locationBareCache.load();
-		forecastBareCacheContainer.load();
+		forecastBareCache.load();
 	}
 }

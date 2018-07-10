@@ -5,17 +5,16 @@ import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCache;
+import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
 
 /**
  * Created by Pierre on 02/12/2015.
  */
 @SuppressWarnings("ALL")
-public class AppPreferencesAndAssets implements SharedPreferencesSubCache
+public class AppPreferencesAndAssets implements SharedPreferencesSubCacheContract
 {
 	protected SharedPreferencesFile sharedPreferencesFile;
 	protected boolean userHasrespondedToPermissionsDemands;
-	protected boolean userDoesntwantToGiveLocationPermission;
 
 	boolean userWantsToDisplayNotification;
 
@@ -38,15 +37,6 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCache
 		sharedPreferencesFile.save();
 	}
 
-	public boolean isUserDoesntwantToGiveLocationPermission()
-	{
-		return userDoesntwantToGiveLocationPermission;
-	}
-
-	public void setUserDoesntwantToGiveLocationPermission(boolean userDoesntwantToGiveLocationPermission)
-	{
-		this.userDoesntwantToGiveLocationPermission = userDoesntwantToGiveLocationPermission;
-	}
 
 	public boolean isUserWantsToDisplayNotification()
 	{
@@ -60,18 +50,16 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCache
 	}
 
 	@Override
-	public void loadData(SharedPreferences sharedPreferences)
+	public void load(SharedPreferences sharedPreferences)
 	{
 		userHasrespondedToPermissionsDemands = sharedPreferences.getBoolean("userHasrespondedToPermissionsDemands",false);
-		userDoesntwantToGiveLocationPermission = sharedPreferences.getBoolean("userDoesntwantToGiveLocationPermission",false);
 		userWantsToDisplayNotification = sharedPreferences.getBoolean("userWantsToDisplayNotification",false);
 	}
 
 	@Override
-	public void saveData(SharedPreferences.Editor editor)
+	public void save(SharedPreferences.Editor editor)
 	{
 		editor.putBoolean("userHasrespondedToPermissionsDemands",userHasrespondedToPermissionsDemands);
-		editor.putBoolean("userDoesntwantToGiveLocationPermission",userDoesntwantToGiveLocationPermission);
 		editor.putBoolean("userWantsToDisplayNotification",userWantsToDisplayNotification);
 	}
 

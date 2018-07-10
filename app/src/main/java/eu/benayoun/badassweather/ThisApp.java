@@ -2,10 +2,12 @@ package eu.benayoun.badassweather;
 
 import android.app.Application;
 import android.os.StrictMode;
+
 import com.crashlytics.android.Crashlytics;
+
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badassweather.badass.background.ThisAppBgndMngr;
+import eu.benayoun.badassweather.badass.background.TasksListCtrl;
 import eu.benayoun.badassweather.badass.model.Model;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 import eu.benayoun.badassweather.badass.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
@@ -17,7 +19,7 @@ import io.fabric.sdk.android.Fabric;
  */
 public class ThisApp extends Application
 {
-	static protected ThisAppBgndMngr thisAppBgndMngr;
+	static protected TasksListCtrl bgndTaskCtrl;
 	static protected Model           model;
 	static protected NotificationAndWidgetsMngr notificationAndWidgetsMngr;
 
@@ -40,7 +42,6 @@ public class ThisApp extends Application
 		if (model.isDevVersion)
 		{
 			Badass.enableLogging();
-			Badass.allowLogInFile("badassweather_log.txt");
 			Badass.defineTag("BADASS_DEBUG");
 			if (model.isStrictMode)
 			{
@@ -53,19 +54,19 @@ public class ThisApp extends Application
 						.penaltyLog()
 						.build());
 			}
-			Badass.finalLog("%%!!!(model)##!!!(bgnd)$$!!!(UI)******* INITIALISATION ************************* "+ BadassTimeUtils.getDateString(BadassTimeUtils.getCurrentTimeInMs())+" ***********************************");
+			Badass.finalLog("%%(model)##(bgnd)$$(UI)!!!******* INITIALISATION "+ BadassTimeUtils.getDateString(BadassTimeUtils.getCurrentTimeInMs())+" ***********************************************");
 
-			// Badass
+			// Crashlytics
 			Fabric.with(this, new Crashlytics());
 		}
 
 		// Bgnd Manager
-		thisAppBgndMngr = new ThisAppBgndMngr();
+		bgndTaskCtrl = new TasksListCtrl();
 	}
 
-	public static ThisAppBgndMngr getThisAppBgndMngr()
+	public static TasksListCtrl getBgndTaskCtrl()
 	{
-		return thisAppBgndMngr;
+		return bgndTaskCtrl;
 	}
 
 	public static Model getModel()

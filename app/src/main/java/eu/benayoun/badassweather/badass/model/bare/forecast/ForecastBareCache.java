@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCache;
+import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 
@@ -15,8 +15,9 @@ import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
  * Created by PierreB on 17/07/2017.
  */
 
-public class ForecastBareCacheContainer implements SharedPreferencesSubCache
+public class ForecastBareCache implements SharedPreferencesSubCacheContract
 {
+
 	protected final String KEY = "ForecastBareCacheContainer_";
 
 	protected SharedPreferencesFile sharedPreferencesFile;
@@ -29,7 +30,7 @@ public class ForecastBareCacheContainer implements SharedPreferencesSubCache
 
 	protected ArrayList<AtomicBareForecastModel> oneHourBareForecastList;
 
-	public ForecastBareCacheContainer()
+	public ForecastBareCache()
 	{
 		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
 		oneHourBareForecastList = new ArrayList<>();
@@ -68,7 +69,7 @@ public class ForecastBareCacheContainer implements SharedPreferencesSubCache
 	}
 
 	@Override
-	public void loadData(SharedPreferences sharedPreferences)
+	public void load(SharedPreferences sharedPreferences)
 	{
 		lastForecastUpdateInMs = sharedPreferences.getLong("lastForecastUpdateInMs", -1);
 		nextWeatherReportInMs = sharedPreferences.getLong("nextWeatherReportInMs", -1);
@@ -88,7 +89,7 @@ public class ForecastBareCacheContainer implements SharedPreferencesSubCache
 	}
 
 	@Override
-	public void saveData(SharedPreferences.Editor editor)
+	public void save(SharedPreferences.Editor editor)
 	{
 		editor.putLong("lastForecastUpdateInMs", lastForecastUpdateInMs);
 		editor.putLong("nextWeatherReportInMs", nextWeatherReportInMs);

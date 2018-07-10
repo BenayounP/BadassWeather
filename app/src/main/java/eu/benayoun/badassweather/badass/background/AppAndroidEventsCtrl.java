@@ -2,25 +2,25 @@ package eu.benayoun.badassweather.badass.background;
 
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.androidevents.AndroidEventsMngr;
+import eu.benayoun.badass.background.androidevents.AndroidEventsCtrl;
+import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityListenerBadassContract;
+import eu.benayoun.badass.background.androidevents.screen.ScreenActivityListenerBadassContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
 /**
  * Created by PierreB on 11/09/2016.
  */
-public class AppAndroidEventsMngr extends AndroidEventsMngr
+public class AppAndroidEventsCtrl implements InternetConnectivityListenerBadassContract, ScreenActivityListenerBadassContract
 {
-	ThisAppBgndMngr thisAppBgndMngr;
+	TasksListCtrl thisAppBgndMngr;
 
-	public AppAndroidEventsMngr(ThisAppBgndMngr thisAppBgndMngr)
+	public AppAndroidEventsCtrl(TasksListCtrl thisAppBgndMngr)
 	{
-		listenToInternetConnectivity();
-		listenToScreenActivity();
+		Badass.listenToInternetConnectivity(this);
+		Badass.listenToScreenActivity(this);
 		this.thisAppBgndMngr = thisAppBgndMngr;
 	}
-
-
 
 
 // INTERNET
@@ -28,7 +28,6 @@ public class AppAndroidEventsMngr extends AndroidEventsMngr
 	@Override
 	public void onConnectedToInternet()
 	{
-		Badass.logInFile("******! onConnectedToInternet");
 		thisAppBgndMngr.onConnectedToInternet();
 	}
 
@@ -40,7 +39,9 @@ public class AppAndroidEventsMngr extends AndroidEventsMngr
 
 	public boolean isConnectedToInternet()
 	{
-		return internetConnectivityReceiver.isConnectedToInternet();
+		AndroidEventsCtrl androidEventsCtrl = Badass.getAndroidEventsCtrl();
+
+		return (androidEventsCtrl == null ? false : androidEventsCtrl.isConnectedToInternet());
 	}
 
 	// SCREEN
@@ -48,7 +49,6 @@ public class AppAndroidEventsMngr extends AndroidEventsMngr
 	@Override
 	public void onScreenOn()
 	{
-		Badass.logInFile("** onScreenOn");
 		thisAppBgndMngr.onScreenOn();
 		Badass.broadcastUIEvent(UIEvents.SCREEN_ON);
 	}

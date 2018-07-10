@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.ui.activity.layouts.home;
+package eu.benayoun.badassweather.badass.ui.activity.screens.home;
 
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +20,6 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 {
 	TextView mainTextView;
 	Button   resolveButton;
-	Button dismissButton;
 
 	public AppStatusLayout(View mainViewArg)
 	{
@@ -33,17 +32,11 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 				ThisApp.getModel().appStatusCtrl.onUserAction();
 			}
 		});
-		dismissButton = mainView.findViewById(R.id.screen_home_status_dismiss);
-		dismissButton.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v)
-		{
-			ThisApp.getModel().appStatusCtrl.onUserDismiss();
-		}
-	});
-		addEventTrigger(UIEvents.COMPUTE);
-		addEventTrigger(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
-		addEventTrigger(UIEvents.APP_STATUS_CHANGE);
-		addEventTrigger(UIEvents.RESUME);
+
+		listenTo(UIEvents.COMPUTE);
+		listenTo(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
+		listenTo(UIEvents.APP_STATUS_CHANGE);
+		listenTo(UIEvents.RESUME);
 	}
 	/**
 	 * INTERNAL COOKING
@@ -71,12 +64,10 @@ public class AppStatusLayout extends RefreshableLayoutTemplate
 		if (weNeedUserAction)
 		{
 			resolveButton.setVisibility(View.GONE);
-			dismissButton.setVisibility(View.GONE);
 		}
 		else
 		{
 			resolveButton.setVisibility(View.VISIBLE);
-			dismissButton.setVisibility(View.VISIBLE);
 		}
 		mainTextView.setText(appStatusCtrl.getDisplayedString());
 	}
