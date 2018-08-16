@@ -6,35 +6,28 @@ import android.text.format.DateUtils;
 import com.google.android.gms.location.LocationListener;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
-import eu.benayoun.badass.background.backgroundtask.tasks.TaskWorkerContract;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.TasksListCtrl;
+import eu.benayoun.badassweather.badass.background.AppWorkersCtrl;
 
-import static eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl.Status.UPDATE_ASAP;
 
 
 /**
  * Created by PierreB on 21/05/2017.
  */
 
-public class LocationTaskWorker implements TaskWorkerContract, LocationListener
+public class LocationWorker extends BadassBgndWorker implements LocationListener
 {
 	static protected final long LOCATION_CHECK_INTERVAL = DateUtils.HOUR_IN_MILLIS;
-
-	BadassTaskCtrl badassTaskCtrl;
-	TasksListCtrl bgndTasksListCtrl;
+	AppWorkersCtrl bgndAppWorkersCtrl;
 	protected Location lastFusedLocation = null;
 
-
-
-	public LocationTaskWorker(TasksListCtrl bgndTasksListCtrl)
+	public LocationWorker(AppWorkersCtrl bgndAppWorkersCtrl)
 	{
-		badassTaskCtrl = new BadassTaskCtrl(this);
-		badassTaskCtrl.setGlobalProblemStringId(R.string.app_status_problem_location);
-		this.bgndTasksListCtrl = bgndTasksListCtrl;
+		setGlobalProblemStringId(R.string.app_status_problem_location);
+		this.bgndAppWorkersCtrl = bgndAppWorkersCtrl;
 	}
 
 	public void setLastFusedLocation(Location lastFusedLocation)
@@ -43,22 +36,16 @@ public class LocationTaskWorker implements TaskWorkerContract, LocationListener
 	}
 
 	@Override
-	public BadassTaskCtrl.Status getStartingStatus()
+	public BadassBgndWorker.Status getStartingStatus()
 	{
-		return UPDATE_ASAP;
+		return Status.WORK_ASAP;
 	}
 
 
 	@Override
-	public void performBgndTask()
+	public void work()
 	{
 		updateLocation();
-	}
-
-	@Override
-	public BadassTaskCtrl getBadassTaskCtrl()
-	{
-		return badassTaskCtrl;
 	}
 
 	@Override
@@ -66,8 +53,8 @@ public class LocationTaskWorker implements TaskWorkerContract, LocationListener
 	{
 		Badass.logInFile("** on location changed");
 		setLastFusedLocation(location);
-		getBadassTaskCtrl().performTaskASAP();
-		Badass.launchBackgroundTasks();
+		workASAP();
+		Badass.workInBackground();
 	}
 
 	/**
@@ -77,7 +64,7 @@ public class LocationTaskWorker implements TaskWorkerContract, LocationListener
 
 	protected void updateLocation()
 	{
-		ThisApp.getModel().appStatusCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
+		ThisApp.getModel().appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
         if (ThisApp.getModel().bareModel.locationBareCache.isLoaded)
         {
             ThisApp.getModel().bareModel.locationBareCache.load();
@@ -95,18 +82,18 @@ public class LocationTaskWorker implements TaskWorkerContract, LocationListener
 			{
 				Badass.log("## last location is NOT away of last one -> do nothing");
 			}
-			badassTaskCtrl.waitForNextCall(BadassTimeUtils.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
+			setNextWorkingSession(BadassTimeUtils.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
 		}
 		else
 		{
 			Badass.log("## last location is null");
-			badassTaskCtrl.onProblem();
+			onProblem();
 		}
 	}
 
 	protected Location getBestLocation()
 	{
-		Location lastFetchedLocation  = bgndTasksListCtrl.fetchFusedLocationAPILocation();
+		Location lastFetchedLocation  = bgndAppWorkersCtrl.fetchFusedLocationAPILocation();
 		if (lastFusedLocation == null) return  lastFetchedLocation;
 		else
 		{

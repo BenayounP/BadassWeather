@@ -10,29 +10,30 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
 import eu.benayoun.badass.utility.os.permissions.PermissionListenerBadassContract;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class FusedLocationAPIConnectionBgndCtrl implements GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, PermissionListenerBadassContract
+public class FusedLocationAPIConnectionBgndCtrl
+		implements GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks, PermissionListenerBadassContract
 {
 	BadassPermissionCtrl               badassPermissionCtrl;
-	FusedLocationAPIConnectionTaskWorker fusedLocationAPIConnectionBgndTask;
+	FusedLocationAPIConnectionWorker fusedLocationAPIConnectionBgndTask;
 
 	public FusedLocationAPIConnectionBgndCtrl()
 	{
 		badassPermissionCtrl = Badass.getPermissionManager(Manifest.permission.ACCESS_FINE_LOCATION, R.string.permission_location_standard, this);
 		badassPermissionCtrl.setExplanationForUsersThatCheckedNeverAskAgainStringId(R.string.permission_location_for_users_that_heck_never_ask_again);
-		fusedLocationAPIConnectionBgndTask = new FusedLocationAPIConnectionTaskWorker(this);
+		fusedLocationAPIConnectionBgndTask = new FusedLocationAPIConnectionWorker(this);
 	}
 
 
-	public BadassTaskCtrl getBadassBgndTask()
+	public BadassBgndWorker getBadassBgndWorker()
 	{
-		return fusedLocationAPIConnectionBgndTask.getBadassTaskCtrl();
+		return fusedLocationAPIConnectionBgndTask;
 	}
 
 	public BadassPermissionCtrl getBadassPermissionCtrl()
@@ -41,7 +42,7 @@ public class FusedLocationAPIConnectionBgndCtrl implements GoogleApiClient.OnCon
 	}
 
 
-	public FusedLocationAPIConnectionTaskWorker getFusedLocationAPIConnectionBgndTask() { return fusedLocationAPIConnectionBgndTask; }
+	public FusedLocationAPIConnectionWorker getFusedLocationAPIConnectionBgndTask() { return fusedLocationAPIConnectionBgndTask; }
 
 	public Location fetchLocation()
 	{
@@ -75,14 +76,14 @@ public class FusedLocationAPIConnectionBgndCtrl implements GoogleApiClient.OnCon
 	public void onPermissionGranted()
 	{
 		Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
-		fusedLocationAPIConnectionBgndTask.getBadassTaskCtrl().performTaskASAP();
-		Badass.launchBackgroundTasks();
+		fusedLocationAPIConnectionBgndTask.workASAP();
+		Badass.workInBackground();
 	}
 
 	@Override
 	public void onPermissionDenied(boolean userHasCheckedNeverAskAgain)
 	{
-        fusedLocationAPIConnectionBgndTask.getBadassTaskCtrl().setSpecificReasonProblemStringId(badassPermissionCtrl.getExplanationStringId());
-        ThisApp.getModel().appStatusCtrl.updateStatus();
+        fusedLocationAPIConnectionBgndTask.setSpecificReasonProblemStringId(badassPermissionCtrl.getExplanationStringId());
+        ThisApp.getModel().appStateCtrl.updateState();
 	}
 }

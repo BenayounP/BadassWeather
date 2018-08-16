@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
-import eu.benayoun.badass.background.backgroundtask.tasks.TaskWorkerContract;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
@@ -15,25 +14,19 @@ import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastUtils;
 import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
 
-import static eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl.Status.UPDATE_ASAP;
 
-public class UiUpdateTaskWorker implements TaskWorkerContract
+public class UiUpdateWorker extends BadassBgndWorker
 {
-    BadassTaskCtrl badassTaskCtrl;
 
-	public UiUpdateTaskWorker()
+
+	@Override
+	public BadassBgndWorker.Status getStartingStatus()
 	{
-        badassTaskCtrl = new BadassTaskCtrl(this);
+		return Status.WORK_ASAP;
 	}
 
 	@Override
-	public BadassTaskCtrl.Status getStartingStatus()
-	{
-		return UPDATE_ASAP;
-	}
-
-	@Override
-	public void performBgndTask()
+	public void work()
 	{
 		long                               nowInMs = BadassTimeUtils.getCurrentTimeInMs();
 		ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCache.getOneHourBareForecastList();
@@ -80,18 +73,12 @@ public class UiUpdateTaskWorker implements TaskWorkerContract
 		ThisApp.getModel().uIModel.setWeather(currentWeather,NextWeather);
 		if (bareCurrentWeather.equals("")==false)
 		{
-			badassTaskCtrl.waitForNextCall(getStartOfNextHour());
+			setNextWorkingSession(getStartOfNextHour());
 		}
 		else
 		{
-            badassTaskCtrl.sleep();
+            sleep();
 		}
-	}
-
-	@Override
-	public BadassTaskCtrl getBadassTaskCtrl()
-	{
-		return badassTaskCtrl;
 	}
 
 	// INTERNAl COOKING

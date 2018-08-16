@@ -2,7 +2,6 @@ package eu.benayoun.badassweather.badass.background;
 
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.androidevents.AndroidEventsCtrl;
 import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityListenerBadassContract;
 import eu.benayoun.badass.background.androidevents.screen.ScreenActivityListenerBadassContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
@@ -13,13 +12,13 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
  */
 public class AppAndroidEventsCtrl implements InternetConnectivityListenerBadassContract, ScreenActivityListenerBadassContract
 {
-	TasksListCtrl thisAppBgndMngr;
+	AppWorkersCtrl appWorkersCtrl;
 
-	public AppAndroidEventsCtrl(TasksListCtrl thisAppBgndMngr)
+	public AppAndroidEventsCtrl(AppWorkersCtrl appWorkersCtrl)
 	{
 		Badass.listenToInternetConnectivity(this);
 		Badass.listenToScreenActivity(this);
-		this.thisAppBgndMngr = thisAppBgndMngr;
+		this.appWorkersCtrl = appWorkersCtrl;
 	}
 
 
@@ -28,7 +27,7 @@ public class AppAndroidEventsCtrl implements InternetConnectivityListenerBadassC
 	@Override
 	public void onConnectedToInternet()
 	{
-		thisAppBgndMngr.onConnectedToInternet();
+		appWorkersCtrl.onConnectedToInternet();
 	}
 
 	@Override
@@ -37,19 +36,13 @@ public class AppAndroidEventsCtrl implements InternetConnectivityListenerBadassC
 		Badass.logInFile("******! onDisconnectedToInternet");
 	}
 
-	public boolean isConnectedToInternet()
-	{
-		AndroidEventsCtrl androidEventsCtrl = Badass.getAndroidEventsCtrl();
-
-		return (androidEventsCtrl == null ? false : androidEventsCtrl.isConnectedToInternet());
-	}
 
 	// SCREEN
 
 	@Override
 	public void onScreenOn()
 	{
-		thisAppBgndMngr.onScreenOn();
+		appWorkersCtrl.onScreenOn();
 		Badass.broadcastUIEvent(UIEvents.SCREEN_ON);
 	}
 

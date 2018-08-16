@@ -5,7 +5,7 @@ import eu.benayoun.badass.utility.os.permissions.BadassPermissionsMngr;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.TasksListCtrl;
+import eu.benayoun.badassweather.badass.background.AppWorkersCtrl;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
@@ -13,12 +13,12 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
  * Created by PierreB on 23/12/2017.
  */
 
-public class AppStatusCtrl
+public class AppStateCtrl
 {
 
     static final int STATUS_BGND_TASKS_ONGOING          =1;
     static final int STATUS_OK                          =2;
-    static final int STATUS_PERMISSION_FINE_LOCATION_PB = 3;
+    static final int STATUS_PERMISSION_FINE_LOCATION_PROBLEM = 3;
     static final int STATUS_LOCATION_PROBLEM            = 4;
     static final int STATUS_FORECAST_PROBLEM            = 5;
 
@@ -27,7 +27,7 @@ public class AppStatusCtrl
     protected int currentStatus;
 
 
-    public AppStatusCtrl()
+    public AppStateCtrl()
     {
         displayedString = Badass.getString(R.string.app_status_init);
         currentStatus = STATUS_BGND_TASKS_ONGOING;
@@ -42,12 +42,12 @@ public class AppStatusCtrl
 
     public boolean thereIsProblem()
     {
-        return currentStatus == STATUS_LOCATION_PROBLEM || currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB || currentStatus == STATUS_FORECAST_PROBLEM;
+        return currentStatus == STATUS_LOCATION_PROBLEM || currentStatus == STATUS_PERMISSION_FINE_LOCATION_PROBLEM || currentStatus == STATUS_FORECAST_PROBLEM;
     }
 
     public boolean thereIsFineLocationPermissionPb()
     {
-        return currentStatus == STATUS_PERMISSION_FINE_LOCATION_PB;
+        return currentStatus == STATUS_PERMISSION_FINE_LOCATION_PROBLEM;
     }
 
     // SETTERS
@@ -59,9 +59,9 @@ public class AppStatusCtrl
         Badass.broadcastUIEvent(UIEvents.COMPUTE);
     }
 
-    public void updateStatus()
+    public void updateState()
     {
-        TasksListCtrl thisAppBgndMngr               = ThisApp.getBgndTaskCtrl();
+        AppWorkersCtrl thisAppBgndMngr               = ThisApp.getBgndTaskCtrl();
         String          locationPbString              = thisAppBgndMngr.getLocationPbString();
         String          fusedLocationApiProblemString = thisAppBgndMngr.getFusedLocationAPIPbString();
         String          forecastProblemString         = thisAppBgndMngr.getForecastPbString();
@@ -94,28 +94,20 @@ public class AppStatusCtrl
     }
 
     // ACTION
-    public void onUserAction()
+    public void onUserClick()
     {
-        if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
+        if (currentStatus== STATUS_PERMISSION_FINE_LOCATION_PROBLEM)
         {
             if (ThisApp.getBgndTaskCtrl().getFusedLocationAPIConnectionBgndCtrl().getBadassPermissionCtrl().isUserHasCheckedNeverAskAgain())
             {
-                Badass.log("onUserAction goToSettingsPage");
+                Badass.log("onUserClick goToSettingsPage");
                 BadassPermissionsMngr.goToSettingsPage();
             }
             else
             {
-                Badass.log("onUserAction goToSettingsPage");
+                Badass.log("onUserClick ask fine location permission");
                 Badass.broadcastUIEvent(UIEvents.ASK_FINE_LOCATION_PERMISSION);
             }
-        }
-    }
-
-    public void onUserDismiss()
-    {
-        if (currentStatus==STATUS_PERMISSION_FINE_LOCATION_PB)
-        {
-            updateStatus();
         }
     }
 
@@ -138,7 +130,7 @@ public class AppStatusCtrl
 
     protected void setPermissionFineLocationPB(String displayedStringArg)
     {
-        currentStatus = STATUS_PERMISSION_FINE_LOCATION_PB;
+        currentStatus = STATUS_PERMISSION_FINE_LOCATION_PROBLEM;
         displayedString = displayedStringArg;
     }
 

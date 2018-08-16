@@ -2,7 +2,7 @@ package eu.benayoun.badassweather.badass.model;
 
 
 import eu.benayoun.badassweather.badass.model.application.AppPreferencesAndAssets;
-import eu.benayoun.badassweather.badass.model.application.AppStatusCtrl;
+import eu.benayoun.badassweather.badass.model.application.AppStateCtrl;
 import eu.benayoun.badassweather.badass.model.bare.BareModel;
 import eu.benayoun.badassweather.badass.model.ui.UIModel;
 
@@ -21,7 +21,7 @@ public class Model
 
 
 	// STATUS
-	public AppStatusCtrl appStatusCtrl;
+	public AppStateCtrl appStateCtrl;
 
 	// PREFERENCES
 	public AppPreferencesAndAssets appPreferencesAndAssets;
@@ -35,7 +35,7 @@ public class Model
 
 	public Model()
 	{
-		appStatusCtrl = new AppStatusCtrl();
+		appStateCtrl = new AppStateCtrl();
 		appPreferencesAndAssets = new AppPreferencesAndAssets();
 		uIModel = new UIModel();
 		bareModel = new BareModel();

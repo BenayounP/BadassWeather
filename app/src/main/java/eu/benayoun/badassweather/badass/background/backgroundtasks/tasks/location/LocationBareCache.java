@@ -55,6 +55,10 @@ public class LocationBareCache implements SharedPreferencesSubCacheContract
 		ThisApp.getBgndTaskCtrl().setForecast();
 	}
 
+	public long getLastLocationUpdateInMs()
+	{
+		return lastLocationUpdateInMs;
+	}
 
 	public double getLastLatitude()
 	{

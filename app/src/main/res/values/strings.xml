@@ -17,10 +17,11 @@
     <!--        HOME    -->
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>
-    <string name="home_notification_about">This app is an example of what you can achieve with the BADASS framework. More <a href="http://bit.ly/badass_android">here</a>\n\n
-        Weather forecast from <a href="https://www.yr.no/?spr=eng">Yr</a>, delivered by the Norwegian Meteorological Institute and NRK\n\n
-        If you have any question mail me: <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a>
-    </string>
+    <string name="home_notification_about">This app is an example of what you can achieve with the BADASS framework. More <a href="http://bit.ly/badass_android">here</a>\n\nWeather forecast from <a href="https://www.yr.no/?spr=eng">Yr</a>, delivered by the Norwegian Meteorological Institute and NRK\n\nIf you have any question, mail me: <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a></string>
+    <string name ="location_update_empty">Location hasn\'t be set yet</string>
+    <string name ="location_update_nominal">Last location update: %1$s</string>
+    <string name ="forecast_update_empty">Forecast hasn\'t be set yet</string>
+    <string name ="forecast_update_nominal">Last forecast update: %1$s</string>
 
     <!-- ************** -->
     <!--     WEATHER    -->

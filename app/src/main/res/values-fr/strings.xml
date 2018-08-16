@@ -15,10 +15,11 @@
     <!--        HOME    -->
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>
-    <string name="home_notification_about">Cette application est un exemple d\'utilisation du framework <a href="http://bit.ly/badass_android">BADASS</a>\n\n
-        Prévisions météorologiques issues de <a href="https://www.yr.no/?spr=">Yr</a>, fournies par l\'Institut météorologique norvégien et NRK\n\n
-        Pour toute question envoyez-moi un mail : <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a>
-    </string>
+    <string name="home_notification_about">Cette application est un exemple d\'utilisation du framework <a href="http://bit.ly/badass_android">BADASS</a>\n\nPrévisions météorologiques issues de <a href="https://www.yr.no/?spr=">Yr</a>, fournies par l\'Institut météorologique norvégien et NRK\n\nPour toute question, n\'hesitez pas à m'envoyer un mail : <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a></string>
+    <string name ="location_update_empty">La Localisation n\'a pas encore été faite</string>
+    <string name ="location_update_nominal">Dernière MAJ de la localisation : %1$s</string>
+    <string name ="forecast_update_empty">Les prévisions météo n\'ont pas encore été faite</string>
+    <string name ="forecast_update_nominal">Dernière MAJ des prévisions météo : %1$s</string>
 
     <!-- ************** -->
     <!--     WEATHER    -->

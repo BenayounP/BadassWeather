@@ -3,7 +3,7 @@ package eu.benayoun.badassweather.badass.ui.activity.screenmanagement;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import eu.benayoun.badass.ui.layout.RefreshableLayoutTemplate;
+import eu.benayoun.badass.ui.layout.ReactiveLayout;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
@@ -22,7 +22,7 @@ public class ScreenManager
 
 	protected HomeScreen homeScreen;
 
-	protected RefreshableLayoutTemplate currentLayout;
+	protected ReactiveLayout currentLayout;
 
 	public ScreenManager(FrameLayout mainViewArg)
 	{

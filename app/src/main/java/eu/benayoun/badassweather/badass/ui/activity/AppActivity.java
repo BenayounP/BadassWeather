@@ -66,7 +66,7 @@ public class AppActivity extends BadassActivity
 		if(Badass.isAllowLogInFile())
 		{
 			BadassPermissionCtrl logInFilePermissionManager = Badass.getLogInFilePermissionCtrl();
-			if (logInFilePermissionManager.isGranted()==false)
+			if (logInFilePermissionManager.isPermissionGranted()==false)
 			{
 				Badass.requestPermission(this,logInFilePermissionManager);
 			}
@@ -93,6 +93,7 @@ public class AppActivity extends BadassActivity
 	{
 		if (eventId == UIEvents.ASK_FINE_LOCATION_PERMISSION)
 		{
+			Badass.log("Ask fine location permission");
 			Badass.requestPermission(this, ThisApp.getBgndTaskCtrl().getFusedLocationAPIPermission());
 		}
 		else

@@ -32,7 +32,7 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	{
 		if (eventId == UIEvents.RESUME || eventId == UIEvents.COMPUTE)
 		{
-			if (Badass.getBadassBackgroundMngr().isDoingTasks()==false)
+			if (Badass.getBadassBackgroundMngr().isWorking()==false)
 			{
 				swipeRefreshLayout.setRefreshing(false);
 			}

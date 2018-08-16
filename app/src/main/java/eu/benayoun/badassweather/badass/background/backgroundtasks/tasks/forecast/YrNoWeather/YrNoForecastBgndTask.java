@@ -16,7 +16,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassTaskCtrl;
+import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
 import eu.benayoun.badass.utility.model.XmlParser;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
@@ -33,7 +33,7 @@ public class YrNoForecastBgndTask
     long UTCOffsetInMs;
     long nextWeatherReportInMs =-1;
 	ArrayList<AtomicBareForecastModel> oneHourForecastList;
-	BadassTaskCtrl badassTaskCtrl;
+	BadassBgndWorker badassBgndWorker;
 
 
 	AtomicBareForecastModel readAtomicBareForecastModel;
@@ -43,9 +43,9 @@ public class YrNoForecastBgndTask
 
 
 
-	public YrNoForecastBgndTask(BadassTaskCtrl badassTaskCtrl)
+	public YrNoForecastBgndTask(BadassBgndWorker badassBgndWorker)
 	{
-		this.badassTaskCtrl = badassTaskCtrl;
+		this.badassBgndWorker = badassBgndWorker;
 	}
 
 	public void getYrNoForecast(double latitude, double longitude)
@@ -95,14 +95,14 @@ public class YrNoForecastBgndTask
 					Badass.logInFile("##! YrNoForecastBgndCtrl volleyError or volleyError.networkResponse is NULL");
 				}
 			}
-			badassTaskCtrl.setGlobalProblemStringId(R.string.app_status_problem_forecast);
-            badassTaskCtrl.onProblem();
+			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_problem_forecast);
+            badassBgndWorker.onProblem();
 		}
 		if (thereWasAProblem == false && websiteStringResponse==null)
 		{
 			Badass.logInFile("##! " + Badass.getString(R.string.app_status_forecast_problem_server_null_data));
-			badassTaskCtrl.setGlobalProblemStringId(R.string.app_status_forecast_problem_server_null_data);
-			badassTaskCtrl.onProblem();
+			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_forecast_problem_server_null_data);
+			badassBgndWorker.onProblem();
 		}
 		return websiteStringResponse;
 	}
@@ -129,8 +129,8 @@ public class YrNoForecastBgndTask
 		if (eventType==-1)
 		{
 			Badass.logInFile("##! YrNoForecastBgndCtrl eventType==-1");
-			badassTaskCtrl.setGlobalProblemStringId(R.string.app_status_problem_server_compute);
-			badassTaskCtrl.onProblem();
+			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_problem_server_compute);
+			badassBgndWorker.onProblem();
 		}
 		else
 		{
@@ -271,7 +271,7 @@ public class YrNoForecastBgndTask
 	protected void saveForecastData()
 	{
 		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(oneHourForecastList,nextWeatherReportInMs);
-        badassTaskCtrl.waitForNextCall(nextWeatherReportInMs);
+        badassBgndWorker.setNextWorkingSession(nextWeatherReportInMs);
 		ThisApp.getBgndTaskCtrl().updateUiModel();
 	}
 

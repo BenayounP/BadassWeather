@@ -7,7 +7,8 @@ import com.crashlytics.android.Crashlytics;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badassweather.badass.background.TasksListCtrl;
+
+import eu.benayoun.badassweather.badass.background.AppWorkersCtrl;
 import eu.benayoun.badassweather.badass.model.Model;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 import eu.benayoun.badassweather.badass.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
@@ -19,8 +20,8 @@ import io.fabric.sdk.android.Fabric;
  */
 public class ThisApp extends Application
 {
-	static protected TasksListCtrl bgndTaskCtrl;
-	static protected Model           model;
+	static private AppWorkersCtrl appWorkersCtrl;
+	static protected Model model;
 	static protected NotificationAndWidgetsMngr notificationAndWidgetsMngr;
 
 
@@ -61,12 +62,12 @@ public class ThisApp extends Application
 		}
 
 		// Bgnd Manager
-		bgndTaskCtrl = new TasksListCtrl();
+		appWorkersCtrl = new AppWorkersCtrl();
 	}
 
-	public static TasksListCtrl getBgndTaskCtrl()
+	public static AppWorkersCtrl getBgndTaskCtrl()
 	{
-		return bgndTaskCtrl;
+		return appWorkersCtrl;
 	}
 
 	public static Model getModel()
