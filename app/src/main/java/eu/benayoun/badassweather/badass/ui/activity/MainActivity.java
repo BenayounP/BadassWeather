@@ -23,7 +23,7 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 /**
  * Created by PierreB on 01/05/2016.
  */
-public class AppActivity extends BadassActivity
+public class MainActivity extends BadassActivity
 {
 	protected ScreenManager screenManager;
 	protected ActivityReceiverManager activityReceiverManager = null;
@@ -93,8 +93,7 @@ public class AppActivity extends BadassActivity
 	{
 		if (eventId == UIEvents.ASK_FINE_LOCATION_PERMISSION)
 		{
-			Badass.log("Ask fine location permission");
-			Badass.requestPermission(this, ThisApp.getBgndTaskCtrl().getFusedLocationAPIPermission());
+			Badass.requestPermission(this, ThisApp.getAppWorkersCtrl().getFusedLocationAPIPermission());
 		}
 		else
 		{
@@ -105,8 +104,6 @@ public class AppActivity extends BadassActivity
 			}
 		}
 	}
-
-
 
 	/**
 	 * INTERNAL COOKING

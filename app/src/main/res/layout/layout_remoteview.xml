@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_remoteview_main_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="64dp"
         android:padding="@dimen/global_layout_padding"
-        android:background="@drawable/gradient_background"
-        android:weightSum="2">
+        android:background="@drawable/gradient_background">
 
         <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_above="@+id/layout_remoteview_app_name"
                 android:layout_gravity="center_horizontal"
@@ -25,7 +24,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/MediumText"/>
+                        style="@style/TinyText"/>
 
                 <FrameLayout android:layout_width="@dimen/padding_tiny"
                              android:id="@+id/layout_remoteview_separator"
@@ -37,27 +36,27 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/MediumText"/>
+                        style="@style/TinyText"/>
         </LinearLayout>
 
         <TextView
                 android:id="@+id/layout_remoteview_app_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TinyText"
+                android:layout_height="match_parent"
+                style="@style/TiniestText"
                 android:layout_alignParentBottom="true"
-                android:gravity="left"
+                android:gravity="bottom|left"
                 android:text="@string/app_name"/>
 
         <TextView
                 android:id="@+id/layout_remoteview_no_data_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/MediumText"
                 android:layout_centerInParent="true"
                 android:text="@string/no_data"/>
 
-</RelativeLayout>
+</FrameLayout>
 
 
 

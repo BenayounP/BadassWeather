@@ -20,24 +20,51 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="@dimen/global_layout_padding">
+            android:layout_margin="@dimen/padding_gargantua">
 
             <TextView
-                android:id="@+id/screen_home_nominal_text"
+                android:id="@+id/screen_home_forecast_text"
                 style="@style/BigText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"/>
 
-            <TextView
-                android:id="@+id/screen_home_about_text"
-                style="@style/NominalText"
+            <LinearLayout
+                android:id="@+id/screen_home_more_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="@string/home_notification_about"
-                android:textColorLink="@color/app_accent_text"
-                android:visibility="gone"/>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/screen_home_more_text"
+                    style="@style/NominalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    />
+
+                <FrameLayout android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_tiny"
+                    android:layout_marginTop="@dimen/padding_gargantua"
+                    android:layout_marginRight="@dimen/padding_gargantua"
+                    android:layout_marginBottom="@dimen/padding_gargantua"
+                    android:background="@color/app_primary_text" />
+
+                <TextView
+                    android:id="@+id/screen_home_about_text"
+                    style="@style/NominalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/home_about"
+                    />
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

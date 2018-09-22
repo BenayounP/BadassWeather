@@ -4,15 +4,14 @@ package eu.benayoun.badassweather.badass.ui.notificationsandwidgets;
 import android.support.v4.app.NotificationCompat;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.notification.BadassNotificationCtrl;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.applicationreceivers.NotificationDeleteReceiver;
-import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
+import eu.benayoun.badassweather.badass.ui.activity.MainActivity;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
-public class NotificationCtrl extends BadassNotificationCtrl
+public class NotificationCtrl extends eu.benayoun.badass.ui.notification.NotificationCtrl
 {
 	final protected int GLOBAL_NOTIFICATION_ID = 1976;
 	final public int ALERT_NOTIFICATION_ID = 1;
@@ -55,7 +54,7 @@ public class NotificationCtrl extends BadassNotificationCtrl
 
 				setNotificationChannelDataContainer(channelId,channelName,channelDescription);
 			}
-			setCustomNotification(GLOBAL_NOTIFICATION_ID, ALERT_NOTIFICATION_ID, NotificationCompat.PRIORITY_DEFAULT,IS_NOT_ONGOING, R.drawable.ic_notification, remoteViewCtrl.getNotificationRemoteViews(),AppActivity.class, NotificationDeleteReceiver.class);
+			setCustomNotification(GLOBAL_NOTIFICATION_ID, ALERT_NOTIFICATION_ID, NotificationCompat.PRIORITY_DEFAULT,IS_NOT_ONGOING, R.drawable.ic_notification, remoteViewCtrl.getNotificationRemoteViews(),MainActivity.class, NotificationDeleteReceiver.class);
 		}
 		else cancelNotification(GLOBAL_NOTIFICATION_ID);
 	}

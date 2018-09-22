@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location;
 
 import android.location.Location;
 import android.text.format.DateUtils;
@@ -6,11 +6,11 @@ import android.text.format.DateUtils;
 import com.google.android.gms.location.LocationListener;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.AppWorkersCtrl;
+import eu.benayoun.badassweather.badass.background.AppBadassJobList;
 
 
 
@@ -18,13 +18,13 @@ import eu.benayoun.badassweather.badass.background.AppWorkersCtrl;
  * Created by PierreB on 21/05/2017.
  */
 
-public class LocationWorker extends BadassBgndWorker implements LocationListener
+public class LocationWorker extends BadassJob implements LocationListener
 {
 	static protected final long LOCATION_CHECK_INTERVAL = DateUtils.HOUR_IN_MILLIS;
-	AppWorkersCtrl bgndAppWorkersCtrl;
+	AppBadassJobList bgndAppWorkersCtrl;
 	protected Location lastFusedLocation = null;
 
-	public LocationWorker(AppWorkersCtrl bgndAppWorkersCtrl)
+	public LocationWorker(AppBadassJobList bgndAppWorkersCtrl)
 	{
 		setGlobalProblemStringId(R.string.app_status_problem_location);
 		this.bgndAppWorkersCtrl = bgndAppWorkersCtrl;
@@ -36,9 +36,9 @@ public class LocationWorker extends BadassBgndWorker implements LocationListener
 	}
 
 	@Override
-	public BadassBgndWorker.Status getStartingStatus()
+	public BadassJob.Status getStartingStatus()
 	{
-		return Status.WORK_ASAP;
+		return Status.START_ASAP;
 	}
 
 
@@ -53,8 +53,8 @@ public class LocationWorker extends BadassBgndWorker implements LocationListener
 	{
 		Badass.logInFile("** on location changed");
 		setLastFusedLocation(location);
-		workASAP();
-		Badass.workInBackground();
+		prepareToStartAtNextCall();
+		Badass.startBadassThread();
 	}
 
 	/**
@@ -82,12 +82,12 @@ public class LocationWorker extends BadassBgndWorker implements LocationListener
 			{
 				Badass.log("## last location is NOT away of last one -> do nothing");
 			}
-			setNextWorkingSession(BadassTimeUtils.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
+			schedule(BadassTimeUtils.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
 		}
 		else
 		{
 			Badass.log("## last location is null");
-			onProblem();
+			askToResolveProblem();
 		}
 	}
 

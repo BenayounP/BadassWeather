@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.fusedlocationapi;
 
 import android.location.Location;
 import android.os.Looper;
@@ -8,10 +8,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationBareCache;
 
 
 
@@ -19,7 +19,7 @@ import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.locatio
  * Created by PierreB on 21/05/2017.
  */
 
-public class FusedLocationAPIConnectionWorker extends BadassBgndWorker
+public class FusedLocationAPIConnectionJob extends BadassJob
 {
 	protected GoogleApiClient client = null;
 	protected LocationRequest         locationRequest;
@@ -28,15 +28,15 @@ public class FusedLocationAPIConnectionWorker extends BadassBgndWorker
 	FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr;
 
 
-	public FusedLocationAPIConnectionWorker(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
+	public FusedLocationAPIConnectionJob(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
 	{
 		this.fusedLocationAPIConnectionBgndMngr = fusedLocationAPIConnectionBgndMngr;
 	}
 
 	@Override
-	public BadassBgndWorker.Status getStartingStatus()
+	public BadassJob.Status getStartingStatus()
 	{
-		return Status.WORK_ASAP;
+		return Status.START_ASAP;
 	}
 
 
@@ -81,14 +81,14 @@ public class FusedLocationAPIConnectionWorker extends BadassBgndWorker
 				askedForLocationUpdate = false;
 				client.connect();
 
-				if (status == Status.WORK_ASAP) sleep();
+				if (status == Status.START_ASAP) goToSleep();
 			}
 			else
 			{
 				if (client.isConnected() && askedForLocationUpdate == false)
 				{
 					askLocationUpdates();
-					sleep();
+					goToSleep();
 				}
 				else if (client.isConnecting())
 					Badass.finalLog("## No need to manage connection : client connecting");
@@ -100,8 +100,8 @@ public class FusedLocationAPIConnectionWorker extends BadassBgndWorker
 		{
 			Badass.log("##!! manageConnection badassPermissionCtrl.isNOTGranted()");
 			Badass.logInFile("##! " + getName()+ " " + getCompleteStatusString() + ":  Don't have Location permission");
-			setSpecificReasonProblemStringId(fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().getExplanationStringId());
-			workNextSession();
+			setSpecificProblemStringId(fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().getExplanationStringId());
+			prepareToStartAtNextCall();
 		}
 	}
 
@@ -125,7 +125,7 @@ public class FusedLocationAPIConnectionWorker extends BadassBgndWorker
 		locationRequest.setFastestInterval(1);
 		locationRequest.setSmallestDisplacement(LocationBareCache.DELTA_DISTANCE_IN_METERS*2);
 		locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
-		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getBgndTaskCtrl().getLocationWorker(), Looper.getMainLooper());
+		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getAppWorkersCtrl().getLocationWorker(), Looper.getMainLooper());
 	}
 
 

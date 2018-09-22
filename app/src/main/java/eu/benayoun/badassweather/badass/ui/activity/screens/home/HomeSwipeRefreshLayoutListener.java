@@ -23,7 +23,7 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	@Override
 	public void onRefresh()
 	{
-		ThisApp.getBgndTaskCtrl().updateAllData();
+		ThisApp.getAppWorkersCtrl().updateAllData();
 		Badass.broadcastUIEvent(UIEvents.RESUME);
 	}
 
@@ -32,7 +32,7 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	{
 		if (eventId == UIEvents.RESUME || eventId == UIEvents.COMPUTE)
 		{
-			if (Badass.getBadassBackgroundMngr().isWorking()==false)
+			if (Badass.isThreadRunning()==false)
 			{
 				swipeRefreshLayout.setRefreshing(false);
 			}

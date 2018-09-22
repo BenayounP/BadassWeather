@@ -5,7 +5,7 @@ import android.text.format.DateUtils;
 
 import eu.benayoun.badass.utility.model.DurationInMs;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastUtils;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather.YrNoForecastUtils;
 
 
 /**

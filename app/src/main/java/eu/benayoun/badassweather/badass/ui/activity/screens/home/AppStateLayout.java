@@ -39,13 +39,6 @@ public class AppStateLayout extends ReactiveLayout
 		listenTo(UIEvents.RESUME);
 	}
 
-    @Override
-    public void onEvent(int eventId, long eventTimeInMs)
-    {
-        Badass.log("$$ AppStateLayout on Event: " + Badass.getEventName(eventId));
-        super.onEvent(eventId, eventTimeInMs);
-    }
-
     /**
 	 * INTERNAL COOKING
 	 */
@@ -55,14 +48,14 @@ public class AppStateLayout extends ReactiveLayout
 	@Override
 	protected void updateMainContent(int eventId, long eventTimeInMs)
 	{
-        Badass.log("$$ updateMainContent on Event: " + Badass.getEventName(eventId));
+	    Badass.log("$$ AppStateLayout updateMainContent: " + Badass.getEventName(eventId));
 		AppStateCtrl appStateCtrl = ThisApp.getModel().appStateCtrl;
 		boolean       weNeedUserAction =false;
 		if (appStateCtrl.thereIsProblem())
 		{
 			mainView.setBackgroundResource(R.drawable.gradient_background);
 			BadassViewUtils.setGradientBackgroundView(mainView,Badass.getColor(R.color.app_problem_1), Badass.getColor(R.color.app_problem_2));
-			if (appStateCtrl.thereIsFineLocationPermissionPb())
+			if (appStateCtrl.isFineLocationNotGiven())
 			{
 				weNeedUserAction = true;
 			}

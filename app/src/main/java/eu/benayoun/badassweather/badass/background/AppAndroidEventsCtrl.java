@@ -2,19 +2,19 @@ package eu.benayoun.badassweather.badass.background;
 
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityListenerBadassContract;
-import eu.benayoun.badass.background.androidevents.screen.ScreenActivityListenerBadassContract;
+import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityListenerContract;
+import eu.benayoun.badass.background.androidevents.screen.ScreenActivityListenerContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
 /**
  * Created by PierreB on 11/09/2016.
  */
-public class AppAndroidEventsCtrl implements InternetConnectivityListenerBadassContract, ScreenActivityListenerBadassContract
+public class AppAndroidEventsCtrl implements InternetConnectivityListenerContract, ScreenActivityListenerContract
 {
-	AppWorkersCtrl appWorkersCtrl;
+	AppBadassJobList appWorkersCtrl;
 
-	public AppAndroidEventsCtrl(AppWorkersCtrl appWorkersCtrl)
+	public AppAndroidEventsCtrl(AppBadassJobList appWorkersCtrl)
 	{
 		Badass.listenToInternetConnectivity(this);
 		Badass.listenToScreenActivity(this);

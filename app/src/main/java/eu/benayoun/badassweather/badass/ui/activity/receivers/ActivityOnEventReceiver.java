@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
 
 import eu.benayoun.badass.ui.BadassUIBroadCastMngr;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
+import eu.benayoun.badassweather.badass.ui.activity.MainActivity;
 
 
 /**
@@ -19,7 +19,7 @@ import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
 @SuppressWarnings("ALL")
 public class ActivityOnEventReceiver extends BroadcastReceiver
 {
-	static protected WeakReference<AppActivity> mainActivityWeakReference = null;
+	static protected WeakReference<MainActivity> mainActivityWeakReference = null;
 
 	@Override
     public void onReceive(Context context, Intent intent)
@@ -31,7 +31,7 @@ public class ActivityOnEventReceiver extends BroadcastReceiver
         }
     }
 
-    public void register(LocalBroadcastManager localBroadcastManager, AppActivity mainActivity)
+    public void register(LocalBroadcastManager localBroadcastManager, MainActivity mainActivity)
     {
 	    mainActivityWeakReference = new WeakReference<>(mainActivity);
         localBroadcastManager.registerReceiver(this,

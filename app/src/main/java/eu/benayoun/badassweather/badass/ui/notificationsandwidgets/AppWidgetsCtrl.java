@@ -5,14 +5,14 @@ import android.content.ComponentName;
 import android.widget.RemoteViews;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerBadassContract;
+import eu.benayoun.badass.ui.events.UIEventListenerContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class WidgetsCtrl implements UIEventListenerBadassContract
+public class AppWidgetsCtrl implements UIEventListenerContract
 {
     RemoteViewCtrl remoteViewCtrl;
 
-    public WidgetsCtrl(RemoteViewCtrl remoteViewCtrl)
+    public AppWidgetsCtrl(RemoteViewCtrl remoteViewCtrl)
     {
         this.remoteViewCtrl = remoteViewCtrl;
     }
@@ -20,16 +20,16 @@ public class WidgetsCtrl implements UIEventListenerBadassContract
     @Override
     public void onEvent(int eventId, long eventTimeInMs)
     {
-        if (eventId == UIEvents.WEATHER_CHANGE || eventId == UIEvents.WIDGET_INSTALLED)
+        if (eventId == UIEvents.WEATHER_CHANGE)
         {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(Badass.getApplicationContext());
-            ComponentName cmpName = new ComponentName(Badass.getApplicationContext(), Widget.class);
+            ComponentName cmpName = new ComponentName(Badass.getApplicationContext(), ThisAppWidgetProvider.class);
 
             int[] widgetIds = appWidgetManager.getAppWidgetIds(cmpName);
 
             if (widgetIds.length != 0)
             {
-                RemoteViews widgetView = remoteViewCtrl.getWidgetsRemoteViews(Widget.class,Widget.ON_WIDGET_CLICK_ACTION);
+                RemoteViews widgetView = remoteViewCtrl.getWidgetsRemoteViews(ThisAppWidgetProvider.class, ThisAppWidgetProvider.ON_WIDGET_CLICK_ACTION);
                 for (int wid : widgetIds)
                 {
                     appWidgetManager.updateAppWidget(wid, widgetView);

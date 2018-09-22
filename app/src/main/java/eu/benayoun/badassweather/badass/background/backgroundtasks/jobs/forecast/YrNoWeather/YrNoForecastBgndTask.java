@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -16,7 +16,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.model.XmlParser;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
@@ -33,7 +33,7 @@ public class YrNoForecastBgndTask
     long UTCOffsetInMs;
     long nextWeatherReportInMs =-1;
 	ArrayList<AtomicBareForecastModel> oneHourForecastList;
-	BadassBgndWorker badassBgndWorker;
+	BadassJob badassJob;
 
 
 	AtomicBareForecastModel readAtomicBareForecastModel;
@@ -41,11 +41,9 @@ public class YrNoForecastBgndTask
 	int readDurationInHours;
 
 
-
-
-	public YrNoForecastBgndTask(BadassBgndWorker badassBgndWorker)
+	public YrNoForecastBgndTask(BadassJob badassJob)
 	{
-		this.badassBgndWorker = badassBgndWorker;
+		this.badassJob = badassJob;
 	}
 
 	public void getYrNoForecast(double latitude, double longitude)
@@ -95,14 +93,14 @@ public class YrNoForecastBgndTask
 					Badass.logInFile("##! YrNoForecastBgndCtrl volleyError or volleyError.networkResponse is NULL");
 				}
 			}
-			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_problem_forecast);
-            badassBgndWorker.onProblem();
+			badassJob.setGlobalProblemStringId(R.string.app_status_problem_forecast);
+            badassJob.askToResolveProblem();
 		}
 		if (thereWasAProblem == false && websiteStringResponse==null)
 		{
 			Badass.logInFile("##! " + Badass.getString(R.string.app_status_forecast_problem_server_null_data));
-			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_forecast_problem_server_null_data);
-			badassBgndWorker.onProblem();
+			badassJob.setGlobalProblemStringId(R.string.app_status_forecast_problem_server_null_data);
+			badassJob.askToResolveProblem();
 		}
 		return websiteStringResponse;
 	}
@@ -129,8 +127,8 @@ public class YrNoForecastBgndTask
 		if (eventType==-1)
 		{
 			Badass.logInFile("##! YrNoForecastBgndCtrl eventType==-1");
-			badassBgndWorker.setGlobalProblemStringId(R.string.app_status_problem_server_compute);
-			badassBgndWorker.onProblem();
+			badassJob.setGlobalProblemStringId(R.string.app_status_problem_server_compute);
+			badassJob.askToResolveProblem();
 		}
 		else
 		{
@@ -271,8 +269,8 @@ public class YrNoForecastBgndTask
 	protected void saveForecastData()
 	{
 		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(oneHourForecastList,nextWeatherReportInMs);
-        badassBgndWorker.setNextWorkingSession(nextWeatherReportInMs);
-		ThisApp.getBgndTaskCtrl().updateUiModel();
+        badassJob.schedule(nextWeatherReportInMs);
+		ThisApp.getAppWorkersCtrl().updateUI();
 	}
 
 }

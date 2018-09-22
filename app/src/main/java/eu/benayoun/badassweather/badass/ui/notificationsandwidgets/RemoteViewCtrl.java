@@ -25,7 +25,7 @@ public class RemoteViewCtrl
 	{
 		if (notificationRemoteViews == null)
 		{
-			notificationRemoteViews = new RemoteViews(Badass.getApplicationContext().getPackageName(), R.layout.layout_notification_remoteview);
+			notificationRemoteViews = new RemoteViews(Badass.getApplicationContext().getPackageName(), R.layout.layout_remoteview);
 		}
 		updateViews(notificationRemoteViews);
 		return notificationRemoteViews;
@@ -36,8 +36,8 @@ public class RemoteViewCtrl
 		if (widgetsRemoteViews == null)
 		{
 			Context applicationContext = Badass.getApplicationContext();
-			widgetsRemoteViews = new RemoteViews(applicationContext.getPackageName(), R.layout.layout_widget_remoteview);
-			Intent intent = new Intent(applicationContext, Widget.class);
+			widgetsRemoteViews = new RemoteViews(applicationContext.getPackageName(), R.layout.layout_remoteview);
+			Intent intent = new Intent(applicationContext, ThisAppWidgetProvider.class);
 			intent.setAction(widgetActionName);
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0);
 			widgetsRemoteViews.setOnClickPendingIntent(R.id.layout_remoteview_main_layout,pendingIntent);
@@ -74,7 +74,6 @@ public class RemoteViewCtrl
 			}
 
 			remoteViews.setTextViewText(R.id.layout_remoteview_current_weather_text, currentWeatherString);
-
 			boolean nextWeatherIsEmpty = nextWeatherString.equals("");
 			int nextWeatherViewVisibility = (nextWeatherIsEmpty ? View.GONE : View.VISIBLE);
 			remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text, nextWeatherViewVisibility);
@@ -90,7 +89,4 @@ public class RemoteViewCtrl
 		intent.setAction(action);
 		return PendingIntent.getBroadcast(context, 0, intent, 0);
 	}
-
-
-
 }

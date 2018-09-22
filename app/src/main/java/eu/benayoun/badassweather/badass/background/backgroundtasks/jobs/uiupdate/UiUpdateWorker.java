@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.uiupdate;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.uiupdate;
 
 import android.text.format.DateUtils;
 
@@ -6,23 +6,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.tasks.BadassBgndWorker;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.YrNoWeather.YrNoForecastUtils;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather.YrNoForecastUtils;
 import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
 
 
-public class UiUpdateWorker extends BadassBgndWorker
+public class UiUpdateWorker extends BadassJob
 {
 
 
 	@Override
-	public BadassBgndWorker.Status getStartingStatus()
+	public BadassJob.Status getStartingStatus()
 	{
-		return Status.WORK_ASAP;
+		return Status.START_ASAP;
 	}
 
 	@Override
@@ -73,11 +73,11 @@ public class UiUpdateWorker extends BadassBgndWorker
 		ThisApp.getModel().uIModel.setWeather(currentWeather,NextWeather);
 		if (bareCurrentWeather.equals("")==false)
 		{
-			setNextWorkingSession(getStartOfNextHour());
+            schedule(getStartOfNextHour());
 		}
 		else
 		{
-            sleep();
+            goToSleep();
 		}
 	}
 

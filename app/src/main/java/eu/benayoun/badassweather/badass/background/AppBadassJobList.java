@@ -3,16 +3,16 @@ package eu.benayoun.badassweather.badass.background;
 import android.location.Location;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.backgroundtask.list.BadassWorkersCtrl;
-import eu.benayoun.badass.background.backgroundtask.list.WorkersCtrlContract;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJobsCtrl;
+import eu.benayoun.badass.background.badassthread.badassjob.BadassJobListContract;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.datainit.DataInitWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.forecast.ForecastWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.LocationWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location.fusedlocationapi.FusedLocationAPIConnectionBgndCtrl;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.uiupdate.UiUpdateWorker;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.datainit.DataInitWorker;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.ForecastWorker;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationWorker;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.fusedlocationapi.FusedLocationAPIConnectionBgndCtrl;
+import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.uiupdate.UiUpdateWorker;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
 
@@ -20,11 +20,11 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
  * Created by PierreB on 01/10/2017.
  */
 
-public class AppWorkersCtrl implements WorkersCtrlContract
+public class AppBadassJobList implements BadassJobListContract
 {
 	protected AppAndroidEventsCtrl appAndroidEventsCtrl;
 
-	protected BadassWorkersCtrl badassWorkersCtrl;
+	protected BadassJobsCtrl badassJobsCtrl;
 
 	//tasks
 	protected FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndCtrl;
@@ -33,67 +33,68 @@ public class AppWorkersCtrl implements WorkersCtrlContract
 	protected UiUpdateWorker uiUpdateWorker;
 
 
-	public AppWorkersCtrl()
+	public AppBadassJobList()
 	{
 		appAndroidEventsCtrl = new AppAndroidEventsCtrl(this);
-		badassWorkersCtrl = new BadassWorkersCtrl(this);
+		badassJobsCtrl = new BadassJobsCtrl(this);
 
-		badassWorkersCtrl.addBgndTask(new DataInitWorker());
+		badassJobsCtrl.addJob(new DataInitWorker());
 
 		fusedLocationAPIConnectionBgndCtrl = new FusedLocationAPIConnectionBgndCtrl();
-		badassWorkersCtrl.addBgndTask(fusedLocationAPIConnectionBgndCtrl.getFusedLocationAPIConnectionBgndTask());
+		badassJobsCtrl.addJob(fusedLocationAPIConnectionBgndCtrl.getFusedLocationAPIConnectionJob());
 		locationWorker = new LocationWorker(this);
-		badassWorkersCtrl.addBgndTask(locationWorker);
+		badassJobsCtrl.addJob(locationWorker);
 		forecastWorker = new ForecastWorker();
-		badassWorkersCtrl.addBgndTask(forecastWorker);
+		badassJobsCtrl.addJob(forecastWorker);
 		uiUpdateWorker = new UiUpdateWorker();
-		badassWorkersCtrl.addBgndTask(uiUpdateWorker);
+		badassJobsCtrl.addJob(uiUpdateWorker);
 
 
-		Badass.setBgndTaskMngr(badassWorkersCtrl);
-		Badass.workInBackground();
+		Badass.setJobCtrl(badassJobsCtrl);
+		Badass.startBadassThread();
 	}
 
 
 	public void manageFusedLocationAPI()
 	{
-		fusedLocationAPIConnectionBgndCtrl.getBadassBgndWorker().workASAP();
-		Badass.workInBackground();
+		fusedLocationAPIConnectionBgndCtrl.getBadassJob().askToStartAsap();
+		Badass.startBadassThread();
 	}
 
 	public void onFusedLocationAPIProblem()
 	{
-		fusedLocationAPIConnectionBgndCtrl.getBadassBgndWorker().onProblem();
-		Badass.workInBackground();
+		fusedLocationAPIConnectionBgndCtrl.getBadassJob().askToStartAsap();
+        Badass.startBadassThread();
 	}
 
 	public void onScreenOn()
 	{
-		Badass.workInBackground();
+		Badass.startBadassThread();
 	}
 
 	public void onConnectedToInternet()
 	{
-        Badass.workInBackground();
+        Badass.startBadassThread();
 	}
 
 
 
 	public void setForecast()
 	{
-		forecastWorker.workASAP();
+		forecastWorker.askToStartAsap();
 	}
 
 	public void updateAllData()
 	{
-		locationWorker.workASAP();
-		forecastWorker.workASAP();
-		Badass.workInBackground();
+		locationWorker.askToStartAsap();
+		forecastWorker.askToStartAsap();
+		Badass.startBadassThread();
 	}
 
-	public void updateUiModel()
+	public void updateUI()
 	{
-		uiUpdateWorker.workASAP();
+		uiUpdateWorker.askToStartAsap();
+        Badass.startBadassThread();
 	}
 
 
@@ -104,14 +105,9 @@ public class AppWorkersCtrl implements WorkersCtrlContract
 	}
 
 
-	public AppAndroidEventsCtrl getAppAndroidEventsCtrl()
-	{
-		return appAndroidEventsCtrl;
-	}
-
 	public String getFusedLocationAPIPbString()
 	{
-		return fusedLocationAPIConnectionBgndCtrl.getBadassBgndWorker().getProblemString();
+		return fusedLocationAPIConnectionBgndCtrl.getBadassJob().getProblemString();
 	}
 
 	public String getForecastPbString()
@@ -141,13 +137,13 @@ public class AppWorkersCtrl implements WorkersCtrlContract
 
 	// LISTENER
 	@Override
-	public void onTasksListStart()
+	public void onJobListStart()
 	{
 		ThisApp.getModel().appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_bgnd_update_start));
 	}
 
 	@Override
-	public void onTasksListEnd()
+	public void onJobListEnd()
 	{
 		ThisApp.getModel().appStateCtrl.updateState();
 		Badass.broadcastUIEvent(UIEvents.COMPUTE);

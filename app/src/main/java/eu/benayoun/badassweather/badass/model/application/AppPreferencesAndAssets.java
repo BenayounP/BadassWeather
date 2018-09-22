@@ -4,16 +4,16 @@ package eu.benayoun.badassweather.badass.model.application;
 import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
 
 /**
  * Created by Pierre on 02/12/2015.
  */
 @SuppressWarnings("ALL")
-public class AppPreferencesAndAssets implements SharedPreferencesSubCacheContract
+public class AppPreferencesAndAssets implements SharedPreferencesStorageContract
 {
-	protected SharedPreferencesFile sharedPreferencesFile;
+	protected SharedPreferencesStorage sharedPreferencesStorage;
 	protected boolean userHasrespondedToPermissionsDemands;
 
 	boolean userWantsToDisplayNotification;
@@ -21,8 +21,8 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCacheContrac
 
 	public AppPreferencesAndAssets()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
-		sharedPreferencesFile.load();
+		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage.load();
 
 	}
 
@@ -34,7 +34,7 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCacheContrac
 	public void setUserHasrespondedToPermissionsDemands()
 	{
 		this.userHasrespondedToPermissionsDemands = true;
-		sharedPreferencesFile.save();
+		sharedPreferencesStorage.save();
 	}
 
 
@@ -46,7 +46,7 @@ public class AppPreferencesAndAssets implements SharedPreferencesSubCacheContrac
 	public void toggleUserWantsToDisplayNotification()
 	{
 		this.userWantsToDisplayNotification = !userWantsToDisplayNotification;
-		sharedPreferencesFile.save();
+		sharedPreferencesStorage.save();
 	}
 
 	@Override

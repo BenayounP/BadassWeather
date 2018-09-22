@@ -1,11 +1,11 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.tasks.location;
+package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location;
 
 import android.content.SharedPreferences;
 import android.location.Location;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
 import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.ThisApp;
@@ -15,14 +15,14 @@ import eu.benayoun.badassweather.ThisApp;
  * Created by PierreB on 22/03/2017.
  */
 
-public class LocationBareCache implements SharedPreferencesSubCacheContract
+public class LocationBareCache implements SharedPreferencesStorageContract
 {
 	static public final double INVALID_LATITUDE_VALUE = -100d;
 	static public final double INVALID_LONGITUDE_VALUE = -200d;
 
 	public static float DELTA_DISTANCE_IN_METERS = 5000;
 
-	protected SharedPreferencesFile sharedPreferencesFile;
+	protected SharedPreferencesStorage sharedPreferencesStorage;
 
 	protected double   lastLatitude;
 	protected double   lastLongitude;
@@ -33,7 +33,7 @@ public class LocationBareCache implements SharedPreferencesSubCacheContract
 
 	public LocationBareCache()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		lastLatitude = INVALID_LATITUDE_VALUE;
 		lastLongitude =INVALID_LONGITUDE_VALUE;
 		lastLocationUpdateInMs=-1;
@@ -41,7 +41,7 @@ public class LocationBareCache implements SharedPreferencesSubCacheContract
 
 	public void load()
 	{
-		sharedPreferencesFile.load();
+		sharedPreferencesStorage.load();
 		isLoaded = false;
 	}
 
@@ -51,8 +51,8 @@ public class LocationBareCache implements SharedPreferencesSubCacheContract
 		this.lastLatitude = location.getLatitude();
 		this.lastLongitude = location.getLongitude();
 		lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
-		sharedPreferencesFile.save();
-		ThisApp.getBgndTaskCtrl().setForecast();
+		sharedPreferencesStorage.save();
+		ThisApp.getAppWorkersCtrl().setForecast();
 	}
 
 	public long getLastLocationUpdateInMs()

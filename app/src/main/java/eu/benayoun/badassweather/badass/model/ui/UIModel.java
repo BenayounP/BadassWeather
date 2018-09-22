@@ -3,8 +3,8 @@ package eu.benayoun.badassweather.badass.model.ui;
 import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
@@ -12,9 +12,9 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
  * Created by PierreB on 04/02/2018.
  */
 
-public class UIModel implements SharedPreferencesSubCacheContract
+public class UIModel implements SharedPreferencesStorageContract
 {
-	protected SharedPreferencesFile sharedPreferencesFile;
+	protected SharedPreferencesStorage sharedPreferencesStorage;
 
 	protected String currentWeather;
 	protected String nextWeather;
@@ -22,7 +22,7 @@ public class UIModel implements SharedPreferencesSubCacheContract
 
 	public UIModel()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		currentWeather ="";
 		nextWeather="";
 		noData = Badass.getString(R.string.no_data);
@@ -32,7 +32,7 @@ public class UIModel implements SharedPreferencesSubCacheContract
 	{
 		this.currentWeather = currentWeather;
 		this.nextWeather = nextWeather;
-		sharedPreferencesFile.save();
+		sharedPreferencesStorage.save();
 		Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
 	}
 
@@ -59,7 +59,7 @@ public class UIModel implements SharedPreferencesSubCacheContract
 
 	public void load()
 	{
-		sharedPreferencesFile.load();
+		sharedPreferencesStorage.load();
 		Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
 	}
 

@@ -3,7 +3,7 @@ package eu.benayoun.badassweather.badass.ui.activity.receivers;
 import android.support.v4.content.LocalBroadcastManager;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badassweather.badass.ui.activity.AppActivity;
+import eu.benayoun.badassweather.badass.ui.activity.MainActivity;
 
 
 /**
@@ -14,7 +14,7 @@ public class ActivityReceiverManager
 {
 	ActivityOnEventReceiver MainActivityOnEventReceiver = null;
 
-	public void registerInActivity(AppActivity mainActivity)
+	public void registerInActivity(MainActivity mainActivity)
 	{
 		LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
 				.getInstance(Badass.getApplicationContext());
@@ -34,7 +34,7 @@ public class ActivityReceiverManager
 
 	// broadcastUIEvent
 
-	protected void  registerRefreshReceiver(LocalBroadcastManager localBroadcastManager, AppActivity mainActivity)
+	protected void  registerRefreshReceiver(LocalBroadcastManager localBroadcastManager, MainActivity mainActivity)
 	{
 		if (null == MainActivityOnEventReceiver)
 		{

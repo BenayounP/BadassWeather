@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.cache.SharedPreferencesFile;
-import eu.benayoun.badass.utility.cache.SharedPreferencesSubCacheContract;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 
@@ -15,12 +15,12 @@ import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
  * Created by PierreB on 17/07/2017.
  */
 
-public class ForecastBareCache implements SharedPreferencesSubCacheContract
+public class ForecastBareCache implements SharedPreferencesStorageContract
 {
 
 	protected final String KEY = "ForecastBareCacheContainer_";
 
-	protected SharedPreferencesFile sharedPreferencesFile;
+	protected SharedPreferencesStorage sharedPreferencesStorage;
 
 	// setNextWorkInTheBackground
 	long lastForecastUpdateInMs;
@@ -32,7 +32,7 @@ public class ForecastBareCache implements SharedPreferencesSubCacheContract
 
 	public ForecastBareCache()
 	{
-		sharedPreferencesFile = new SharedPreferencesFile(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		oneHourBareForecastList = new ArrayList<>();
 	}
 
@@ -42,7 +42,7 @@ public class ForecastBareCache implements SharedPreferencesSubCacheContract
 	{
 		this.oneHourBareForecastList = oneHourForecastList;
 		nextWeatherReportInMs = nextWeatherReportInMsArg;
-		sharedPreferencesFile.save();
+		sharedPreferencesStorage.save();
 		lastForecastUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
 	}
 
@@ -65,7 +65,7 @@ public class ForecastBareCache implements SharedPreferencesSubCacheContract
 
 	public void load()
 	{
-		sharedPreferencesFile.load();
+		sharedPreferencesStorage.load();
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package eu.benayoun.badassweather.badass.ui.activity.screens.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,10 +31,12 @@ public class HomeScreen extends ReactiveLayout
     AppStateLayout appStateLayout;
 
     LinearLayout mainLayout;
-    TextView nominalTextView;
-    TextView detailsTextView;
-    Button aboutButton;
-    boolean currentDisplayIsNominal=true;
+    TextView forecastTextView;
+    LinearLayout moreLayout;
+    TextView moreTextView;
+    TextView aboutTextView;
+    Button moreButton;
+    boolean forecastIsDisplayed =true;
 
 
 
@@ -49,19 +51,27 @@ public class HomeScreen extends ReactiveLayout
         homeSwipeRefreshLayoutListener = new HomeSwipeRefreshLayoutListener(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(homeSwipeRefreshLayoutListener);
 
+        // content
         contentView = mainView.findViewById(R.id.screen_home_content);
 
         mainLayout = mainView.findViewById(R.id.screen_home_main);
-        BadassViewUtils.doNotDisplayOnPortraitAndroidNavigationBar(mainLayout);
 
-        nominalTextView = mainView.findViewById(R.id.screen_home_nominal_text);
-        detailsTextView = mainView.findViewById(R.id.screen_home_about_text);
-        detailsTextView.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
+        mainLayout.setPadding(0,BadassViewUtils.getAndroidStatusBarHeight()+mainLayout.getPaddingTop(),0,0);
+        BadassViewUtils.doNotDisplayOn_landscape_AndroidNavigationBar(mainLayout);
 
+        forecastTextView = mainView.findViewById(R.id.screen_home_forecast_text);
+        moreTextView = mainView.findViewById(R.id.screen_home_more_text);
+
+        //more
+        moreLayout = mainView.findViewById(R.id.screen_home_more_layout);
+
+        aboutTextView = mainView.findViewById(R.id.screen_home_about_text);
+        aboutTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        aboutTextView.setLinkTextColor(Badass.getColor(R.color.app_accent_text));
 
         View appStatusView = mainView.findViewById(R.id.screen_home_status_layout);
-        BadassViewUtils.doNotDisplayOnLandscapeAndroidNavigationBar(appStatusView);
-        BadassViewUtils.doNotDisplayOnPortraitAndroidNavigationBar(appStatusView);
+        BadassViewUtils.doNotDisplayOn_portrait_AndroidNavigationBar(appStatusView);
+        BadassViewUtils.doNotDisplayOn_landscape_AndroidNavigationBar(appStatusView);
 
         // notification switch
         final Switch notificationSwitch = mainView.findViewById(R.id.screen_home_switch_notification);
@@ -76,8 +86,8 @@ public class HomeScreen extends ReactiveLayout
         });
 
         // about button
-        aboutButton = mainView.findViewById(R.id.screen_home_about_button);
-        aboutButton.setOnClickListener(new View.OnClickListener() {public void onClick(View v) {
+        moreButton = mainView.findViewById(R.id.screen_home_about_button);
+        moreButton.setOnClickListener(new View.OnClickListener() {public void onClick(View v) {
             onAboutButtonClick(); }});
 
         // status
@@ -93,8 +103,17 @@ public class HomeScreen extends ReactiveLayout
     @Override
     protected void updateMainContent(int eventId, long eventTimeInMs)
     {
-        Badass.log("$$ HomeScreen updateMainContent: " + Badass.getEventName(eventId));
         homeSwipeRefreshLayoutListener.refresh(eventId);
+        setForecastView();
+        setMoreTextView();
+    }
+
+    /**
+     * INTERNAL COOKING
+     */
+
+    protected void setForecastView()
+    {
         String  toDisplay ="";
         UIModel uIModel   = ThisApp.getModel().uIModel;
         if (uIModel.isEmpty())
@@ -109,21 +128,12 @@ public class HomeScreen extends ReactiveLayout
                 toDisplay+="\n\n"+uIModel.getNextWeather();
             }
         }
-        nominalTextView.setText(toDisplay);
-        setDetailedTextView();
+        forecastTextView.setText(toDisplay);
     }
 
-    /**
-     * INTERNAL COOKING
-     */
-
-    protected void setDetailedTextView()
+    protected void setMoreTextView()
     {
-        SpannableStringBuilder stringBuilder= new SpannableStringBuilder();
-        stringBuilder.append(getLastLocationUpdate()).append("\n\n");
-        stringBuilder.append(getLastForecastUpdate()).append("\n\n");
-        stringBuilder.append(Badass.getText(R.string.home_notification_about));
-        detailsTextView.setText(stringBuilder);
+       moreTextView.setText(getLastLocationUpdate() + "\n\n"+getLastForecastUpdate());
 
     }
 
@@ -155,9 +165,9 @@ public class HomeScreen extends ReactiveLayout
 
     protected void onAboutButtonClick()
     {
-        currentDisplayIsNominal=!currentDisplayIsNominal;
-        nominalTextView.setVisibility(getVisibility(currentDisplayIsNominal));
-        detailsTextView.setVisibility(getVisibility(!currentDisplayIsNominal));
+        forecastIsDisplayed =!forecastIsDisplayed;
+        forecastTextView.setVisibility(getVisibility(forecastIsDisplayed));
+        moreLayout.setVisibility(getVisibility(!forecastIsDisplayed));
     }
 
 
@@ -165,6 +175,4 @@ public class HomeScreen extends ReactiveLayout
     {
         return (isVisible? View.VISIBLE : View.GONE);
     }
-
-
 }
