@@ -23,20 +23,19 @@ public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefr
 	@Override
 	public void onRefresh()
 	{
-		ThisApp.getAppWorkersCtrl().updateAllData();
+		ThisApp.getAppBadassJobList().updateAllData();
 		Badass.broadcastUIEvent(UIEvents.RESUME);
 	}
 
 
 	public void refresh(int eventId)
 	{
-		if (eventId == UIEvents.RESUME || eventId == UIEvents.COMPUTE)
+		if (eventId == UIEvents.RESUME || eventId == UIEvents.BACKGROUND_EVENT)
 		{
 			if (Badass.isThreadRunning()==false)
 			{
 				swipeRefreshLayout.setRefreshing(false);
 			}
-
 		}
 	}
 

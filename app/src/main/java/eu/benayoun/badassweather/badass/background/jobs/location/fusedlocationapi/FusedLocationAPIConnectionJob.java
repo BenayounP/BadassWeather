@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.fusedlocationapi;
+package eu.benayoun.badassweather.badass.background.jobs.location.fusedlocationapi;
 
 import android.location.Location;
 import android.os.Looper;
@@ -11,7 +11,7 @@ import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCache;
 
 
 
@@ -25,18 +25,18 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 	protected LocationRequest         locationRequest;
 	protected boolean askedForLocationUpdate = false;
 
-	FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr;
+	FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr;
 
 
-	public FusedLocationAPIConnectionJob(FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndMngr)
+	public FusedLocationAPIConnectionJob(FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr)
 	{
 		this.fusedLocationAPIConnectionBgndMngr = fusedLocationAPIConnectionBgndMngr;
 	}
 
 	@Override
-	public BadassJob.Status getStartingStatus()
+	public BadassJob.State getStartingState()
 	{
-		return Status.START_ASAP;
+		return State.START_ASAP;
 	}
 
 
@@ -68,7 +68,6 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 	{
 		if (fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().isPermissionGranted())
 		{
-			Badass.log("##!! manageConnection badassPermissionCtrl.isGranted()");
 			if (ThisApp.getModel().appPreferencesAndAssets.isUserHasrespondedToPermissionsDemands()==false)
 			{
 				ThisApp.getModel().appPreferencesAndAssets.setUserHasrespondedToPermissionsDemands();
@@ -77,11 +76,11 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 			if (client.isConnected() == false && client.isConnecting()==false)
 			{
 				Badass.finalLog("## connecting FusedLocationAPI client");
-				ThisApp.getModel().appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_location));
+				ThisApp.getModel().appStateCtrl.setJobRunning(Badass.getString(R.string.app_state_connect_api));
 				askedForLocationUpdate = false;
 				client.connect();
 
-				if (status == Status.START_ASAP) goToSleep();
+				if (state == State.START_ASAP) goToSleep();
 			}
 			else
 			{
@@ -96,7 +95,7 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 					Badass.finalLog("## pb in manageConnection : unknown case");
 			}
 		}
-		else
+		else // No permission
 		{
 			Badass.log("##!! manageConnection badassPermissionCtrl.isNOTGranted()");
 			Badass.logInFile("##! " + getName()+ " " + getCompleteStatusString() + ":  Don't have Location permission");
@@ -125,7 +124,7 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 		locationRequest.setFastestInterval(1);
 		locationRequest.setSmallestDisplacement(LocationBareCache.DELTA_DISTANCE_IN_METERS*2);
 		locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
-		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getAppWorkersCtrl().getLocationWorker(), Looper.getMainLooper());
+		LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, ThisApp.getAppBadassJobList().getLocationJob(), Looper.getMainLooper());
 	}
 
 

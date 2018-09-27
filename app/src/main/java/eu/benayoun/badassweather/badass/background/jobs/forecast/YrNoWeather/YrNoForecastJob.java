@@ -1,4 +1,6 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather;
+package eu.benayoun.badassweather.badass.background.jobs.forecast.YrNoWeather;
+
+import android.text.format.DateUtils;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -12,6 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
@@ -19,6 +22,7 @@ import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.model.XmlParser;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.ui.BadassLog;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
@@ -28,7 +32,7 @@ import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastMo
  * Created by PierreB on 05/06/2017.
  */
 
-public class YrNoForecastBgndTask
+public class YrNoForecastJob
 {
     long UTCOffsetInMs;
     long nextWeatherReportInMs =-1;
@@ -41,7 +45,7 @@ public class YrNoForecastBgndTask
 	int readDurationInHours;
 
 
-	public YrNoForecastBgndTask(BadassJob badassJob)
+	public YrNoForecastJob(BadassJob badassJob)
 	{
 		this.badassJob = badassJob;
 	}
@@ -93,13 +97,13 @@ public class YrNoForecastBgndTask
 					Badass.logInFile("##! YrNoForecastBgndCtrl volleyError or volleyError.networkResponse is NULL");
 				}
 			}
-			badassJob.setGlobalProblemStringId(R.string.app_status_problem_forecast);
+			badassJob.setGlobalProblemStringId(R.string.app_state_problem_forecast);
             badassJob.askToResolveProblem();
 		}
 		if (thereWasAProblem == false && websiteStringResponse==null)
 		{
-			Badass.logInFile("##! " + Badass.getString(R.string.app_status_forecast_problem_server_null_data));
-			badassJob.setGlobalProblemStringId(R.string.app_status_forecast_problem_server_null_data);
+			Badass.logInFile("##! " + Badass.getString(R.string.app_state_forecast_problem_server_null_data));
+			badassJob.setGlobalProblemStringId(R.string.app_state_forecast_problem_server_null_data);
 			badassJob.askToResolveProblem();
 		}
 		return websiteStringResponse;
@@ -127,12 +131,12 @@ public class YrNoForecastBgndTask
 		if (eventType==-1)
 		{
 			Badass.logInFile("##! YrNoForecastBgndCtrl eventType==-1");
-			badassJob.setGlobalProblemStringId(R.string.app_status_problem_server_compute);
+			badassJob.setGlobalProblemStringId(R.string.app_state_problem_server_compute);
 			badassJob.askToResolveProblem();
 		}
 		else
 		{
-			Badass.logInFile("## YrNoForecastBgndCtrl OK, save data");
+			Badass.logInFile("## YrNoForecastBgndCtrl IDLE, save data");
 			// SAVE DATA
 			saveForecastData();
 		}
@@ -170,7 +174,15 @@ public class YrNoForecastBgndTask
 		{
 			if (xmlParser.getAttributeName(i).equals("nextrun"))
 			{
-				nextWeatherReportInMs = getTimeInMs(xmlParser.getAttributeValue(i));
+                long scheduleTimeInMs = getTimeInMs(xmlParser.getAttributeValue(i));
+                long currentTimeInMs = BadassTimeUtils.getCurrentTimeInMs();
+                if (scheduleTimeInMs <= currentTimeInMs)
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    BadassTimeUtils.setStartOfHour(calendar);
+                    scheduleTimeInMs = calendar.getTimeInMillis()+DateUtils.HOUR_IN_MILLIS;
+                }
+                nextWeatherReportInMs = scheduleTimeInMs;
 				break;
 			}
 		}
@@ -261,7 +273,7 @@ public class YrNoForecastBgndTask
 			eventType = xmlParser.getEventType();
 		} catch (XmlPullParserException e)
 		{
-			Badass.log("##! YrNoForecastBgndCtrl XmlPullParserException "+ e.toString());
+			BadassLog.error("##! YrNoForecastBgndCtrl XmlPullParserException "+ e.toString());
 		}
 		return eventType;
 	}
@@ -270,7 +282,7 @@ public class YrNoForecastBgndTask
 	{
 		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(oneHourForecastList,nextWeatherReportInMs);
         badassJob.schedule(nextWeatherReportInMs);
-		ThisApp.getAppWorkersCtrl().updateUI();
+		ThisApp.getAppBadassJobList().updateUI();
 	}
 
 }

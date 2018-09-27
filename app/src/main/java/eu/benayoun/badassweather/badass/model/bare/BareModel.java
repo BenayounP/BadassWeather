@@ -1,7 +1,7 @@
 package eu.benayoun.badassweather.badass.model.bare;
 
 
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCache;
 import eu.benayoun.badassweather.badass.model.bare.forecast.ForecastBareCache;
 
 /**

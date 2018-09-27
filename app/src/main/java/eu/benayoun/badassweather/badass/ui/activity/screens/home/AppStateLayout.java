@@ -33,9 +33,9 @@ public class AppStateLayout extends ReactiveLayout
 			}
 		});
 
-		listenTo(UIEvents.COMPUTE);
+		listenTo(UIEvents.BACKGROUND_EVENT);
 		listenTo(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
-		listenTo(UIEvents.APP_STATUS_CHANGE);
+		listenTo(UIEvents.app_state_CHANGE);
 		listenTo(UIEvents.RESUME);
 	}
 
@@ -48,7 +48,6 @@ public class AppStateLayout extends ReactiveLayout
 	@Override
 	protected void updateMainContent(int eventId, long eventTimeInMs)
 	{
-	    Badass.log("$$ AppStateLayout updateMainContent: " + Badass.getEventName(eventId));
 		AppStateCtrl appStateCtrl = ThisApp.getModel().appStateCtrl;
 		boolean       weNeedUserAction =false;
 		if (appStateCtrl.thereIsProblem())

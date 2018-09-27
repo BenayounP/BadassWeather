@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast;
+package eu.benayoun.badassweather.badass.background.jobs.forecast;
 
 import android.text.format.DateUtils;
 
@@ -7,29 +7,29 @@ import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather.YrNoForecastBgndTask;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.jobs.forecast.YrNoWeather.YrNoForecastJob;
+import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCache;
 
-public class ForecastWorker extends BadassJob
+public class ForecastJob extends BadassJob
 {
-	YrNoForecastBgndTask yrNoForecastBgndTask;
+	YrNoForecastJob yrNoForecastJob;
 
-	public ForecastWorker()
+	public ForecastJob()
 	{
-		yrNoForecastBgndTask = new YrNoForecastBgndTask(this);
+		yrNoForecastJob = new YrNoForecastJob(this);
 	}
 
 	@Override
-	protected Status getStartingStatus()
+	protected State getStartingState()
 	{
-		return Status.SLEEPING;
+		return State.SLEEPING;
 	}
 
 	@Override
 	protected void work()
 	{
 		Badass.logInFile("##" + getName() + " performBgndTask()");
-		ThisApp.getModel().appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_getting_weather_report));
+		ThisApp.getModel().appStateCtrl.setJobRunning(Badass.getString(R.string.app_state_getting_weather_report));
 		getWeatherForecast();
 	}
 
@@ -54,19 +54,19 @@ public class ForecastWorker extends BadassJob
 		{
 			if (Badass.isConnectedToInternet())
 			{
-				yrNoForecastBgndTask.getYrNoForecast(latitude, longitude);
+				yrNoForecastJob.getYrNoForecast(latitude, longitude);
 			}
 			else
 			{
 				Badass.logInFile("##!!" + getName() + " no internet connection -> Can't get forecast");
-				setGlobalProblemStringId(R.string.app_status_problem_no_internet);
+				setGlobalProblemStringId(R.string.app_state_problem_no_internet);
 				askToResolveProblem();
 			}
 		}
 		else
 		{
 			Badass.logInFile("##!!" + getName() + " no location -> Can't get forecast");
-			setGlobalProblemStringId(R.string.app_status_problem_location);
+			setGlobalProblemStringId(R.string.app_state_problem_location);
 			askToResolveProblem();
 		}
 	}

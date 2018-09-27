@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.fusedlocationapi;
+package eu.benayoun.badassweather.badass.background.jobs.location.fusedlocationapi;
 
 import android.Manifest;
 import android.location.Location;
@@ -17,13 +17,15 @@ import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class FusedLocationAPIConnectionBgndCtrl
-		implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, PermissionListenerContract
+public class FusedLocationAPIConnectionCtrl
+		implements GoogleApiClient.OnConnectionFailedListener,
+                   GoogleApiClient.ConnectionCallbacks,
+                   PermissionListenerContract
 {
 	BadassPermissionCtrl               badassPermissionCtrl;
 	FusedLocationAPIConnectionJob fusedLocationAPIConnectionJob;
 
-	public FusedLocationAPIConnectionBgndCtrl()
+	public FusedLocationAPIConnectionCtrl()
 	{
 		badassPermissionCtrl = Badass.getPermissionManager(Manifest.permission.ACCESS_FINE_LOCATION, R.string.permission_location_standard, this);
 		badassPermissionCtrl.setExplanationForUsersThatCheckedNeverAskAgainStringId(R.string.permission_location_for_users_that_heck_never_ask_again);
@@ -52,7 +54,7 @@ public class FusedLocationAPIConnectionBgndCtrl
 	public void onConnected(@Nullable Bundle bundle)
 	{
 		Badass.logInFile("** on connected to FusedLocationAPI client");
-		ThisApp.getAppWorkersCtrl().manageFusedLocationAPI();
+		ThisApp.getAppBadassJobList().manageFusedLocationAPI();
 	}
 
 
@@ -60,14 +62,14 @@ public class FusedLocationAPIConnectionBgndCtrl
 	public void onConnectionSuspended(int i)
 	{
 		Badass.logInFile("** on connection supended from fusedlocationAPI client!");
-		ThisApp.getAppWorkersCtrl().onFusedLocationAPIProblem();
+		ThisApp.getAppBadassJobList().onFusedLocationAPIProblem();
 	}
 
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
 	{
 		Badass.logInFile("** on connection failed from fusedlocationAPI client: " + connectionResult.toString());
-		ThisApp.getAppWorkersCtrl().onFusedLocationAPIProblem();
+		ThisApp.getAppBadassJobList().onFusedLocationAPIProblem();
 	}
 
 
@@ -75,7 +77,7 @@ public class FusedLocationAPIConnectionBgndCtrl
 	public void onPermissionGranted()
 	{
 		Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
-		fusedLocationAPIConnectionJob.prepareToStartAtNextCall();
+		fusedLocationAPIConnectionJob.askToStartAsap();
 		Badass.startBadassThread();
 	}
 

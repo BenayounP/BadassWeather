@@ -96,7 +96,7 @@ public class HomeScreen extends ReactiveLayout
         addSubLayout(appStateLayout);
 
         listenTo(UIEvents.RESUME);
-        listenTo(UIEvents.COMPUTE);
+        listenTo(UIEvents.BACKGROUND_EVENT);
         listenTo(UIEvents.WEATHER_CHANGE);
     }
 

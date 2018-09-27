@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather;
+package eu.benayoun.badassweather.badass.background.jobs.forecast.YrNoWeather;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badassweather.R;

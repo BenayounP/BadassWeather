@@ -22,8 +22,8 @@ public class UIEvents implements UIEventsContract
 
 	public static final int USER_NOTIFICATION_PREFERENCE = 4;
 
-	public static final int COMPUTE          = 5;
-	public static final int APP_STATUS_CHANGE         = 6;
+	public static final int BACKGROUND_EVENT = 5;
+	public static final int app_state_CHANGE         = 6;
 
 	public static final int WEATHER_CHANGE          =7;
 
@@ -54,10 +54,10 @@ public class UIEvents implements UIEventsContract
 
 			case PERMISSION_STATUS_CHANGE_RESULT:
 				reasonString = "PERMISSION_STATUS_CHANGE_RESULT";break;
-			case COMPUTE:
-				reasonString = "COMPUTE";break;
-			case APP_STATUS_CHANGE:
-				reasonString = "APP_STATUS_CHANGE";break;
+			case BACKGROUND_EVENT:
+				reasonString = "BACKGROUND_EVENT";break;
+			case app_state_CHANGE:
+				reasonString = "app_state_CHANGE";break;
 			case WEATHER_CHANGE:
 				reasonString = "WEATHER_CHANGE";break;
 		}

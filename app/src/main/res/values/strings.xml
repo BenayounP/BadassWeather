@@ -34,22 +34,24 @@
     <!-- ************** -->
     <!-- APP STATUS  -->
     <!-- ************** -->
-    <string name="app_status_init">Initialisation</string>
-    <string name="app_status_bgnd_update_start">Getting Data in background</string>
-    <string name="app_status_loading_data">Loading your data</string>
+    <string name="app_state_init">Initialisation</string>
+    <string name="app_state_bgnd_update_start">Getting your data</string>
+    <string name="app_state_loading_data">Loading your data</string>
 
-    <string name="app_status_problem_no_internet">No internet connection</string>
-    <string name="app_status_forecast_problem_server_null_data">Forecast distant server data is null</string>
-    <string name="app_status_problem_server_compute">Can\'t compute server data</string>
+    <string name="app_state_problem_no_internet">No internet connection</string>
+    <string name="app_state_forecast_problem_server_null_data">Forecast distant server data is null</string>
+    <string name="app_state_problem_server_compute">Can\'t compute server data</string>
 
-    <string name="app_status_getting_location">Getting your location</string>
-    <string name="app_status_problem_location">Can\'t get your location</string>
-    <string name="app_status_problem_location_null">no data available</string>
+    <string name="app_state_connect_api">Connecting to device location system</string>
 
-    <string name="app_status_getting_weather_report">Getting your weather Report</string>
-    <string name="app_status_display_forecast_report">Updating forecast display</string>
-    <string name="app_status_problem_forecast">Can\'t get your forecast</string>
-    <string name="app_status_next_weather_report">Next weather report: %1$s</string>
+    <string name="app_state_getting_location">Getting your location</string>
+    <string name="app_state_problem_location">Can\'t get your location</string>
+    <string name="app_state_problem_location_null">no data available</string>
+
+    <string name="app_state_getting_weather_report">Getting your weather Report</string>
+    <string name="app_state_display_forecast_report">Updating forecast display</string>
+    <string name="app_state_problem_forecast">Can\'t get your forecast</string>
+    <string name="app_state_next_weather_report">Next weather report: %1$s</string>
 
     <!-- ****** -->
     <!-- YR NO  -->

@@ -4,66 +4,62 @@ import android.location.Location;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJobsCtrl;
-import eu.benayoun.badass.background.badassthread.badassjob.BadassJobListContract;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
-import eu.benayoun.badassweather.R;
-import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.datainit.DataInitWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.ForecastWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.LocationWorker;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location.fusedlocationapi.FusedLocationAPIConnectionBgndCtrl;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.uiupdate.UiUpdateWorker;
-import eu.benayoun.badassweather.badass.ui.events.UIEvents;
+import eu.benayoun.badassweather.badass.background.jobs.datainit.DataInitJob;
+import eu.benayoun.badassweather.badass.background.jobs.forecast.ForecastJob;
+import eu.benayoun.badassweather.badass.background.jobs.location.LocationJob;
+import eu.benayoun.badassweather.badass.background.jobs.location.fusedlocationapi.FusedLocationAPIConnectionCtrl;
+import eu.benayoun.badassweather.badass.background.jobs.uiupdate.UiUpdateJob;
 
 
 /**
  * Created by PierreB on 01/10/2017.
  */
 
-public class AppBadassJobList implements BadassJobListContract
+public class AppBadassJobList
 {
 	protected AppAndroidEventsCtrl appAndroidEventsCtrl;
 
 	protected BadassJobsCtrl badassJobsCtrl;
 
 	//tasks
-	protected FusedLocationAPIConnectionBgndCtrl fusedLocationAPIConnectionBgndCtrl;
-	protected LocationWorker locationWorker;
-	protected ForecastWorker forecastWorker;
-	protected UiUpdateWorker uiUpdateWorker;
+	protected FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionCtrl;
+	protected LocationJob locationJob;
+	protected ForecastJob forecastJob;
+	protected UiUpdateJob uiUpdateJob;
 
 
 	public AppBadassJobList()
 	{
 		appAndroidEventsCtrl = new AppAndroidEventsCtrl(this);
-		badassJobsCtrl = new BadassJobsCtrl(this);
+		badassJobsCtrl = new BadassJobsCtrl();
 
-		badassJobsCtrl.addJob(new DataInitWorker());
+		badassJobsCtrl.addJob(new DataInitJob());
 
-		fusedLocationAPIConnectionBgndCtrl = new FusedLocationAPIConnectionBgndCtrl();
-		badassJobsCtrl.addJob(fusedLocationAPIConnectionBgndCtrl.getFusedLocationAPIConnectionJob());
-		locationWorker = new LocationWorker(this);
-		badassJobsCtrl.addJob(locationWorker);
-		forecastWorker = new ForecastWorker();
-		badassJobsCtrl.addJob(forecastWorker);
-		uiUpdateWorker = new UiUpdateWorker();
-		badassJobsCtrl.addJob(uiUpdateWorker);
-
-
-		Badass.setJobCtrl(badassJobsCtrl);
-		Badass.startBadassThread();
+		fusedLocationAPIConnectionCtrl = new FusedLocationAPIConnectionCtrl();
+		badassJobsCtrl.addJob(fusedLocationAPIConnectionCtrl.getFusedLocationAPIConnectionJob());
+		locationJob = new LocationJob(this);
+		badassJobsCtrl.addJob(locationJob);
+		forecastJob = new ForecastJob();
+		badassJobsCtrl.addJob(forecastJob);
+		uiUpdateJob = new UiUpdateJob();
+		badassJobsCtrl.addJob(uiUpdateJob);
 	}
 
+    public BadassJobsCtrl getBadassJobsCtrl()
+    {
+        return badassJobsCtrl;
+    }
 
-	public void manageFusedLocationAPI()
+    public void manageFusedLocationAPI()
 	{
-		fusedLocationAPIConnectionBgndCtrl.getBadassJob().askToStartAsap();
+		fusedLocationAPIConnectionCtrl.getBadassJob().askToStartAsap();
 		Badass.startBadassThread();
 	}
 
 	public void onFusedLocationAPIProblem()
 	{
-		fusedLocationAPIConnectionBgndCtrl.getBadassJob().askToStartAsap();
+		fusedLocationAPIConnectionCtrl.getBadassJob().askToStartAsap();
         Badass.startBadassThread();
 	}
 
@@ -78,22 +74,21 @@ public class AppBadassJobList implements BadassJobListContract
 	}
 
 
-
 	public void setForecast()
 	{
-		forecastWorker.askToStartAsap();
+		forecastJob.askToStartAsap();
 	}
 
 	public void updateAllData()
 	{
-		locationWorker.askToStartAsap();
-		forecastWorker.askToStartAsap();
+		locationJob.askToStartAsap();
+		forecastJob.askToStartAsap();
 		Badass.startBadassThread();
 	}
 
 	public void updateUI()
 	{
-		uiUpdateWorker.askToStartAsap();
+		uiUpdateJob.askToStartAsap();
         Badass.startBadassThread();
 	}
 
@@ -101,52 +96,37 @@ public class AppBadassJobList implements BadassJobListContract
 	// GETTERS
 	public Location fetchFusedLocationAPILocation()
 	{
-		return fusedLocationAPIConnectionBgndCtrl.fetchLocation();
+		return fusedLocationAPIConnectionCtrl.fetchLocation();
 	}
 
 
 	public String getFusedLocationAPIPbString()
 	{
-		return fusedLocationAPIConnectionBgndCtrl.getBadassJob().getProblemString();
+		return fusedLocationAPIConnectionCtrl.getBadassJob().getProblemString();
 	}
 
 	public String getForecastPbString()
 	{
-		return forecastWorker.getProblemString();
+		return forecastJob.getProblemString();
 	}
 
 
 	public BadassPermissionCtrl getFusedLocationAPIPermission()
 	{
-		return fusedLocationAPIConnectionBgndCtrl.getBadassPermissionCtrl();
+		return fusedLocationAPIConnectionCtrl.getBadassPermissionCtrl();
 	}
 
 	public String getLocationPbString()
 	{
-		return locationWorker.getProblemString();
+		return locationJob.getProblemString();
 	}
 
-	public LocationWorker getLocationWorker()
+	public LocationJob getLocationJob()
 	{
-		return locationWorker;
+		return locationJob;
 	}
 
-	public FusedLocationAPIConnectionBgndCtrl getFusedLocationAPIConnectionBgndCtrl() {
-		return fusedLocationAPIConnectionBgndCtrl;
+	public FusedLocationAPIConnectionCtrl getFusedLocationAPIConnectionCtrl() {
+		return fusedLocationAPIConnectionCtrl;
 	}
-
-	// LISTENER
-	@Override
-	public void onJobListStart()
-	{
-		ThisApp.getModel().appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_bgnd_update_start));
-	}
-
-	@Override
-	public void onJobListEnd()
-	{
-		ThisApp.getModel().appStateCtrl.updateState();
-		Badass.broadcastUIEvent(UIEvents.COMPUTE);
-	}
-
 }

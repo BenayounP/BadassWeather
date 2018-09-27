@@ -85,7 +85,6 @@ public class MainActivity extends BadassActivity
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-		Badass.log("$$!! onRestoreInstanceState");
 		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
 	}
 
@@ -93,7 +92,7 @@ public class MainActivity extends BadassActivity
 	{
 		if (eventId == UIEvents.ASK_FINE_LOCATION_PERMISSION)
 		{
-			Badass.requestPermission(this, ThisApp.getAppWorkersCtrl().getFusedLocationAPIPermission());
+			Badass.requestPermission(this, ThisApp.getAppBadassJobList().getFusedLocationAPIPermission());
 		}
 		else
 		{
@@ -129,7 +128,7 @@ public class MainActivity extends BadassActivity
 		window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
 		// finally change the colorId
-		window.setStatusBarColor(Badass.getColor(R.color.app_status_bar_color));
+		window.setStatusBarColor(Badass.getColor(R.color.app_state_bar_color));
 	}
 
 }

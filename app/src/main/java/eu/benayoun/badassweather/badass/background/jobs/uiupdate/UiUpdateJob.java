@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.uiupdate;
+package eu.benayoun.badassweather.badass.background.jobs.uiupdate;
 
 import android.text.format.DateUtils;
 
@@ -11,18 +11,18 @@ import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.forecast.YrNoWeather.YrNoForecastUtils;
+import eu.benayoun.badassweather.badass.background.jobs.forecast.YrNoWeather.YrNoForecastUtils;
 import eu.benayoun.badassweather.badass.model.bare.forecast.AtomicBareForecastModel;
 
 
-public class UiUpdateWorker extends BadassJob
+public class UiUpdateJob extends BadassJob
 {
 
 
 	@Override
-	public BadassJob.Status getStartingStatus()
+	public BadassJob.State getStartingState()
 	{
-		return Status.START_ASAP;
+		return State.START_ASAP;
 	}
 
 	@Override

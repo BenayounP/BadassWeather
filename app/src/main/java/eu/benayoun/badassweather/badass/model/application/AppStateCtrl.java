@@ -17,9 +17,9 @@ import static eu.benayoun.badassweather.badass.model.application.AppStateCtrl.St
 
 public class AppStateCtrl
 {
-    static enum State {
-        OK,
-        BGND_TASKS_ONGOING,
+    enum State {
+        IDLE,
+        JOB_RUNNING,
         PERMISSION_FINE_LOCATION_NOT_GIVEN,
         LOCATION_PROBLEM,  
         FORECAST_PROBLEM
@@ -33,8 +33,8 @@ public class AppStateCtrl
 
     public AppStateCtrl()
     {
-        displayedString = Badass.getString(R.string.app_status_init);
-        currentState = BGND_TASKS_ONGOING;
+        displayedString = Badass.getString(R.string.app_state_init);
+        currentState = JOB_RUNNING;
     }
 
     // GETTERS
@@ -56,16 +56,16 @@ public class AppStateCtrl
 
     // SETTERS
 
-    public void setBgndTaskOngoing(String displayedStringArg)
+    public void setJobRunning(String displayedStringArg)
     {
-        currentState = BGND_TASKS_ONGOING;
+        currentState = JOB_RUNNING;
         displayedString = displayedStringArg;
-        Badass.broadcastUIEvent(UIEvents.COMPUTE);
+        Badass.broadcastUIEvent(UIEvents.BACKGROUND_EVENT);
     }
 
     public void updateState()
     {
-        AppBadassJobList thisAppBgndMngr               = ThisApp.getAppWorkersCtrl();
+        AppBadassJobList thisAppBgndMngr               = ThisApp.getAppBadassJobList();
         String          locationPbString              = thisAppBgndMngr.getLocationPbString();
         String          fusedLocationApiProblemString = thisAppBgndMngr.getFusedLocationAPIPbString();
         String          forecastProblemString         = thisAppBgndMngr.getForecastPbString();
@@ -90,12 +90,12 @@ public class AppStateCtrl
             String statusString ="";
             if (nextWeatherReportInMs!=-1)
             {
-                statusString = Badass.getString(R.string.app_status_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
+                statusString = Badass.getString(R.string.app_state_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
             }
             setOkStatus(statusString);
         }
         Badass.log("%% updateState: " + currentState.name());
-        Badass.broadcastUIEvent(UIEvents.APP_STATUS_CHANGE);
+        Badass.broadcastUIEvent(UIEvents.app_state_CHANGE);
     }
 
     // ACTION
@@ -103,7 +103,7 @@ public class AppStateCtrl
     {
         if (currentState== PERMISSION_FINE_LOCATION_NOT_GIVEN)
         {
-            if (ThisApp.getAppWorkersCtrl().getFusedLocationAPIConnectionBgndCtrl().getBadassPermissionCtrl().isUserHasCheckedNeverAskAgain())
+            if (ThisApp.getAppBadassJobList().getFusedLocationAPIConnectionCtrl().getBadassPermissionCtrl().isUserHasCheckedNeverAskAgain())
             {
                 BadassPermissionsMngr.goToSettingsPage();
             }
@@ -117,7 +117,7 @@ public class AppStateCtrl
 
     public void setOkStatus(String displayedStringArg)
     {
-        currentState = OK;
+        currentState = IDLE;
         displayedString = displayedStringArg;
     }
 

@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.datainit;
+package eu.benayoun.badassweather.badass.background.jobs.datainit;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
@@ -12,13 +12,13 @@ import eu.benayoun.badassweather.badass.model.Model;
  * Created by PierreB on 13/10/2017.
  */
 
-public class DataInitWorker extends BadassJob
+public class DataInitJob extends BadassJob
 {
 
 	@Override
-	public BadassJob.Status getStartingStatus()
+	public BadassJob.State getStartingState()
 	{
-		return Status.START_ASAP;
+		return State.START_ASAP;
 	}
 
 
@@ -26,11 +26,11 @@ public class DataInitWorker extends BadassJob
 	public void work()
 	{
 		Model model = ThisApp.getModel();
-		model.appStateCtrl.setBgndTaskOngoing(Badass.getString(R.string.app_status_loading_data));
+		model.appStateCtrl.setJobRunning(Badass.getString(R.string.app_state_loading_data));
 		model.load();
 		if (model.bareModel.locationBareCache.isValid())
 		{
-            ThisApp.getAppWorkersCtrl().setForecast();
+            ThisApp.getAppBadassJobList().setForecast();
         }
 		goToSleep();
 	}

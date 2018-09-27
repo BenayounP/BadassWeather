@@ -27,7 +27,7 @@ public class ThisAppWidgetProvider extends AppWidgetProvider
 		}
 		else if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction()))
 		{
-            ThisApp.getAppWorkersCtrl().updateUI();
+            ThisApp.getAppBadassJobList().updateUI();
 		}
 	};
 

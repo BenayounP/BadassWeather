@@ -1,4 +1,4 @@
-package eu.benayoun.badassweather.badass.background.backgroundtasks.jobs.location;
+package eu.benayoun.badassweather.badass.background.jobs.location;
 
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -52,8 +52,15 @@ public class LocationBareCache implements SharedPreferencesStorageContract
 		this.lastLongitude = location.getLongitude();
 		lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
 		sharedPreferencesStorage.save();
-		ThisApp.getAppWorkersCtrl().setForecast();
+		ThisApp.getAppBadassJobList().setForecast();
 	}
+
+    public void updateLocationSetTime()
+    {
+        lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
+        sharedPreferencesStorage.save();
+        ThisApp.getAppBadassJobList().setForecast();
+    }
 
 	public long getLastLocationUpdateInMs()
 	{

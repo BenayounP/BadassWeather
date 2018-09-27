@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <!-- MAIN ACTIVITY -->
+        <!-- APP WIDGET -->
 
         <receiver
             android:name="eu.benayoun.badassweather.badass.ui.notificationsandwidgets.ThisAppWidgetProvider"
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info"/>
+                android:resource="@xml/widget_info" />
         </receiver>
 
         <meta-data

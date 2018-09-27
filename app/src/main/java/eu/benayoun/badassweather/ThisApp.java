@@ -8,6 +8,7 @@ import com.crashlytics.android.Crashlytics;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.badass.background.AppBadassJobList;
+import eu.benayoun.badassweather.badass.background.AppThreadListener;
 import eu.benayoun.badassweather.badass.model.Model;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 import eu.benayoun.badassweather.badass.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
@@ -19,7 +20,7 @@ import io.fabric.sdk.android.Fabric;
  */
 public class ThisApp extends Application
 {
-	static private AppBadassJobList appWorkersCtrl;
+	static private AppBadassJobList appBadassJobList;
 	static protected Model model;
 	static protected NotificationAndWidgetsMngr notificationAndWidgetsMngr;
 
@@ -61,13 +62,15 @@ public class ThisApp extends Application
 			Fabric.with(this, new Crashlytics());
 		}
 
-		// Bgnd Manager
-		appWorkersCtrl = new AppBadassJobList();
+		// THREAD
+		appBadassJobList = new AppBadassJobList();
+		Badass.setThreadMngr(appBadassJobList.getBadassJobsCtrl(),new AppThreadListener());
+		Badass.startBadassThread();
 	}
 
-	public static AppBadassJobList getAppWorkersCtrl()
+	public static AppBadassJobList getAppBadassJobList()
 	{
-		return appWorkersCtrl;
+		return appBadassJobList;
 	}
 
 	public static Model getModel()
