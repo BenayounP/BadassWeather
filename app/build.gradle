@@ -24,8 +24,8 @@ android {
         applicationId "eu.benayoun.badassweather"
         minSdkVersion 16
         targetSdkVersion project.COMPILE_SDK_VERSION.toInteger()
-        versionCode 1
-        versionName "0.8.0"
+        versionCode 2
+        versionName "0.8.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -53,5 +53,5 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true;
     }
-    implementation 'com.github.benayounp:badass:0.5.423'
+    implementation 'com.github.benayounp:badass:0.6.01'
 }

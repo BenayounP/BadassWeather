@@ -20,11 +20,11 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_margin="@dimen/padding_gargantua">
+            android:layout_margin="@dimen/badass_padding_gargantua">
 
             <TextView
                 android:id="@+id/screen_home_forecast_text"
-                style="@style/BigText"
+                style="@style/homescreen_big_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"/>
@@ -40,22 +40,22 @@
 
                 <TextView
                     android:id="@+id/screen_home_more_text"
-                    style="@style/NominalText"
+                    style="@style/homescreen_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     />
 
                 <FrameLayout android:layout_width="match_parent"
-                    android:layout_height="@dimen/padding_tiny"
-                    android:layout_marginTop="@dimen/padding_gargantua"
-                    android:layout_marginRight="@dimen/padding_gargantua"
-                    android:layout_marginBottom="@dimen/padding_gargantua"
+                    android:layout_height="@dimen/badass_padding_tiny"
+                    android:layout_marginTop="@dimen/badass_padding_gargantua"
+                    android:layout_marginRight="@dimen/badass_padding_gargantua"
+                    android:layout_marginBottom="@dimen/badass_padding_gargantua"
                     android:background="@color/app_primary_text" />
 
                 <TextView
                     android:id="@+id/screen_home_about_text"
-                    style="@style/NominalText"
+                    style="@style/homescreen_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -89,7 +89,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="@string/home_notification_switch"
-                    style="@style/MediumText"/>
+                    style="@style/homescreen_text"/>
 
                 <FrameLayout
                     android:layout_width="@dimen/global_layout_padding"
@@ -100,31 +100,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/classicButton"
-                    android:textSize="@dimen/big_textSize"
                     android:text="?"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/screen_home_status_layout"
+                android:id="@+id/screen_home_state_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/global_layout_padding"
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/screen_home_status_text"
+                    android:id="@+id/screen_home_state_text"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    style="@style/NominalText"/>
+                    style="@style/homescreen_text"/>
 
                 <FrameLayout
                     android:layout_width="@dimen/global_layout_padding"
                     android:layout_height="0dp"/>
 
                 <Button
-                    android:id="@+id/screen_home_status_resolve"
+                    android:id="@+id/screen_home_state_resolve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/classicButton"

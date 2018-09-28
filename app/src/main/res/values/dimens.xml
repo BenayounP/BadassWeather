@@ -2,21 +2,12 @@
 <resources>
 
     <!-- global -->
-    <dimen name="global_layout_padding">@dimen/padding_big_big</dimen>
+    <dimen name="global_layout_padding">@dimen/badass_padding_bigger</dimen>
+    <dimen name="little_layout_padding">@dimen/badass_padding_big</dimen>
 
-
-    <!-- texts -->
-    <dimen name="bigger_textSize">34sp</dimen>
-    <dimen name="big_textSize">20sp</dimen>
-    <dimen name="medium_textSize">16sp</dimen>
-    <dimen name="nominal_textSize">14sp</dimen>
-    <dimen name="little_textSize">12sp</dimen>
-    <dimen name="tiny_textSize">10sp</dimen>
-    <dimen name="tiniest_textSize">6sp</dimen>
 
     <!-- button -->
-    <dimen name="rounded_corner">@dimen/global_layout_padding</dimen>
-    <dimen name="rounded_rectangle_stroke">@dimen/padding_tiny</dimen>
+    <dimen name="rounded_rectangle_stroke">@dimen/badass_padding_tiny</dimen>
 
 
 

@@ -6,15 +6,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:padding="@dimen/global_layout_padding"
+        android:padding="@dimen/little_layout_padding"
         android:background="@drawable/gradient_background">
 
         <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="match_parent"
                 android:layout_above="@+id/layout_remoteview_app_name"
                 android:layout_gravity="center_horizontal"
                 android:weightSum="2">
@@ -24,9 +23,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/TinyText"/>
+                        style="@style/remoteview_text"/>
 
-                <FrameLayout android:layout_width="@dimen/padding_tiny"
+                <FrameLayout android:layout_width="@dimen/badass_padding_tiny"
                              android:id="@+id/layout_remoteview_separator"
                              android:layout_height="match_parent"
                              android:background="@color/app_primary_text"/>
@@ -36,14 +35,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        style="@style/TinyText"/>
+                        style="@style/remoteview_text"/>
         </LinearLayout>
 
         <TextView
                 android:id="@+id/layout_remoteview_app_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="@style/TiniestText"
+                style="@style/remoteview_tiny_text"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom|left"
                 android:text="@string/app_name"/>
@@ -52,7 +51,7 @@
                 android:id="@+id/layout_remoteview_no_data_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/MediumText"
+                style="@style/remoteview_text"
                 android:layout_centerInParent="true"
                 android:text="@string/no_data"/>
 

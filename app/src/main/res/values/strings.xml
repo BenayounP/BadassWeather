@@ -32,7 +32,7 @@
 
 
     <!-- ************** -->
-    <!-- APP STATUS  -->
+    <!-- APP STATE  -->
     <!-- ************** -->
     <string name="app_state_init">Initialisation</string>
     <string name="app_state_bgnd_update_start">Getting your data</string>
@@ -103,8 +103,7 @@
     <!-- NOTIFICATIONS  -->
     <!-- ************** -->
     <string name="notification_channel_ID" translatable="false">%1$s_NOTIFICATIONS_ID</string>
-    <string name="notification_channel_name_ID">%1$s notifications</string>
-    <string name="notification_channel_description_ID">%1$s notifications</string>
+    <string name="notification_channel_name_description_ID" translatable="false">%1$s notifications</string>
 
 
     <!-- ************** -->

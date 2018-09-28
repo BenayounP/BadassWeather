@@ -7,11 +7,11 @@ import com.crashlytics.android.Crashlytics;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badassweather.badass.background.AppBadassJobList;
-import eu.benayoun.badassweather.badass.background.AppThreadListener;
-import eu.benayoun.badassweather.badass.model.Model;
-import eu.benayoun.badassweather.badass.ui.events.UIEvents;
-import eu.benayoun.badassweather.badass.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
+import eu.benayoun.badassweather.background.AppBadassJobList;
+import eu.benayoun.badassweather.background.AppThreadListener;
+import eu.benayoun.badassweather.model.Model;
+import eu.benayoun.badassweather.ui.events.UIEvents;
+import eu.benayoun.badassweather.ui.notificationsandwidgets.NotificationAndWidgetsMngr;
 import io.fabric.sdk.android.Fabric;
 
 

@@ -30,11 +30,10 @@
 
 
     <!-- ************** -->
-    <!-- APP STATUS  -->
+    <!-- APP STATE  -->
     <!-- ************** -->
     <string name="app_state_init">Initialisation</string>
     <string name="app_state_bgnd_update_start">Récupération des données en arrière-plan</string>
-    <string name="app_state_problem_no_server_response">Pas de réponse serveur</string>
     <string name="app_state_loading_data">Chargement de vos données</string>
 
     <string name="app_state_problem_no_internet">Pas de connection internet</string>
@@ -103,10 +102,6 @@
     <!-- NOTIFICATIONS  -->
     <!-- ************** -->
     <!--<string name="notification_channel_ID">%1$s_NOTIFICATIONS_ID</string>-->
-    <string name="notification_name_ID">%1$s notifications</string>
-    <string name="notification_description_ID">Notifications de %1$s</string>
-
-
 
     <!-- ************** -->
     <!--   PERMISSIONS  -->

@@ -20,55 +20,41 @@
         <item name="android:colorForeground">@color/app_primary_text</item>
     </style>
 
-    <!-- VIEWS -->
-
     <!-- TEXTS -->
 
     <style name="text" parent="">
         <item name="android:textColor">@color/app_primary_text</item>
-        <item name="android:textSize">@dimen/nominal_textSize</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-
-    <style name="BigText" parent="text">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/big_textSize</item>
     </style>
 
-    <style name="BiggerText" parent="BigText">
-        <item name="android:textSize">@dimen/bigger_textSize</item>
+    <style name="homescreen_text" parent="text">
+        <item name="android:textSize">@dimen/badass_text_body_big</item>
     </style>
 
-    <style name="MediumText" parent="BigText">
-        <item name="android:textSize">@dimen/medium_textSize</item>
+    <style name="homescreen_big_text" parent="text">
+        <item name="android:textSize">@dimen/badass_text_title</item>
     </style>
 
-    <style name="NominalText" parent="BigText">
-        <item name="android:textSize">@dimen/nominal_textSize</item>
+
+    <style name="remoteview_text" parent="text">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/badass_text_body</item>
     </style>
 
-    <style name="LittleText" parent="BigText">
-        <item name="android:textSize">@dimen/little_textSize</item>
+    <style name="remoteview_tiny_text" parent="remoteview_text">
+        <item name="android:textSize">@dimen/badass_text_body_micro</item>
     </style>
 
-    <style name="TinyText" parent="BigText">
-        <item name="android:textSize">@dimen/tiny_textSize</item>
-    </style>
-
-    <style name="TiniestText" parent="BigText">
-        <item name="android:textSize">@dimen/tiniest_textSize</item>
-    </style>
 
     <!-- BUTTONS -->
 
     <style name="classicButton" parent="text">
         <item name="android:background">@color/selector_button_background</item>
-        <item name="android:textSize">@dimen/medium_textSize</item>
+        <item name="android:textSize">@dimen/badass_text_body_bigger</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">@dimen/padding_big</item>
+        <item name="android:padding">@dimen/little_layout_padding</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:minWidth">0dp</item>
     </style>
