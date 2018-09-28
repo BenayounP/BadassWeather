@@ -40,7 +40,6 @@ public class HomeScreen extends ReactiveLayout
     boolean forecastIsDisplayed =true;
 
 
-
     public HomeScreen(View mainViewArg)
     {
         super(mainViewArg);
@@ -123,7 +122,7 @@ public class HomeScreen extends ReactiveLayout
         }
         else
         {
-            toDisplay = uIModel.getCurrentWeather();
+            toDisplay = Badass.getString(R.string.tmp_space)+ uIModel.getCurrentWeather();
             if (uIModel.getNextWeather().equals("")==false)
             {
                 toDisplay+="\n\n"+uIModel.getNextWeather();

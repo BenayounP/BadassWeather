@@ -27,6 +27,9 @@
     <!--     WEATHER    -->
     <!-- ************** -->
 
+
+
+    <string name="tmp_space">\u00A0</string>
     <string name="now_weather">Now:\n%1$s</string>
     <string name="next_weather">Next %1$s</string>
 

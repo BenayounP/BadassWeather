@@ -25,8 +25,8 @@
     <!--     WEATHER    -->
     <!-- ************** -->
 
-    <string name="now_weather">Maintenant:\n%1$s</string>
-    <string name="next_weather">Suivant:%1$s</string>
+    <string name="now_weather">Maintenant :\n%1$s</string>
+    <string name="next_weather">Prochain %1$s</string>
 
 
     <!-- ************** -->
