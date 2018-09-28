@@ -8,7 +8,7 @@ import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.background.jobs.forecast.YrNoWeather.YrNoForecastJob;
-import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.jobs.location.main.LocationBareCache;
 
 public class ForecastJob extends BadassJob
 {

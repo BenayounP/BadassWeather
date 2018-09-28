@@ -5,10 +5,10 @@ import android.content.ComponentName;
 import android.widget.RemoteViews;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerContract;
+import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
-public class AppWidgetsCtrl implements UIEventListenerContract
+public class AppWidgetsCtrl implements BadassUIEventListenerContract
 {
     RemoteViewCtrl remoteViewCtrl;
 

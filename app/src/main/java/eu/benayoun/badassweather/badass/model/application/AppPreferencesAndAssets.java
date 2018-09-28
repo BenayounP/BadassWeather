@@ -5,13 +5,13 @@ import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
 
 /**
  * Created by Pierre on 02/12/2015.
  */
 @SuppressWarnings("ALL")
-public class AppPreferencesAndAssets implements SharedPreferencesStorageContract
+public class AppPreferencesAndAssets implements BadassSharedPreferencesStorageContract
 {
 	protected SharedPreferencesStorage sharedPreferencesStorage;
 	protected boolean userHasrespondedToPermissionsDemands;

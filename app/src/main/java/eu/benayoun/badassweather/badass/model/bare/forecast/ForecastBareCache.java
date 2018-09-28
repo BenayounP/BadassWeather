@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 
@@ -15,7 +15,7 @@ import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
  * Created by PierreB on 17/07/2017.
  */
 
-public class ForecastBareCache implements SharedPreferencesStorageContract
+public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 {
 
 	protected final String KEY = "ForecastBareCacheContainer_";

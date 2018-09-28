@@ -1,11 +1,11 @@
-package eu.benayoun.badassweather.badass.background.jobs.location;
+package eu.benayoun.badassweather.badass.background.jobs.location.main;
 
 import android.content.SharedPreferences;
 import android.location.Location;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
 import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 import eu.benayoun.badassweather.ThisApp;
@@ -15,7 +15,7 @@ import eu.benayoun.badassweather.ThisApp;
  * Created by PierreB on 22/03/2017.
  */
 
-public class LocationBareCache implements SharedPreferencesStorageContract
+public class LocationBareCache implements BadassSharedPreferencesStorageContract
 {
 	static public final double INVALID_LATITUDE_VALUE = -100d;
 	static public final double INVALID_LONGITUDE_VALUE = -200d;
@@ -44,6 +44,11 @@ public class LocationBareCache implements SharedPreferencesStorageContract
 		sharedPreferencesStorage.load();
 		isLoaded = false;
 	}
+
+	public boolean isLoaded()
+    {
+        return isLoaded;
+    }
 
 
 	public void setLocation(Location location)

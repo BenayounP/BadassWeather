@@ -1,5 +1,6 @@
 package eu.benayoun.badassweather.badass.background.jobs.location.fusedlocationapi;
 
+import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Looper;
 
@@ -11,7 +12,7 @@ import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
-import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCache;
+import eu.benayoun.badassweather.badass.background.jobs.location.main.LocationBareCache;
 
 
 
@@ -22,7 +23,6 @@ import eu.benayoun.badassweather.badass.background.jobs.location.LocationBareCac
 public class FusedLocationAPIConnectionJob extends BadassJob
 {
 	protected GoogleApiClient client = null;
-	protected LocationRequest         locationRequest;
 	protected boolean askedForLocationUpdate = false;
 
 	FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr;
@@ -50,7 +50,8 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 	// GOOGLE API CLIENT
 
 
-	public Location fetchLocation()
+	@SuppressLint("MissingPermission")
+    public Location fetchLocation()
 	{
 		if (client !=null)
 		{
@@ -92,12 +93,12 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 				else if (client.isConnecting())
 					Badass.finalLog("## No need to manage connection : client connecting");
 				else
-					Badass.finalLog("## pb in manageConnection : unknown case");
+					Badass.finalLog("## pb in manageLocationUpdates : unknown case");
 			}
 		}
 		else // No permission
 		{
-			Badass.log("##!! manageConnection badassPermissionCtrl.isNOTGranted()");
+			Badass.log("##!! manageLocationUpdates badassPermissionCtrl.isNOTGranted()");
 			Badass.logInFile("##! " + getName()+ " " + getCompleteStatusString() + ":  Don't have Location permission");
 			setSpecificProblemStringId(fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().getExplanationStringId());
 			prepareToStartAtNextCall();
@@ -117,9 +118,10 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 	}
 
 
-	protected void  askLocationUpdates()
+	@SuppressLint("MissingPermission")
+    protected void  askLocationUpdates()
 	{
-		locationRequest= new LocationRequest();
+		LocationRequest locationRequest= new LocationRequest();
 		locationRequest.setInterval(1);
 		locationRequest.setFastestInterval(1);
 		locationRequest.setSmallestDisplacement(LocationBareCache.DELTA_DISTANCE_IN_METERS*2);

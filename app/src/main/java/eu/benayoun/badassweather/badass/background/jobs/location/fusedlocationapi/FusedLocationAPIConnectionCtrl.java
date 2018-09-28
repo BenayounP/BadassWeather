@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
-import eu.benayoun.badass.utility.os.permissions.PermissionListenerContract;
+import eu.benayoun.badass.utility.os.permissions.BadassPermissionListenerContract;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
@@ -20,7 +20,7 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 public class FusedLocationAPIConnectionCtrl
 		implements GoogleApiClient.OnConnectionFailedListener,
                    GoogleApiClient.ConnectionCallbacks,
-                   PermissionListenerContract
+                   BadassPermissionListenerContract
 {
 	BadassPermissionCtrl               badassPermissionCtrl;
 	FusedLocationAPIConnectionJob fusedLocationAPIConnectionJob;
@@ -32,10 +32,6 @@ public class FusedLocationAPIConnectionCtrl
 		fusedLocationAPIConnectionJob = new FusedLocationAPIConnectionJob(this);
 	}
 
-	public BadassJob getBadassJob()
-	{
-		return fusedLocationAPIConnectionJob;
-	}
 
 	public BadassPermissionCtrl getBadassPermissionCtrl()
 	{
@@ -43,7 +39,7 @@ public class FusedLocationAPIConnectionCtrl
 	}
 
 
-	public FusedLocationAPIConnectionJob getFusedLocationAPIConnectionJob() { return fusedLocationAPIConnectionJob; }
+	public FusedLocationAPIConnectionJob getBadassJob() { return fusedLocationAPIConnectionJob; }
 
 	public Location fetchLocation()
 	{

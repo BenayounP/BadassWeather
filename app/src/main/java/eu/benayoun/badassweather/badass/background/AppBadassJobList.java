@@ -7,8 +7,9 @@ import eu.benayoun.badass.background.badassthread.badassjob.BadassJobsCtrl;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
 import eu.benayoun.badassweather.badass.background.jobs.datainit.DataInitJob;
 import eu.benayoun.badassweather.badass.background.jobs.forecast.ForecastJob;
-import eu.benayoun.badassweather.badass.background.jobs.location.LocationJob;
+
 import eu.benayoun.badassweather.badass.background.jobs.location.fusedlocationapi.FusedLocationAPIConnectionCtrl;
+import eu.benayoun.badassweather.badass.background.jobs.location.main.LocationJob;
 import eu.benayoun.badassweather.badass.background.jobs.uiupdate.UiUpdateJob;
 
 
@@ -37,7 +38,7 @@ public class AppBadassJobList
 		badassJobsCtrl.addJob(new DataInitJob());
 
 		fusedLocationAPIConnectionCtrl = new FusedLocationAPIConnectionCtrl();
-		badassJobsCtrl.addJob(fusedLocationAPIConnectionCtrl.getFusedLocationAPIConnectionJob());
+		badassJobsCtrl.addJob(fusedLocationAPIConnectionCtrl.getBadassJob());
 		locationJob = new LocationJob(this);
 		badassJobsCtrl.addJob(locationJob);
 		forecastJob = new ForecastJob();
@@ -94,7 +95,7 @@ public class AppBadassJobList
 
 
 	// GETTERS
-	public Location fetchFusedLocationAPILocation()
+	public Location fetchLastAndroidLocation()
 	{
 		return fusedLocationAPIConnectionCtrl.fetchLocation();
 	}

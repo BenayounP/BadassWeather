@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorageContract;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.badass.ui.events.UIEvents;
 
@@ -12,7 +12,7 @@ import eu.benayoun.badassweather.badass.ui.events.UIEvents;
  * Created by PierreB on 04/02/2018.
  */
 
-public class UIModel implements SharedPreferencesStorageContract
+public class UIModel implements BadassSharedPreferencesStorageContract
 {
 	protected SharedPreferencesStorage sharedPreferencesStorage;
 
