@@ -7,29 +7,30 @@ import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
 
-public class NotificationAndWidgetsMngr implements BadassUIEventListenerContract
+public class NotificationAndWidgetsMngr
+        implements BadassUIEventListenerContract
 {
-    protected NotificationCtrl notificationCtrl;
-    protected RemoteViewCtrl remoteViewCtrl;
-    protected AppWidgetsCtrl appWidgetsCtrl;
+    private AppNotificationCtrl AppNotificationCtrl;
+    private RemoteViewCtrl remoteViewCtrl;
+    private AppWidgetsCtrl appWidgetsCtrl;
 
     public NotificationAndWidgetsMngr()
     {
         remoteViewCtrl = new RemoteViewCtrl();
-        notificationCtrl = new NotificationCtrl(remoteViewCtrl);
+        AppNotificationCtrl = new AppNotificationCtrl(remoteViewCtrl);
         appWidgetsCtrl = new AppWidgetsCtrl(remoteViewCtrl);
     }
 
     @Override
     public void onEvent(int eventId, long eventTimeInMs)
     {
-        notificationCtrl.onEvent(eventId,eventTimeInMs);
+        AppNotificationCtrl.onEvent(eventId,eventTimeInMs);
         appWidgetsCtrl.onEvent(eventId,eventTimeInMs);
     }
 
     public void onNotificationSwitchClick()
     {
         ThisApp.getModel().appPreferencesAndAssets.toggleUserWantsToDisplayNotification();
-        notificationCtrl.onEvent(UIEvents.USER_NOTIFICATION_PREFERENCE, BadassTimeUtils.getCurrentTimeInMs());
+        AppNotificationCtrl.onEvent(UIEvents.USER_NOTIFICATION_PREFERENCE, BadassTimeUtils.getCurrentTimeInMs());
     }
 }

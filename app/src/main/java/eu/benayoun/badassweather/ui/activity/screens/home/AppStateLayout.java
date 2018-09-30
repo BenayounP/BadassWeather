@@ -17,10 +17,10 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
  * Created by PierreB on 24/07/2017.
  */
 
-public class AppStateLayout extends ReactiveLayout
+class AppStateLayout extends ReactiveLayout
 {
-	TextView mainTextView;
-	Button   resolveButton;
+	private TextView mainTextView;
+	private Button   resolveButton;
 
 	public AppStateLayout(View mainViewArg)
 	{

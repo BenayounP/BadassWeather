@@ -17,12 +17,12 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 
 public class ScreenManager
 {
-	protected FrameLayout               mainView;
-	protected View homeView;
+	private FrameLayout               mainView;
+	private View homeView;
 
-	protected HomeScreen homeScreen;
+	private HomeScreen homeScreen;
 
-	protected ReactiveLayout currentLayout;
+	private ReactiveLayout currentLayout;
 
 	public ScreenManager(FrameLayout mainViewArg)
 	{
@@ -38,11 +38,6 @@ public class ScreenManager
 		}
 	}
 
-	public boolean onBackPressed()
-	{
-		boolean weInterceptedButton=false;
-		return weInterceptedButton;
-	}
 
 	public void onDestroy()
 	{
@@ -50,7 +45,7 @@ public class ScreenManager
 	}
 
 
-	public void setHomeScreen()
+	private void setHomeScreen()
 	{
 		if (homeScreen ==null)
 		{

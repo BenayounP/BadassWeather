@@ -13,7 +13,7 @@ import eu.benayoun.badassweather.background.jobs.location.main.LocationBareCache
 
 public class ForecastJob extends BadassJob
 {
-	YrNoForecastJob yrNoForecastJob;
+	private YrNoForecastJob yrNoForecastJob;
 
 	public ForecastJob()
 	{
@@ -46,7 +46,7 @@ public class ForecastJob extends BadassJob
 	 */
 
 
-	protected void getWeatherForecast()
+    private void getWeatherForecast()
 	{
 		double latitude = ThisApp.getModel().bareModel.locationBareCache.getLastLatitude();
 		double longitude = ThisApp.getModel().bareModel.locationBareCache.getLastLongitude();

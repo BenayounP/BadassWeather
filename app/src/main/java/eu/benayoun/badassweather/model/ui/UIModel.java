@@ -15,11 +15,11 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 
 public class UIModel implements BadassSharedPreferencesStorageContract
 {
-	protected SharedPreferencesStorage sharedPreferencesStorage;
+	private SharedPreferencesStorage sharedPreferencesStorage;
 
-	protected String currentWeather;
-	protected String nextWeather;
-	protected String noData;
+	private String currentWeather;
+	private String nextWeather;
+	private String noData;
 
 	public UIModel()
 	{
@@ -31,10 +31,22 @@ public class UIModel implements BadassSharedPreferencesStorageContract
 
 	public void setWeather(String currentWeather, String nextWeather)
 	{
-		this.currentWeather = currentWeather;
-		this.nextWeather = nextWeather;
-		sharedPreferencesStorage.save();
-		Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
+	    boolean somethingChanged = false;
+	    if (this.currentWeather != currentWeather)
+        {
+            this.currentWeather = currentWeather;
+            somethingChanged = true;
+        }
+        if (this.nextWeather != nextWeather)
+        {
+            this.nextWeather = nextWeather;
+            somethingChanged = true;
+        }
+        if (somethingChanged)
+        {
+            sharedPreferencesStorage.save();
+            Badass.broadcastUIEvent(UIEvents.WEATHER_CHANGE);
+        }
 	}
 
 	public boolean isEmpty()

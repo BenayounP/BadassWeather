@@ -34,15 +34,15 @@ import eu.benayoun.badassweather.model.bare.forecast.AtomicBareForecastModel;
 
 public class YrNoForecastJob
 {
-    long UTCOffsetInMs;
-    long nextWeatherReportInMs =-1;
-	ArrayList<AtomicBareForecastModel> oneHourForecastList;
-	BadassJob badassJob;
+    private long UTCOffsetInMs;
+    private long nextWeatherReportInMs =-1;
+	private ArrayList<AtomicBareForecastModel> oneHourForecastList;
+	private BadassJob badassJob;
 
 
-	AtomicBareForecastModel readAtomicBareForecastModel;
+	private AtomicBareForecastModel readAtomicBareForecastModel;
 
-	int readDurationInHours;
+	private int readDurationInHours;
 
 
 	public YrNoForecastJob(BadassJob badassJob)
@@ -66,7 +66,7 @@ public class YrNoForecastJob
 	 * INTERNAL COOKING
 	 */
 
-	protected String getWebsiteStringResponse(double latitude, double longitude)
+    private String getWebsiteStringResponse(double latitude, double longitude)
 	{
 		String                url          = "https://api.met.no/weatherapi/locationforecast/1.9/?lat="+latitude+";lon="+longitude;
 		RequestFuture<String> future       = RequestFuture.newFuture();
@@ -109,7 +109,7 @@ public class YrNoForecastJob
 		return websiteStringResponse;
 	}
 
-	protected void setForecastData(String websiteStringResponse)
+	private void setForecastData(String websiteStringResponse)
 	{
 		XmlPullParser xmlPullParser     = XmlParser.getXmlParser(websiteStringResponse);
 
@@ -143,7 +143,7 @@ public class YrNoForecastJob
 	}
 
 
-	protected void setForecastDataFromEvent(int eventType, XmlPullParser xmlPullParser)
+	private void setForecastDataFromEvent(int eventType, XmlPullParser xmlPullParser)
 	{
 		String tag = xmlPullParser.getName();
 		if (eventType == XmlPullParser.START_TAG)
@@ -167,7 +167,7 @@ public class YrNoForecastJob
 		}
 	}
 
-	protected void setNextRun(XmlPullParser xmlParser)
+	private void setNextRun(XmlPullParser xmlParser)
 	{
 		int attributesCount = xmlParser.getAttributeCount();
 		for (int i = 0; i < attributesCount; i++)
@@ -188,7 +188,7 @@ public class YrNoForecastJob
 		}
 	}
 
-	protected void setYrNoTimeForecastTimeData(XmlPullParser xmlParser)
+	private void setYrNoTimeForecastTimeData(XmlPullParser xmlParser)
 	{
 		int attributesCount = xmlParser.getAttributeCount();
 		for (int i = 0; i < attributesCount; i++)
@@ -206,7 +206,7 @@ public class YrNoForecastJob
 		}
 	}
 
-	protected long getTimeInMs(String timeString)
+	private long getTimeInMs(String timeString)
 	{
 		int year = Integer.valueOf(timeString.substring(0,4));
 		int month = Integer.valueOf(timeString.substring(5,7));
@@ -216,7 +216,7 @@ public class YrNoForecastJob
 	}
 
 
-	protected void setSymbolId(XmlPullParser xmlParser)
+	private void setSymbolId(XmlPullParser xmlParser)
 	{
 		String attributeName;
 		String attributeValue;
@@ -235,7 +235,7 @@ public class YrNoForecastJob
 	}
 
 
-	protected void addForecastToList()
+	private void addForecastToList()
 	{
 		if (readDurationInHours == 1)
 		{
@@ -244,7 +244,7 @@ public class YrNoForecastJob
 	}
 
 
-	protected long getMsFromCalendar(int hourOfDay, int dayOfMonth, int realMonthOfYear, int year)
+	private long getMsFromCalendar(int hourOfDay, int dayOfMonth, int realMonthOfYear, int year)
 	{
 		TimeZone timeZone = TimeZone.getTimeZone("UTC");
 		Calendar calendar = Calendar.getInstance(timeZone);
@@ -258,7 +258,7 @@ public class YrNoForecastJob
 		return calendar.getTimeInMillis();
 	}
 
-	protected int getNextEvent(XmlPullParser xmlParser)
+	private int getNextEvent(XmlPullParser xmlParser)
 	{
 		int eventType=-1;
 		try
@@ -278,7 +278,7 @@ public class YrNoForecastJob
 		return eventType;
 	}
 
-	protected void saveForecastData()
+	private void saveForecastData()
 	{
 		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(oneHourForecastList,nextWeatherReportInMs);
         badassJob.schedule(nextWeatherReportInMs);

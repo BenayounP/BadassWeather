@@ -13,7 +13,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/layout_remoteview_app_name"
         android:layout_gravity="center"
         android:weightSum="2">
 
@@ -23,11 +22,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             style="@style/remoteview_text"/>
-
-        <FrameLayout android:layout_width="@dimen/badass_padding_tiny"
-            android:id="@+id/layout_remoteview_separator"
-            android:layout_height="match_parent"
-            android:background="@color/app_primary_text"/>
 
         <TextView
             android:id="@+id/layout_remoteview_next_weather_text"
@@ -42,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/remoteview_tiny_text"
-        android:layout_alignParentBottom="true"
         android:gravity="bottom|left"
         android:text="@string/app_name"
         android:padding="@dimen/badass_padding_tiny"/>

@@ -21,8 +21,8 @@ import io.fabric.sdk.android.Fabric;
 public class ThisApp extends Application
 {
 	static private AppBadassJobList appBadassJobList;
-	static protected Model model;
-	static protected NotificationAndWidgetsMngr notificationAndWidgetsMngr;
+	private static Model model;
+	private static NotificationAndWidgetsMngr notificationAndWidgetsMngr;
 
 
 	@Override

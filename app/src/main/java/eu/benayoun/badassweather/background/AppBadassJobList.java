@@ -19,15 +19,15 @@ import eu.benayoun.badassweather.background.jobs.uiupdate.UiUpdateJob;
 
 public class AppBadassJobList
 {
-	protected AppAndroidEventsCtrl appAndroidEventsCtrl;
+	private AppAndroidEventsCtrl appAndroidEventsCtrl;
 
-	protected BadassJobsCtrl badassJobsCtrl;
+	private BadassJobsCtrl badassJobsCtrl;
 
 	//tasks
-	protected FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionCtrl;
-	protected LocationJob locationJob;
-	protected ForecastJob forecastJob;
-	protected UiUpdateJob uiUpdateJob;
+    private FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionCtrl;
+	private LocationJob locationJob;
+	private ForecastJob forecastJob;
+	private UiUpdateJob uiUpdateJob;
 
 
 	public AppBadassJobList()

@@ -61,7 +61,6 @@ public class RemoteViewCtrl
 		int viewVisibility = (uIModel.isEmpty() ? View.GONE : View.VISIBLE);
 		int noDataViewVisibility = (uIModel.isEmpty() ? View.VISIBLE : View.GONE);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text,viewVisibility);
-		remoteViews.setViewVisibility(R.id.layout_remoteview_separator,viewVisibility);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_current_weather_text,viewVisibility);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_no_data_text,noDataViewVisibility) ;
 

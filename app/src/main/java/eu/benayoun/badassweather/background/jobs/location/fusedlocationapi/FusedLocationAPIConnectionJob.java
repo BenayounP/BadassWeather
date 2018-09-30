@@ -23,10 +23,10 @@ import eu.benayoun.badassweather.background.jobs.location.main.LocationBareCache
 
 public class FusedLocationAPIConnectionJob extends BadassJob
 {
-	protected GoogleApiClient client = null;
-	protected boolean askedForLocationUpdate = false;
+	private GoogleApiClient client = null;
+	private boolean askedForLocationUpdate = false;
 
-	FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr;
+	private FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr;
 
 
 	public FusedLocationAPIConnectionJob(FusedLocationAPIConnectionCtrl fusedLocationAPIConnectionBgndMngr)
@@ -52,6 +52,8 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 
 
 	@SuppressLint("MissingPermission")
+    // We used fusedlocationApi and not FusedLocationProviderClient because fusedlocationAPI allow (once connected) to get diretly lastlocation
+    @SuppressWarnings("deprecation")
     public Location fetchLocation()
 	{
 		if (client !=null)
@@ -66,7 +68,7 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 	 * INTERNAL COOKING
 	 */
 
-	protected void manageConnection()
+    private void manageConnection()
 	{
 		if (fusedLocationAPIConnectionBgndMngr.getBadassPermissionCtrl().isPermissionGranted())
 		{
@@ -106,7 +108,7 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 		}
 	}
 
-	void manageClientObject()
+	private void manageClientObject()
 	{
 		if (client ==null )
 		{
@@ -120,7 +122,9 @@ public class FusedLocationAPIConnectionJob extends BadassJob
 
 
 	@SuppressLint("MissingPermission")
-    protected void  askLocationUpdates()
+    // We used fusedlocationApi and not FusedLocationProviderClient because fusedlocationAPI allow (once connected) to get diretly lastlocation
+    @SuppressWarnings("deprecation")
+    private void  askLocationUpdates()
 	{
 		LocationRequest locationRequest= new LocationRequest();
 		locationRequest.setInterval(1);

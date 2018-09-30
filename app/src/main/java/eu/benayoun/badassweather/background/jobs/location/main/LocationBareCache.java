@@ -18,17 +18,17 @@ import eu.benayoun.badassweather.ThisApp;
 public class LocationBareCache implements BadassSharedPreferencesStorageContract
 {
 	static public final double INVALID_LATITUDE_VALUE = -100d;
-	static public final double INVALID_LONGITUDE_VALUE = -200d;
+	private static final double INVALID_LONGITUDE_VALUE = -200d;
 
 	public static float DELTA_DISTANCE_IN_METERS = 5000;
 
-	protected SharedPreferencesStorage sharedPreferencesStorage;
+	private SharedPreferencesStorage sharedPreferencesStorage;
 
-	protected double   lastLatitude;
-	protected double   lastLongitude;
-	protected long     lastLocationUpdateInMs;
+	private double   lastLatitude;
+	private double   lastLongitude;
+	private long     lastLocationUpdateInMs;
 
-	protected boolean isLoaded=false;
+	private boolean isLoaded=false;
 
 
 	public LocationBareCache()
@@ -119,13 +119,13 @@ public class LocationBareCache implements BadassSharedPreferencesStorageContract
 	 * INTERNAL COOKING
 	 */
 
-	protected boolean isInvalid()
+    private boolean isInvalid()
 	{
 		return lastLatitude == INVALID_LATITUDE_VALUE;
 	}
 
 
-	protected Location getLocationInstance()
+	private Location getLocationInstance()
 	{
 		Location location = new Location("");
 		location.setLatitude(lastLatitude);

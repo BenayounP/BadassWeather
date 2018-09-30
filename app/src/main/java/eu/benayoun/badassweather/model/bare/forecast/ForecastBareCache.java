@@ -18,17 +18,17 @@ import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
 public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 {
 
-	protected final String KEY = "ForecastBareCacheContainer_";
+	private final String KEY = "ForecastBareCacheContainer_";
 
-	protected SharedPreferencesStorage sharedPreferencesStorage;
+	private SharedPreferencesStorage sharedPreferencesStorage;
 
 	// setNextWorkInTheBackground
-	long lastForecastUpdateInMs;
+    private long lastForecastUpdateInMs;
 
 	// weather report
-	long nextWeatherReportInMs;
+    private long nextWeatherReportInMs;
 
-	protected ArrayList<AtomicBareForecastModel> oneHourBareForecastList;
+	private ArrayList<AtomicBareForecastModel> oneHourBareForecastList;
 
 	public ForecastBareCache()
 	{
@@ -94,9 +94,14 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 		editor.putLong("lastForecastUpdateInMs", lastForecastUpdateInMs);
 		editor.putLong("nextWeatherReportInMs", nextWeatherReportInMs);
 		editor.putInt("bareOneHourListSize", oneHourBareForecastList.size());
+        AtomicBareForecastModel atomicBareForecastModel;
 		for (int i = 0; i< oneHourBareForecastList.size(); i++)
 		{
-			oneHourBareForecastList.get(i).save(KEY+i,editor);
+            atomicBareForecastModel = oneHourBareForecastList.get(i);
+            if (atomicBareForecastModel!=null)
+            {
+                atomicBareForecastModel.save(KEY + i, editor);
+            }
 		}
 	}
 

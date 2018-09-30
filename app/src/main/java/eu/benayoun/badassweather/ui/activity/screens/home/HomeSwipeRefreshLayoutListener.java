@@ -12,9 +12,9 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
  * Created by PierreB on 22/04/2017.
  */
 
-public class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefreshListener
+class HomeSwipeRefreshLayoutListener implements SwipeRefreshLayout.OnRefreshListener
 {
-	SwipeRefreshLayout swipeRefreshLayout;
+	private SwipeRefreshLayout swipeRefreshLayout;
 
 	public HomeSwipeRefreshLayoutListener(SwipeRefreshLayout swipeRefreshLayout)
 	{

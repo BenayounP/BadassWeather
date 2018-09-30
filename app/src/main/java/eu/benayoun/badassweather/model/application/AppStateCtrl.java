@@ -29,8 +29,8 @@ public class AppStateCtrl
      
 
     // displayed String and status
-    protected String displayedString = null;
-    protected  State currentState;
+    private String displayedString = null;
+    private State currentState;
 
 
     public AppStateCtrl()
@@ -117,7 +117,7 @@ public class AppStateCtrl
     }
 
 
-    public void setOkStatus(String displayedStringArg)
+    private void setOkStatus(String displayedStringArg)
     {
         currentState = IDLE;
         displayedString = displayedStringArg;
@@ -127,19 +127,19 @@ public class AppStateCtrl
      * INTERNAL COOKING
      */
 
-    protected void setLocationProblem(String displayedStringArg)
+    private void setLocationProblem(String displayedStringArg)
     {
         currentState = LOCATION_PROBLEM;
         displayedString = displayedStringArg;
     }
 
-    protected void setPermissionFineLocationNotGiven(String displayedStringArg)
+    private void setPermissionFineLocationNotGiven(String displayedStringArg)
     {
         currentState = PERMISSION_FINE_LOCATION_NOT_GIVEN;
         displayedString = displayedStringArg;
     }
 
-    protected void setForecastProblem(String displayedStringArg)
+    private void setForecastProblem(String displayedStringArg)
     {
         currentState = FORECAST_PROBLEM;
         displayedString = displayedStringArg;

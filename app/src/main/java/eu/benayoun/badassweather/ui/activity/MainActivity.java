@@ -26,8 +26,8 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
  */
 public class MainActivity extends BadassActivity
 {
-	protected ScreenManager screenManager;
-	protected ActivityReceiverManager activityReceiverManager = null;
+	private ScreenManager screenManager;
+	private ActivityReceiverManager activityReceiverManager = null;
 
 	static {
 		AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -76,13 +76,6 @@ public class MainActivity extends BadassActivity
 	}
 
 	@Override
-	public void onBackPressed()
-	{
-		boolean processed = screenManager.onBackPressed();
-		if (processed ==false) super.onBackPressed();
-	}
-
-	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
@@ -109,7 +102,7 @@ public class MainActivity extends BadassActivity
 	 * INTERNAL COOKING
 	 */
 
-	protected void manageAndroidStatusBar()
+    private void manageAndroidStatusBar()
 	{
 		if (Badass.androidVersionSuperiorOrEqualTo(Build.VERSION_CODES.LOLLIPOP))
 		{
@@ -118,7 +111,7 @@ public class MainActivity extends BadassActivity
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	protected void setStatusBarColor()
+    private void setStatusBarColor()
 	{
 		//iab_status
 		Window window = getWindow();

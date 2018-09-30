@@ -22,8 +22,8 @@ public class FusedLocationAPIConnectionCtrl
                    GoogleApiClient.ConnectionCallbacks,
                    BadassPermissionListenerContract
 {
-	BadassPermissionCtrl               badassPermissionCtrl;
-	FusedLocationAPIConnectionJob fusedLocationAPIConnectionJob;
+	private BadassPermissionCtrl               badassPermissionCtrl;
+	private FusedLocationAPIConnectionJob fusedLocationAPIConnectionJob;
 
 	public FusedLocationAPIConnectionCtrl()
 	{

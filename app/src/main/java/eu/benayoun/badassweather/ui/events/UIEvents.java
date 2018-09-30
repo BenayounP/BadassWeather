@@ -27,7 +27,7 @@ public class UIEvents implements BadassUIEventsContract
 
 	public static final int WEATHER_CHANGE          =7;
 
-	public static final int AMOUNT_OF_EVENTS = WEATHER_CHANGE+1;
+	private static final int AMOUNT_OF_EVENTS = WEATHER_CHANGE+1;
 
 
 	public ArrayList<Boolean> getFreshUiEventsList()
@@ -35,7 +35,7 @@ public class UIEvents implements BadassUIEventsContract
 		ArrayList<Boolean> defaultRefreshArray = new ArrayList<>(AMOUNT_OF_EVENTS);
 		for (int i = 0; i< AMOUNT_OF_EVENTS; i++)
 		{
-			defaultRefreshArray.add(new Boolean(false));
+			defaultRefreshArray.add(Boolean.valueOf(false));
 		}
 		return defaultRefreshArray;
 	}

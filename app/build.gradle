@@ -9,7 +9,7 @@ buildscript
 
             dependencies
                     {
-                        classpath 'com.google.gms:google-services:3.0.0'
+                        classpath 'com.google.gms:google-services:3.2.0'
                         classpath project.CRASHLYTICS_DEPENDENCIES
                     }
         }
@@ -24,8 +24,8 @@ android {
         applicationId "eu.benayoun.badassweather"
         minSdkVersion 16
         targetSdkVersion project.COMPILE_SDK_VERSION.toInteger()
-        versionCode 2
-        versionName "0.8.5"
+        versionCode 3
+        versionName "0.8.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

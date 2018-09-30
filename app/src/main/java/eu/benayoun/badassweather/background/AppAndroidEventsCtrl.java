@@ -13,7 +13,7 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
  */
 public class AppAndroidEventsCtrl implements BadassInternetConnectivityListenerContract, BadassScreenActivityListenerContract
 {
-	AppBadassJobList appWorkersCtrl;
+	private AppBadassJobList appWorkersCtrl;
 
 	public AppAndroidEventsCtrl(AppBadassJobList appWorkersCtrl)
 	{

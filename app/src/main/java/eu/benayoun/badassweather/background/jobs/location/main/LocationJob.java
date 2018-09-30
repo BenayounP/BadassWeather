@@ -21,9 +21,9 @@ import eu.benayoun.badassweather.background.AppBadassJobList;
 
 public class LocationJob extends BadassJob implements LocationListener
 {
-	static protected final long LOCATION_CHECK_INTERVAL = DateUtils.HOUR_IN_MILLIS;
-	AppBadassJobList appBadassJobList;
-	protected Location lastFusedLocation = null;
+	private static final long LOCATION_CHECK_INTERVAL = DateUtils.HOUR_IN_MILLIS;
+	private AppBadassJobList appBadassJobList;
+	private Location lastFusedLocation = null;
 
 	public LocationJob(AppBadassJobList appBadassJobList)
 	{
@@ -31,7 +31,7 @@ public class LocationJob extends BadassJob implements LocationListener
 		this.appBadassJobList = appBadassJobList;
 	}
 
-	public void setLastFusedLocation(Location lastFusedLocation)
+	private void setLastFusedLocation(Location lastFusedLocation)
 	{
 		this.lastFusedLocation = lastFusedLocation;
 	}
@@ -63,7 +63,7 @@ public class LocationJob extends BadassJob implements LocationListener
 	 */
 
 
-	protected void updateLocation()
+    private void updateLocation()
 	{
 		ThisApp.getModel().appStateCtrl.setJobRunning(Badass.getString(R.string.app_state_getting_location));
         if (ThisApp.getModel().bareModel.locationBareCache.isLoaded())
@@ -93,7 +93,7 @@ public class LocationJob extends BadassJob implements LocationListener
 		}
 	}
 
-	protected Location getBestLocation()
+	private Location getBestLocation()
 	{
 		Location lastFetchedLocation  = appBadassJobList.fetchLastAndroidLocation();
 		if (lastFusedLocation == null) return  lastFetchedLocation;

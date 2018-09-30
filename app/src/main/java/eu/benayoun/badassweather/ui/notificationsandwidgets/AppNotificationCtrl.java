@@ -4,6 +4,7 @@ package eu.benayoun.badassweather.ui.notificationsandwidgets;
 import android.support.v4.app.NotificationCompat;
 
 import eu.benayoun.badass.Badass;
+import eu.benayoun.badass.ui.notification.NotificationCtrl;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.applicationreceivers.NotificationDeleteReceiver;
@@ -11,14 +12,14 @@ import eu.benayoun.badassweather.ui.activity.MainActivity;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
 
-public class NotificationCtrl extends eu.benayoun.badass.ui.notification.NotificationCtrl
+public class AppNotificationCtrl extends NotificationCtrl
 {
-	final protected int GLOBAL_NOTIFICATION_ID = 1976;
-	final public int ALERT_NOTIFICATION_ID = 1;
+	private final int GLOBAL_NOTIFICATION_ID = 1976;
+	private final int ALERT_NOTIFICATION_ID = 1;
 
-	RemoteViewCtrl remoteViewCtrl;
+	private RemoteViewCtrl remoteViewCtrl;
 
-	public NotificationCtrl(RemoteViewCtrl remoteViewCtrl)
+	public AppNotificationCtrl(RemoteViewCtrl remoteViewCtrl)
 	{
 		this.remoteViewCtrl = remoteViewCtrl;
 	}
@@ -41,7 +42,7 @@ public class NotificationCtrl extends eu.benayoun.badass.ui.notification.Notific
 	 * INTERNAL COOKING
 	 */
 
-	protected void manageLaunch()
+    private void manageLaunch()
 	{
 		if (ThisApp.getModel().appPreferencesAndAssets != null && ThisApp.getModel().appPreferencesAndAssets.isUserWantsToDisplayNotification())
 		{

@@ -17,8 +17,8 @@ public class AtomicBareForecastModel
 {
 	static protected float TEMP_EMPTY_VALUE =Float.MIN_VALUE;
 
-	protected DurationInMs               UTCDurationInMs;
-	int weatherSymbol;
+	private DurationInMs               UTCDurationInMs;
+	private int weatherSymbol;
 
 	public AtomicBareForecastModel()
 	{

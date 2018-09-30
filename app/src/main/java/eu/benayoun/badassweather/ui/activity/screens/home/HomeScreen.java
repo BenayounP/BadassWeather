@@ -25,19 +25,19 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 
 public class HomeScreen extends ReactiveLayout
 {
-    SwipeRefreshLayout             swipeRefreshLayout;
-    View                           contentView;
-    HomeSwipeRefreshLayoutListener homeSwipeRefreshLayoutListener;
+    private SwipeRefreshLayout             swipeRefreshLayout;
+    private View                           contentView;
+    private HomeSwipeRefreshLayoutListener homeSwipeRefreshLayoutListener;
 
-    AppStateLayout appStateLayout;
+    private AppStateLayout appStateLayout;
 
-    LinearLayout mainLayout;
-    TextView forecastTextView;
-    LinearLayout moreLayout;
-    TextView moreTextView;
-    TextView aboutTextView;
-    Button moreButton;
-    boolean forecastIsDisplayed =true;
+    private LinearLayout mainLayout;
+    private TextView forecastTextView;
+    private LinearLayout moreLayout;
+    private TextView moreTextView;
+    private TextView aboutTextView;
+    private Button moreButton;
+    private boolean forecastIsDisplayed =true;
 
 
     public HomeScreen(View mainViewArg)
@@ -48,6 +48,8 @@ public class HomeScreen extends ReactiveLayout
         swipeRefreshLayout = (SwipeRefreshLayout)mainView;
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.app_primary_color);
         swipeRefreshLayout.setColorSchemeResources(R.color.app_primary_text);
+        int statusBarHeight = BadassViewUtils.getAndroidStatusBarHeight();
+        swipeRefreshLayout.setProgressViewOffset(false, swipeRefreshLayout.getProgressViewStartOffset()+statusBarHeight, swipeRefreshLayout.getProgressViewEndOffset()+statusBarHeight);
         homeSwipeRefreshLayoutListener = new HomeSwipeRefreshLayoutListener(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(homeSwipeRefreshLayoutListener);
 
@@ -55,8 +57,7 @@ public class HomeScreen extends ReactiveLayout
         contentView = mainView.findViewById(R.id.screen_home_content);
 
         mainLayout = mainView.findViewById(R.id.screen_home_main);
-
-        mainLayout.setPadding(0,BadassViewUtils.getAndroidStatusBarHeight()+mainLayout.getPaddingTop(),0,0);
+        mainLayout.setPadding(0, statusBarHeight+ mainLayout.getPaddingTop(),0,0);
         BadassViewUtils.doNotDisplayOn_landscape_AndroidNavigationBar(mainLayout);
 
         forecastTextView = mainView.findViewById(R.id.screen_home_forecast_text);
@@ -112,7 +113,7 @@ public class HomeScreen extends ReactiveLayout
      * INTERNAL COOKING
      */
 
-    protected void setForecastView()
+    private void setForecastView()
     {
         String  toDisplay ="";
         UIModel uIModel   = ThisApp.getModel().uIModel;
@@ -122,7 +123,7 @@ public class HomeScreen extends ReactiveLayout
         }
         else
         {
-            toDisplay = Badass.getString(R.string.tmp_space)+ uIModel.getCurrentWeather();
+            toDisplay = uIModel.getCurrentWeather();
             if (uIModel.getNextWeather().equals("")==false)
             {
                 toDisplay+="\n\n"+uIModel.getNextWeather();
@@ -131,13 +132,13 @@ public class HomeScreen extends ReactiveLayout
         forecastTextView.setText(toDisplay);
     }
 
-    protected void setMoreTextView()
+    private void setMoreTextView()
     {
        moreTextView.setText(getLastLocationUpdate() + "\n\n"+getLastForecastUpdate());
 
     }
 
-    protected String getLastLocationUpdate()
+    private String getLastLocationUpdate()
     {
         long lastLocationUpdateInMs = ThisApp.getModel().bareModel.locationBareCache.getLastLocationUpdateInMs();
         if (lastLocationUpdateInMs==-1)
@@ -150,7 +151,7 @@ public class HomeScreen extends ReactiveLayout
         }
     }
 
-    protected String getLastForecastUpdate()
+    private String getLastForecastUpdate()
     {
         long lastForecastUpdateInMs = ThisApp.getModel().bareModel.forecastBareCache.getLastForecastUpdateInMs();
         if (lastForecastUpdateInMs==-1)
@@ -163,7 +164,7 @@ public class HomeScreen extends ReactiveLayout
         }
     }
 
-    protected void onAboutButtonClick()
+    private void onAboutButtonClick()
     {
         forecastIsDisplayed =!forecastIsDisplayed;
         forecastTextView.setVisibility(getVisibility(forecastIsDisplayed));
@@ -171,7 +172,7 @@ public class HomeScreen extends ReactiveLayout
     }
 
 
-    protected int getVisibility(boolean isVisible)
+    private int getVisibility(boolean isVisible)
     {
         return (isVisible? View.VISIBLE : View.GONE);
     }
