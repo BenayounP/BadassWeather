@@ -83,7 +83,7 @@
                 android:padding="@dimen/global_layout_padding"
                 android:gravity="center">
 
-                <Switch
+                <android.support.v7.widget.SwitchCompat
                     android:id="@+id/screen_home_switch_notification"
                     android:layout_width="0dp"
                     android:layout_weight="1"

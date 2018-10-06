@@ -25,6 +25,14 @@ public class AtomicBareForecastModel
 		UTCDurationInMs = new DurationInMs();
 	}
 
+    public AtomicBareForecastModel(AtomicBareForecastModel atomicBareForecastModel)
+    {
+        this();
+        this.UTCDurationInMs = new DurationInMs(atomicBareForecastModel.UTCDurationInMs);
+        this.weatherSymbol = atomicBareForecastModel.weatherSymbol;
+    }
+
+
 	// GETTERS AND SETTERS
 
 	// Duration

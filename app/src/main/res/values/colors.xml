@@ -11,6 +11,8 @@
 
     <!-- TEXTS -->
     <color name="app_primary_text">@color/snow</color>
+    <color name="app_notification_text">@color/nice_black</color>
     <color name="app_accent_text">@color/sun_flower_2</color>
+    <color name="app_notification_accent_text">@color/peter_river_800</color>
 </resources>
 

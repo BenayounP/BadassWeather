@@ -38,9 +38,9 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 
 	// MAIN METHODS
 
-	public void updateAndSave(ArrayList<AtomicBareForecastModel> oneHourForecastList, long nextWeatherReportInMsArg)
+	public void updateAndSave(ArrayList<AtomicBareForecastModel> newOneHourBareForecastList, long nextWeatherReportInMsArg)
 	{
-		this.oneHourBareForecastList = oneHourForecastList;
+        oneHourBareForecastList = getCopy(newOneHourBareForecastList);
 		nextWeatherReportInMs = nextWeatherReportInMsArg;
 		sharedPreferencesStorage.save();
 		lastForecastUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
@@ -138,5 +138,15 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 	/**
 	 * INTERNAL COOKING
 	 */
+
+    ArrayList<AtomicBareForecastModel> getCopy(ArrayList<AtomicBareForecastModel>  newOneHourBareForecastList)
+    {
+        ArrayList<AtomicBareForecastModel> oneHourBareForecastList= new ArrayList<>();
+        for (int i=0;i<newOneHourBareForecastList.size();i++)
+        {
+            oneHourBareForecastList.add(new AtomicBareForecastModel(newOneHourBareForecastList.get(i)));
+        }
+        return oneHourBareForecastList;
+    }
 
 }

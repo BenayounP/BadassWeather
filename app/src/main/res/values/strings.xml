@@ -18,10 +18,10 @@
     <!-- ************** -->
     <string name="home_notification_switch">Notification\u0020</string>
     <string name="home_about">This app is an example of what you can achieve with the BADASS framework. More <a href="http://bit.ly/badass_android">here</a>\n\nWeather forecast from <a href="https://www.yr.no/?spr=eng">Yr</a>, delivered by the Norwegian Meteorological Institute and NRK\n\nIf you have any question, mail me: <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a></string>
-    <string name ="location_update_empty">Location hasn\'t be set yet</string>
-    <string name ="location_update_nominal">Last location update: %1$s</string>
-    <string name ="forecast_update_empty">Forecast hasn\'t be set yet</string>
-    <string name ="forecast_update_nominal">Last forecast update: %1$s</string>
+    <string name="location_update_empty">Location hasn\'t be set yet</string>
+    <string name="location_update_nominal">Last location update: %1$s</string>
+    <string name="forecast_update_empty">Forecast hasn\'t be set yet</string>
+    <string name="forecast_update_nominal">Last forecast update: %1$s</string>
 
     <!-- ************** -->
     <!--     WEATHER    -->
@@ -61,38 +61,38 @@
     <string name="LightCloud">Light cloud</string>
     <string name="PartlyCloud">Partly cloudy</string>
     <string name="Cloud">Cloudy</string>
-    <string name="LightRainSun">Light rain\nwith sunny spells</string>
-    <string name="LightRainThunderSun">Light rain\nthunderstorm\nwith sunny spells</string>
-    <string name="SleetSun">Sleet\nwith sunny spells</string>
-    <string name="SnowSun">Snow\nwith sunny spells</string>
+    <string name="LightRainSun">Light rain with sunny spells</string>
+    <string name="LightRainThunderSun">Light rain thunderstorm with sunny spells</string>
+    <string name="SleetSun">Sleet with sunny spells</string>
+    <string name="SnowSun">Snow with sunny spells</string>
     <string name="LightRain">Light rain</string>
     <string name="Rain">Rain</string>
-    <string name="RainThunder">rain\nthunderstorm</string>
+    <string name="RainThunder">rain thunderstorm</string>
     <string name="Sleet">Sleet</string>
     <string name="Snow">Snow</string>
-    <string name="SnowThunder">Snow\nthunderstorm</string>
+    <string name="SnowThunder">Snow thunderstorm</string>
     <string name="Fog">Fog</string>
-    <string name="SleetSunThunder">Sleet\nthunderstorm\nwith sunny spells</string>
-    <string name="SnowSunThunder">Snow\nthunderstorm\nwith sunny spells</string>
-    <string name="LightRainThunder">Light rain\nthunderstorm</string>
-    <string name="SleetThunder">Sleet\nthunderstorm</string>
-    <string name="DrizzleThunderSun">Drizzle\nthunderstorm\nwith sunny spells</string>
-    <string name="RainThunderSun">Rain\nwith sunny spells</string>
-    <string name="LightSleetThunderSun">Light sleet\nwith sunny spells</string>
-    <string name="HeavySleetThunderSun">Heavy sleet\nwith sunny spells</string>
-    <string name="LightSnowThunderSun">Light snow\nthunderstorm\nwith sunny spells</string>
-    <string name="HeavySnowThunderSun">Heavy snow\nthunderstorm\nwith sunny spells</string>
-    <string name="DrizzleThunder">Drizzle\nthunderstorm</string>
-    <string name="LightSleetThunder">Light sleet\nthunderstorm</string>
-    <string name="HeavySleetThunder">Heavy sleet\nthunderstorm</string>
-    <string name="LightSnowThunder">Light snow\nthunderstorm</string>
-    <string name="HeavySnowThunder">Heavy snow\nthunderstorm</string>
-    <string name="DrizzleSun">Drizzle\nwith sunny spells</string>
-    <string name="RainSun">Rain\nwith sunny spells</string>
-    <string name="LightSleetSun">Light Sleet\nwith sunny spells</string>
-    <string name="HeavySleetSun">Heavy sleet\nwith sunny spells</string>
-    <string name="LightSnowSun">Light snow\nwith sunny spells</string>
-    <string name="HeavySnowSun">Heavy snow\nwith sunny spells</string>
+    <string name="SleetSunThunder">Sleet thunderstorm with sunny spells</string>
+    <string name="SnowSunThunder">Snow thunderstorm with sunny spells</string>
+    <string name="LightRainThunder">Light rain thunderstorm</string>
+    <string name="SleetThunder">Sleet thunderstorm</string>
+    <string name="DrizzleThunderSun">Drizzle thunderstorm with sunny spells</string>
+    <string name="RainThunderSun">Rain with sunny spells</string>
+    <string name="LightSleetThunderSun">Light sleet with sunny spells</string>
+    <string name="HeavySleetThunderSun">Heavy sleet with sunny spells</string>
+    <string name="LightSnowThunderSun">Light snow thunderstorm with sunny spells</string>
+    <string name="HeavySnowThunderSun">Heavy snow thunderstorm with sunny spells</string>
+    <string name="DrizzleThunder">Drizzle thunderstorm</string>
+    <string name="LightSleetThunder">Light sleet thunderstorm</string>
+    <string name="HeavySleetThunder">Heavy sleet thunderstorm</string>
+    <string name="LightSnowThunder">Light snow thunderstorm</string>
+    <string name="HeavySnowThunder">Heavy snow thunderstorm</string>
+    <string name="DrizzleSun">Drizzle with sunny spells</string>
+    <string name="RainSun">Rain with sunny spells</string>
+    <string name="LightSleetSun">Light Sleet with sunny spells</string>
+    <string name="HeavySleetSun">Heavy sleet with sunny spells</string>
+    <string name="LightSnowSun">Light snow with sunny spells</string>
+    <string name="HeavySnowSun">Heavy snow with sunny spells</string>
     <string name="Drizzle">Drizzle</string>
     <string name="LightSleet">Light sleet</string>
     <string name="HeavySleet">Heavy sleet</string>
@@ -112,4 +112,6 @@
 
     <string name="permission_location_standard">We need your permission to get your precise location in order to get forecast</string>
     <string name="permission_location_for_users_that_heck_never_ask_again">We REALLY need location permission in order to get forecast. You can check it in your app properties</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

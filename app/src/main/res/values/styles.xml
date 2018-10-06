@@ -37,13 +37,21 @@
     </style>
 
 
-    <style name="remoteview_text" parent="text">
-        <item name="android:textStyle">normal</item>
+    <style name="widget_text" parent="text">
         <item name="android:textSize">@dimen/badass_text_body</item>
     </style>
 
-    <style name="remoteview_tiny_text" parent="remoteview_text">
+    <style name="widget_tiny_text" parent="widget_text">
         <item name="android:textSize">@dimen/badass_text_body_micro</item>
+    </style>
+
+    <style name="notification_text" parent="widget_text">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/app_notification_text</item>
+    </style>
+
+    <style name="notification_tiny_text" parent="widget_tiny_text">
+        <item name="android:textColor">@color/app_notification_text</item>
     </style>
 
 

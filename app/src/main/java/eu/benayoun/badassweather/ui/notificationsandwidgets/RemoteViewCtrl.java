@@ -26,7 +26,7 @@ public class RemoteViewCtrl
 	{
 		if (notificationRemoteViews == null)
 		{
-			notificationRemoteViews = new RemoteViews(Badass.getApplicationContext().getPackageName(), R.layout.layout_remoteview);
+			notificationRemoteViews = new RemoteViews(Badass.getApplicationContext().getPackageName(), R.layout.layout_notification_remoteview);
 		}
 		updateViews(notificationRemoteViews);
 		return notificationRemoteViews;
@@ -37,7 +37,7 @@ public class RemoteViewCtrl
 		if (widgetsRemoteViews == null)
 		{
 			Context applicationContext = Badass.getApplicationContext();
-			widgetsRemoteViews = new RemoteViews(applicationContext.getPackageName(), R.layout.layout_remoteview);
+			widgetsRemoteViews = new RemoteViews(applicationContext.getPackageName(), R.layout.layout_widget_remoteview);
 			Intent intent = new Intent(applicationContext, ThisAppWidgetProvider.class);
 			intent.setAction(widgetActionName);
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, 0);
@@ -58,10 +58,12 @@ public class RemoteViewCtrl
 		UIModel uIModel   = ThisApp.getModel().uIModel;
 
 		// VISIILITY
-		int viewVisibility = (uIModel.isEmpty() ? View.GONE : View.VISIBLE);
-		int noDataViewVisibility = (uIModel.isEmpty() ? View.VISIBLE : View.GONE);
-		remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text,viewVisibility);
-		remoteViews.setViewVisibility(R.id.layout_remoteview_current_weather_text,viewVisibility);
+		int forecastVisibility = (uIModel.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+		int noDataViewVisibility = (uIModel.isEmpty() ? View.VISIBLE : View.INVISIBLE);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_forecast_layout,forecastVisibility);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_current_weather_text,forecastVisibility);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_separation,forecastVisibility);
+		remoteViews.setViewVisibility(R.id.layout_remoteview_next_weather_text,forecastVisibility);
 		remoteViews.setViewVisibility(R.id.layout_remoteview_no_data_text,noDataViewVisibility) ;
 
 		//CONTENT

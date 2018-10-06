@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_remoteview_main_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="@dimen/remote_view_layout_padding">
+
+    <LinearLayout
+        android:id="@+id/layout_remoteview_forecast_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="@dimen/remote_view_layout_padding"
+        android:weightSum="10"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/layout_remoteview_current_weather_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            style="@style/widget_text"
+            android:visibility="invisible"/>
+
+        <FrameLayout
+            android:id="@+id/layout_remoteview_separation"
+            android:layout_width="@dimen/badass_padding_micro"
+            android:layout_height="match_parent"
+            android:background="@color/app_primary_text"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/layout_remoteview_next_weather_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            style="@style/widget_text"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/layout_remoteview_app_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/widget_tiny_text"
+        android:gravity="bottom|right"
+        android:text="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/layout_remoteview_no_data_text"
+        style="@style/widget_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_data" />
+
+</FrameLayout>
+
+
+
+
+

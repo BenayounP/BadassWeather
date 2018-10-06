@@ -8,7 +8,11 @@ import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.background.AppBadassJobList;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
-import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.*;
+import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.FORECAST_PROBLEM;
+import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.IDLE;
+import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.JOB_RUNNING;
+import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.LOCATION_PROBLEM;
+import static eu.benayoun.badassweather.model.application.AppStateCtrl.State.PERMISSION_FINE_LOCATION_NOT_GIVEN;
 
 
 

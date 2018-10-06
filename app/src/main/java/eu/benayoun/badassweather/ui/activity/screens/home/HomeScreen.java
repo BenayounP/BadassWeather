@@ -1,6 +1,7 @@
 package eu.benayoun.badassweather.ui.activity.screens.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.SwitchCompat;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -75,7 +76,7 @@ public class HomeScreen extends ReactiveLayout
         BadassViewUtils.doNotDisplayOn_landscape_AndroidNavigationBar(appStatusView);
 
         // notification switch
-        final Switch notificationSwitch = mainView.findViewById(R.id.screen_home_switch_notification);
+        final SwitchCompat notificationSwitch = mainView.findViewById(R.id.screen_home_switch_notification);
         notificationSwitch.setChecked(ThisApp.getModel().appPreferencesAndAssets.isUserWantsToDisplayNotification());
         notificationSwitch.setOnClickListener(new View.OnClickListener()
         {
