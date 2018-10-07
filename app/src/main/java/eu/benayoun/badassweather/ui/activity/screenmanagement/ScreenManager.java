@@ -18,7 +18,6 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 public class ScreenManager
 {
 	private FrameLayout               mainView;
-	private View homeView;
 
 	private HomeScreen homeScreen;
 
@@ -49,7 +48,7 @@ public class ScreenManager
 	{
 		if (homeScreen ==null)
 		{
-			homeView = BadassViewUtils.inflateView(mainView, R.layout.screen_home);
+			View homeView = BadassViewUtils.inflateView(mainView, R.layout.screen_home);
 			mainView.addView(homeView);
 			homeScreen = new HomeScreen(homeView);
 		}

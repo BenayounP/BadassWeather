@@ -9,7 +9,7 @@ import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
 
-public class AppWidgetsCtrl implements BadassUIEventListenerContract
+class AppWidgetsCtrl implements BadassUIEventListenerContract
 {
     private RemoteViewCtrl remoteViewCtrl;
 

@@ -46,10 +46,8 @@
 
     <string name="app_state_getting_location">Getting your location</string>
     <string name="app_state_problem_location">Can\'t get your location</string>
-    <string name="app_state_problem_location_null">no data available</string>
 
     <string name="app_state_getting_weather_report">Getting your weather Report</string>
-    <string name="app_state_display_forecast_report">Updating forecast display</string>
     <string name="app_state_problem_forecast">Can\'t get your forecast</string>
     <string name="app_state_next_weather_report">Next weather report: %1$s</string>
 
@@ -112,6 +110,4 @@
 
     <string name="permission_location_standard">We need your permission to get your precise location in order to get forecast</string>
     <string name="permission_location_for_users_that_heck_never_ask_again">We REALLY need location permission in order to get forecast. You can check it in your app properties</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 </resources>

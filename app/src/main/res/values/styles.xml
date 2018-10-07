@@ -46,6 +46,7 @@
     </style>
 
     <style name="notification_text" parent="widget_text">
+        <item name="android:textSize">@dimen/badass_text_body_little</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/app_notification_text</item>
     </style>

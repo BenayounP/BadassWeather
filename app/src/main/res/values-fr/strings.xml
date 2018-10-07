@@ -44,12 +44,10 @@
 
     <string name="app_state_getting_location">Récupération de votre position</string>
     <string name="app_state_problem_location">Impossible de vous localiser</string>
-    <string name="app_state_problem_location_null">pas de donnée disponible</string>
 
 
     <string name="app_state_getting_weather_report">Recherche de votre bulletin météo</string>
     <string name="app_state_problem_forecast">Impossible de récupérer le bulletin météo</string>
-    <string name="app_state_display_forecast_report">Mise à jour des informations météo</string>
     <string name="app_state_next_weather_report">Prochain bulletin metéo : %1$s</string>
 
     <!-- ****** -->

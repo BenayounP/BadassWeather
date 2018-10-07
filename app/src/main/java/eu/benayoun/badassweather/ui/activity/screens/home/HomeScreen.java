@@ -6,7 +6,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import eu.benayoun.badass.Badass;
@@ -26,18 +25,11 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 
 public class HomeScreen extends ReactiveLayout
 {
-    private SwipeRefreshLayout             swipeRefreshLayout;
-    private View                           contentView;
     private HomeSwipeRefreshLayoutListener homeSwipeRefreshLayoutListener;
 
-    private AppStateLayout appStateLayout;
-
-    private LinearLayout mainLayout;
     private TextView forecastTextView;
     private LinearLayout moreLayout;
     private TextView moreTextView;
-    private TextView aboutTextView;
-    private Button moreButton;
     private boolean forecastIsDisplayed =true;
 
 
@@ -46,7 +38,7 @@ public class HomeScreen extends ReactiveLayout
         super(mainViewArg);
 
         // swipeRefreshLayout
-        swipeRefreshLayout = (SwipeRefreshLayout)mainView;
+        SwipeRefreshLayout             swipeRefreshLayout = (SwipeRefreshLayout)mainView;
         swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.app_primary_color);
         swipeRefreshLayout.setColorSchemeResources(R.color.app_primary_text);
         int statusBarHeight = BadassViewUtils.getAndroidStatusBarHeight();
@@ -54,10 +46,7 @@ public class HomeScreen extends ReactiveLayout
         homeSwipeRefreshLayoutListener = new HomeSwipeRefreshLayoutListener(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(homeSwipeRefreshLayoutListener);
 
-        // content
-        contentView = mainView.findViewById(R.id.screen_home_content);
-
-        mainLayout = mainView.findViewById(R.id.screen_home_main);
+        View mainLayout = mainView.findViewById(R.id.screen_home_main);
         mainLayout.setPadding(0, statusBarHeight+ mainLayout.getPaddingTop(),0,0);
         BadassViewUtils.doNotDisplayOn_landscape_AndroidNavigationBar(mainLayout);
 
@@ -67,7 +56,7 @@ public class HomeScreen extends ReactiveLayout
         //more
         moreLayout = mainView.findViewById(R.id.screen_home_more_layout);
 
-        aboutTextView = mainView.findViewById(R.id.screen_home_about_text);
+        TextView aboutTextView = mainView.findViewById(R.id.screen_home_about_text);
         aboutTextView.setMovementMethod(LinkMovementMethod.getInstance());
         aboutTextView.setLinkTextColor(Badass.getColor(R.color.app_accent_text));
 
@@ -88,14 +77,12 @@ public class HomeScreen extends ReactiveLayout
         });
 
         // about button
-        moreButton = mainView.findViewById(R.id.screen_home_about_button);
+        Button moreButton = mainView.findViewById(R.id.screen_home_about_button);
         moreButton.setOnClickListener(new View.OnClickListener() {public void onClick(View v) {
             onAboutButtonClick(); }});
 
-        // status
-
-        appStateLayout = new AppStateLayout(appStatusView);
-        addSubLayout(appStateLayout);
+        // State
+        addSubLayout(new AppStateLayout(appStatusView));
 
         listenTo(UIEvents.RESUME);
         listenTo(UIEvents.BACKGROUND_EVENT);
@@ -116,7 +103,7 @@ public class HomeScreen extends ReactiveLayout
 
     private void setForecastView()
     {
-        String  toDisplay ="";
+        String  toDisplay;
         UIModel uIModel   = ThisApp.getModel().uIModel;
         if (uIModel.isEmpty())
         {

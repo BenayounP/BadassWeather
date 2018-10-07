@@ -25,7 +25,7 @@ android {
         minSdkVersion 16
         targetSdkVersion project.COMPILE_SDK_VERSION.toInteger()
         versionCode 3
-        versionName "0.8.6"
+        versionName "0.8.6rc2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -51,7 +51,7 @@ dependencies {
     implementation project.GOOGLEPLAY_LOCATION + project.GOOGLE_PLAY_SERVICE_VERSION
     implementation 'com.android.volley:volley:1.1.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true;
+        transitive = true
     }
-    implementation 'com.github.benayounp:badass:0.6.035'
+    implementation 'com.github.benayounp:badass:0.6.0393'
 }

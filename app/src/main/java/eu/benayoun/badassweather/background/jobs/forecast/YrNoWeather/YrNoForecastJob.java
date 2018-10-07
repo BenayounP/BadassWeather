@@ -280,9 +280,19 @@ public class YrNoForecastJob
 
 	private void saveForecastData()
 	{
-		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(oneHourForecastList,nextWeatherReportInMs);
+		ThisApp.getModel().bareModel.forecastBareCache.updateAndSave(getCopy(oneHourForecastList),nextWeatherReportInMs);
         badassJob.schedule(nextWeatherReportInMs);
 		ThisApp.getAppBadassJobList().updateUI();
 	}
+
+    private ArrayList<AtomicBareForecastModel> getCopy(ArrayList<AtomicBareForecastModel> newOneHourBareForecastList)
+    {
+        ArrayList<AtomicBareForecastModel> oneHourBareForecastList= new ArrayList<>();
+        for (int i=0;i<newOneHourBareForecastList.size();i++)
+        {
+            oneHourBareForecastList.add(new AtomicBareForecastModel(newOneHourBareForecastList.get(i)));
+        }
+        return oneHourBareForecastList;
+    }
 
 }

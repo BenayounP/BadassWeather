@@ -43,7 +43,7 @@ public class ActivityOnEventReceiver extends BroadcastReceiver
     public void unregister(LocalBroadcastManager localBroadcastManager)
     {
         localBroadcastManager.unregisterReceiver(this);
-	    mainActivityWeakReference.clear();
+        if (mainActivityWeakReference!=null) mainActivityWeakReference.clear();
 	    mainActivityWeakReference=null;
     }
 }

@@ -61,7 +61,7 @@ public class YrNoForecastUtils
 			case 48: stringBuilder.append(Badass.getString(R.string.HeavySleet));break;
 			case 49: stringBuilder.append(Badass.getString(R.string.LightSnow));break;
 			case 50: stringBuilder.append(Badass.getString(R.string.HeavySnow));break;
-			default: stringBuilder.append("UNKNOWN: " +symbolId);break;
+			default: stringBuilder.append("UNKNOWN: ").append(symbolId);break;
 		}
 		return stringBuilder.toString();
 	}

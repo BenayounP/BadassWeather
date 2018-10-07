@@ -11,15 +11,15 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 /**
  * Created by PierreB on 11/09/2016.
  */
-public class AppAndroidEventsCtrl implements BadassInternetConnectivityListenerContract, BadassScreenActivityListenerContract
+class AppAndroidEventsCtrl implements BadassInternetConnectivityListenerContract, BadassScreenActivityListenerContract
 {
-	private AppBadassJobList appWorkersCtrl;
+	private AppBadassJobList appBadassJobList;
 
-	public AppAndroidEventsCtrl(AppBadassJobList appWorkersCtrl)
+	public AppAndroidEventsCtrl(AppBadassJobList appBadassJobList)
 	{
 		Badass.listenToInternetConnectivity(this);
 		Badass.listenToScreenActivity(this);
-		this.appWorkersCtrl = appWorkersCtrl;
+		this.appBadassJobList = appBadassJobList;
 	}
 
 
@@ -28,7 +28,7 @@ public class AppAndroidEventsCtrl implements BadassInternetConnectivityListenerC
 	@Override
 	public void onConnectedToInternet()
 	{
-		appWorkersCtrl.onConnectedToInternet();
+		appBadassJobList.onConnectedToInternet();
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class AppAndroidEventsCtrl implements BadassInternetConnectivityListenerC
 	@Override
 	public void onScreenOn()
 	{
-		appWorkersCtrl.onScreenOn();
+		appBadassJobList.onScreenOn();
 		Badass.broadcastUIEvent(UIEvents.SCREEN_ON);
 	}
 

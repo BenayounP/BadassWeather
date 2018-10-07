@@ -11,12 +11,11 @@ public class NotificationAndWidgetsMngr
         implements BadassUIEventListenerContract
 {
     private AppNotificationCtrl AppNotificationCtrl;
-    private RemoteViewCtrl remoteViewCtrl;
     private AppWidgetsCtrl appWidgetsCtrl;
 
     public NotificationAndWidgetsMngr()
     {
-        remoteViewCtrl = new RemoteViewCtrl();
+        RemoteViewCtrl remoteViewCtrl = new RemoteViewCtrl();
         AppNotificationCtrl = new AppNotificationCtrl(remoteViewCtrl);
         appWidgetsCtrl = new AppWidgetsCtrl(remoteViewCtrl);
     }

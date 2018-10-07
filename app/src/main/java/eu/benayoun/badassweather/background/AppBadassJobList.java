@@ -19,8 +19,6 @@ import eu.benayoun.badassweather.background.jobs.uiupdate.UiUpdateJob;
 
 public class AppBadassJobList
 {
-	private AppAndroidEventsCtrl appAndroidEventsCtrl;
-
 	private BadassJobsCtrl badassJobsCtrl;
 
 	//tasks
@@ -32,17 +30,23 @@ public class AppBadassJobList
 
 	public AppBadassJobList()
 	{
-		appAndroidEventsCtrl = new AppAndroidEventsCtrl(this);
+        AppAndroidEventsCtrl appAndroidEventsCtrl = new AppAndroidEventsCtrl(this);
+		Badass.listenToInternetConnectivity(appAndroidEventsCtrl);
+		Badass.listenToScreenActivity(appAndroidEventsCtrl);
+
 		badassJobsCtrl = new BadassJobsCtrl();
 
 		badassJobsCtrl.addJob(new DataInitJob());
 
 		fusedLocationAPIConnectionCtrl = new FusedLocationAPIConnectionCtrl();
 		badassJobsCtrl.addJob(fusedLocationAPIConnectionCtrl.getBadassJob());
+
 		locationJob = new LocationJob(this);
 		badassJobsCtrl.addJob(locationJob);
+
 		forecastJob = new ForecastJob();
 		badassJobsCtrl.addJob(forecastJob);
+
 		uiUpdateJob = new UiUpdateJob();
 		badassJobsCtrl.addJob(uiUpdateJob);
 	}

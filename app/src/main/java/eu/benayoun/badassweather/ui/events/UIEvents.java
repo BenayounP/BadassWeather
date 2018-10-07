@@ -35,7 +35,7 @@ public class UIEvents implements BadassUIEventsContract
 		ArrayList<Boolean> defaultRefreshArray = new ArrayList<>(AMOUNT_OF_EVENTS);
 		for (int i = 0; i< AMOUNT_OF_EVENTS; i++)
 		{
-			defaultRefreshArray.add(Boolean.valueOf(false));
+			defaultRefreshArray.add(Boolean.FALSE);
 		}
 		return defaultRefreshArray;
 	}

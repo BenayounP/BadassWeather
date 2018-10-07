@@ -33,7 +33,7 @@ public class AppStateCtrl
      
 
     // displayed String and status
-    private String displayedString = null;
+    private String displayedString;
     private State currentState;
 
 

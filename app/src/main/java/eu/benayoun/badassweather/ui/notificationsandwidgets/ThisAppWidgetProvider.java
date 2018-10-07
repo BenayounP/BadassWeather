@@ -23,16 +23,16 @@ public class ThisAppWidgetProvider extends AppWidgetProvider
 		{
 			// LAUNCH/Go to activity
             Intent launchActivityIntent = new Intent(context, MainActivity.class);
-            launchActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            launchActivityIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             context.startActivity(launchActivityIntent);
 		}
 		else if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction()))
 		{
             ThisApp.getAppBadassJobList().updateUI();
 		}
-	};
+	}
 
-	/**
+    /**
 	 *  INTERNAL COOKING
 	 */
 

@@ -12,7 +12,7 @@ import eu.benayoun.badassweather.ui.activity.MainActivity;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
 
-public class AppNotificationCtrl extends BadassNotificationCtrl
+class AppNotificationCtrl extends BadassNotificationCtrl
 {
 	private final int NOTIFICATION_ID = 1976;
 	private final int INTENT_ID = 1;

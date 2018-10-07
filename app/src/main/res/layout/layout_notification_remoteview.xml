@@ -21,7 +21,7 @@
             android:id="@+id/layout_remoteview_current_weather_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="5"
             style="@style/notification_text"
             android:visibility="invisible"/>
 
@@ -36,7 +36,7 @@
             android:id="@+id/layout_remoteview_next_weather_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"
+            android:layout_weight="5"
             style="@style/notification_text"
             android:visibility="invisible"/>
     </LinearLayout>

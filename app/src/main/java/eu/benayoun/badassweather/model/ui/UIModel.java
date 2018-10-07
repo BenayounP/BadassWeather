@@ -29,17 +29,17 @@ public class UIModel implements BadassSharedPreferencesStorageContract
 		noData = Badass.getString(R.string.no_data);
 	}
 
-	public void setWeather(String currentWeather, String nextWeather)
+	public void setWeather(String newCurrentWeather, String newNextWeather)
 	{
 	    boolean somethingChanged = false;
-	    if (this.currentWeather != currentWeather)
+	    if (newCurrentWeather != null && false == currentWeather.equals(newCurrentWeather))
         {
-            this.currentWeather = currentWeather;
+            currentWeather = newCurrentWeather;
             somethingChanged = true;
         }
-        if (this.nextWeather != nextWeather)
+        if (newNextWeather != null && false == nextWeather.equals(newNextWeather))
         {
-            this.nextWeather = nextWeather;
+            nextWeather = newNextWeather;
             somethingChanged = true;
         }
         if (somethingChanged)

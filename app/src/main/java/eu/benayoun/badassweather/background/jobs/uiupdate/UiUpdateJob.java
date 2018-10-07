@@ -20,51 +20,54 @@ public class UiUpdateJob extends BadassJob
 {
 
 
-	@Override
-	public BadassJob.State getStartingState()
-	{
-		return State.START_ASAP;
-	}
+    @Override
+    public BadassJob.State getStartingState()
+    {
+        return State.START_ASAP;
+    }
 
-	@Override
-	public void work()
-	{
-		long                               nowInMs = BadassTimeUtils.getCurrentTimeInMs();
-		ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCache.getOneHourBareForecastList();
+    @Override
+    public void work()
+    {
+        long                               nowInMs = BadassTimeUtils.getCurrentTimeInMs();
+        ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCache.getOneHourBareForecastList();
 
-		String bareCurrentWeather="";
-		String NextWeather="";
+        String bareCurrentWeather="";
+        String nextWeather="";
+        boolean goToSleep=true;
 
-		if (ArrayListUtils.isNOTNullOrEmpty(oneHourBareForecastList))
-		{
-			AtomicBareForecastModel atomicBareForecastModel;
+        if (ArrayListUtils.isNOTNullOrEmpty(oneHourBareForecastList))
+        {
+            AtomicBareForecastModel atomicBareForecastModel;
 
-			// Current Weather;
-			int currentWeatherIndex;
+            // Current Weather;
+            int currentWeatherIndex;
             int oneHourBareForecastListSize = oneHourBareForecastList.size();
             for (currentWeatherIndex=0; currentWeatherIndex< oneHourBareForecastListSize; currentWeatherIndex++)
-			{
-				atomicBareForecastModel = oneHourBareForecastList.get(currentWeatherIndex);
-				if (atomicBareForecastModel!=null && atomicBareForecastModel.getUTCDurationInMs().contains(nowInMs))
-				{
-					bareCurrentWeather =  YrNoForecastUtils.getWeatherSymbolString(atomicBareForecastModel.getWeatherSymbol());
-					break;
-				}
-			}
-			if (false==bareCurrentWeather.equals(""))
+            {
+                atomicBareForecastModel = oneHourBareForecastList.get(currentWeatherIndex);
+                if (atomicBareForecastModel!=null && atomicBareForecastModel.getUTCDurationInMs().contains(nowInMs))
+                {
+                    bareCurrentWeather =  YrNoForecastUtils.getWeatherSymbolString(atomicBareForecastModel.getWeatherSymbol());
+                    break;
+                }
+            }
+            if (false==bareCurrentWeather.equals(""))
             {
                 // Next Weather
                 String processedWeather;
                 int nextWeatherIndex = currentWeatherIndex + 1;
+                long nextWeatherStartInMs = -1;
                 while (nextWeatherIndex < oneHourBareForecastListSize)
                 {
                     atomicBareForecastModel = oneHourBareForecastList.get(nextWeatherIndex);
                     processedWeather = YrNoForecastUtils.getWeatherSymbolString(atomicBareForecastModel.getWeatherSymbol());
                     if (processedWeather.equals(bareCurrentWeather) == false)
                     {
-                        NextWeather = Badass.getString(R.string.next_weather,
+                        nextWeather = Badass.getString(R.string.next_weather,
                                 BadassTimeUtils.getNiceTimeString(atomicBareForecastModel.getUTCDurationInMs().startTime)
                                         + Badass.getString(R.string.colon_with_spaces) + "\n" + processedWeather);
+                        nextWeatherStartInMs = atomicBareForecastModel.getUTCDurationInMs().startTime;
                         break;
                     }
                     else
@@ -72,29 +75,19 @@ public class UiUpdateJob extends BadassJob
                         nextWeatherIndex++;
                     }
                 }
+                String uiCurrentWeather = Badass.getString(R.string.now_weather, bareCurrentWeather);
+                ThisApp.getModel().uIModel.setWeather(uiCurrentWeather, nextWeather);
+               if (nextWeatherStartInMs!=-1)
+               {
+                   schedule(nextStartTimeInMs);
+                   goToSleep = false;
+               }
             }
-		}
-		if (bareCurrentWeather.equals("")==false)
-        {
-            String uiCurrentWeather = Badass.getString(R.string.now_weather, bareCurrentWeather);
-            ThisApp.getModel().uIModel.setWeather(uiCurrentWeather, NextWeather);
-            schedule(getStartOfNextHour());
         }
-		else
-		{
+        if (goToSleep)
+        {
             goToSleep();
-		}
-	}
+        }
 
-	// INTERNAl COOKING
-    private long getStartOfNextHour()
-	{
-		long     nowInMs  = BadassTimeUtils.getCurrentTimeInMs();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(nowInMs+DateUtils.HOUR_IN_MILLIS);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		return calendar.getTimeInMillis();
-	}
+    }
 }
