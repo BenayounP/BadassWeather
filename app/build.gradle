@@ -25,7 +25,7 @@ android {
         minSdkVersion 16
         targetSdkVersion project.COMPILE_SDK_VERSION.toInteger()
         versionCode 3
-        versionName "0.8.6rc2"
+        versionName "0.8.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
