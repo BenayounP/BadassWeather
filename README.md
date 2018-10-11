@@ -28,5 +28,9 @@ You can learn more about the framework with a bunch of medium posts that starts 
 if you see an issue or want to help in any way, just send me an [email](mailto:pierre<àcabnum.fr)
 
 ## Issues
-## known ones
+### known ones
 The APP Widget is quite boring to add (doesn't work on 50% installs..Weird)
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
