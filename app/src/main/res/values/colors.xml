@@ -3,7 +3,7 @@
     <!-- GLOBAL -->
     <color name="app_primary_color">@color/peter_river_2</color>
     <color name="app_secondary_color">@color/peter_river</color>
-    <color name="app_status_bar_color">@color/translucent_grey_2</color>
+    <color name="app_state_bar_color">@color/translucent_grey_2</color>
 
     <!-- APP STATUS-->
     <color name="app_problem_1">@color/carrot</color>
@@ -11,6 +11,8 @@
 
     <!-- TEXTS -->
     <color name="app_primary_text">@color/snow</color>
+    <color name="app_notification_text">@color/nice_black</color>
     <color name="app_accent_text">@color/sun_flower_2</color>
+    <color name="app_notification_accent_text">@color/peter_river_800</color>
 </resources>
 

@@ -7,29 +7,107 @@
     <string name="app_name" translatable="false">BadassWeather</string>
 
     <!-- ************** -->
-    <!-- APP STATUS  -->
+    <!--   UI    -->
     <!-- ************** -->
-    <string name="app_status_init">Initialisation</string>
-    <string name="app_status_bgnd_update_start">Getting Data in background</string>
-    <string name="app_status_loading_data">Loading your data</string>
 
-    <string name="app_status_problem_no_internet">No internet connection</string>
-    <string name="app_status_forecast_problem_server_null_data">Forecast distant server data is null</string>
-    <string name="app_status_problem_server_compute">Can\'t compute server data</string>
+    <string name="no_data">No data...yet!</string>
 
-    <string name="app_status_getting_location">Getting your location</string>
-    <string name="app_status_problem_location">Can\'t get your location</string>
-    <string name="app_status_problem_location_null">no data available</string>
 
-    <string name="app_status_getting_weather_report">Getting your weather Report</string>
-    <string name="app_status_display_forecast_report">Updating forecast display</string>
-    <string name="app_status_problem_forecast">Can\'t get your forecast</string>
-    <string name="app_status_next_weather_report">Next weather report: %1$s</string>
+    <!-- ************** -->
+    <!--        HOME    -->
+    <!-- ************** -->
+    <string name="home_notification_switch">Notification\u0020</string>
+    <string name="home_about">This app is an example of what you can achieve with the BADASS framework. More <a href="http://bit.ly/badass_android">here</a>\n\nWeather forecast from <a href="https://www.yr.no/?spr=eng">Yr</a>, delivered by the Norwegian Meteorological Institute and NRK\n\nIf you have any question, mail me: <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a></string>
+    <string name="location_update_empty">Location hasn\'t be set yet</string>
+    <string name="location_update_nominal">Last location update: %1$s</string>
+    <string name="forecast_update_empty">Forecast hasn\'t be set yet</string>
+    <string name="forecast_update_nominal">Last forecast update: %1$s</string>
+
+    <!-- ************** -->
+    <!--     WEATHER    -->
+    <!-- ************** -->
+
+    <string name="now_weather">Now:\n%1$s</string>
+    <string name="next_weather">Next %1$s</string>
+
+
+    <!-- ************** -->
+    <!-- APP STATE  -->
+    <!-- ************** -->
+    <string name="app_state_init">Initialisation</string>
+    <string name="app_state_bgnd_update_start">Getting your data</string>
+    <string name="app_state_loading_data">Loading your data</string>
+
+    <string name="app_state_problem_no_internet">No internet connection</string>
+    <string name="app_state_forecast_problem_server_null_data">Forecast distant server data is null</string>
+    <string name="app_state_problem_server_compute">Can\'t compute server data</string>
+
+    <string name="app_state_connect_api">Connecting to device location system</string>
+
+    <string name="app_state_getting_location">Getting your location</string>
+    <string name="app_state_problem_location">Can\'t get your location</string>
+
+    <string name="app_state_getting_weather_report">Getting your weather Report</string>
+    <string name="app_state_problem_forecast">Can\'t get your forecast</string>
+    <string name="app_state_next_weather_report">Next weather report: %1$s</string>
+
+    <!-- ****** -->
+    <!-- YR NO  -->
+    <!-- ****** -->
+
+    <string name="Sun">Clear</string>
+    <string name="LightCloud">Light cloud</string>
+    <string name="PartlyCloud">Partly cloudy</string>
+    <string name="Cloud">Cloudy</string>
+    <string name="LightRainSun">Light rain with sunny spells</string>
+    <string name="LightRainThunderSun">Light rain thunderstorm with sunny spells</string>
+    <string name="SleetSun">Sleet with sunny spells</string>
+    <string name="SnowSun">Snow with sunny spells</string>
+    <string name="LightRain">Light rain</string>
+    <string name="Rain">Rain</string>
+    <string name="RainThunder">rain thunderstorm</string>
+    <string name="Sleet">Sleet</string>
+    <string name="Snow">Snow</string>
+    <string name="SnowThunder">Snow thunderstorm</string>
+    <string name="Fog">Fog</string>
+    <string name="SleetSunThunder">Sleet thunderstorm with sunny spells</string>
+    <string name="SnowSunThunder">Snow thunderstorm with sunny spells</string>
+    <string name="LightRainThunder">Light rain thunderstorm</string>
+    <string name="SleetThunder">Sleet thunderstorm</string>
+    <string name="DrizzleThunderSun">Drizzle thunderstorm with sunny spells</string>
+    <string name="RainThunderSun">Rain with sunny spells</string>
+    <string name="LightSleetThunderSun">Light sleet with sunny spells</string>
+    <string name="HeavySleetThunderSun">Heavy sleet with sunny spells</string>
+    <string name="LightSnowThunderSun">Light snow thunderstorm with sunny spells</string>
+    <string name="HeavySnowThunderSun">Heavy snow thunderstorm with sunny spells</string>
+    <string name="DrizzleThunder">Drizzle thunderstorm</string>
+    <string name="LightSleetThunder">Light sleet thunderstorm</string>
+    <string name="HeavySleetThunder">Heavy sleet thunderstorm</string>
+    <string name="LightSnowThunder">Light snow thunderstorm</string>
+    <string name="HeavySnowThunder">Heavy snow thunderstorm</string>
+    <string name="DrizzleSun">Drizzle with sunny spells</string>
+    <string name="RainSun">Rain with sunny spells</string>
+    <string name="LightSleetSun">Light Sleet with sunny spells</string>
+    <string name="HeavySleetSun">Heavy sleet with sunny spells</string>
+    <string name="LightSnowSun">Light snow with sunny spells</string>
+    <string name="HeavySnowSun">Heavy snow with sunny spells</string>
+    <string name="Drizzle">Drizzle</string>
+    <string name="LightSleet">Light sleet</string>
+    <string name="HeavySleet">Heavy sleet</string>
+    <string name="LightSnow">Light snow</string>
+    <string name="HeavySnow">Heavy snow</string>
+
+    <!-- ************** -->
+    <!-- NOTIFICATIONS  -->
+    <!-- ************** -->
+    <string name="notification_channel_ID" translatable="false">%1$s_NOTIFICATIONS_ID</string>
+    <string name="notification_channel_name_description_ID" translatable="false">%1$s notifications</string>
 
 
     <!-- ************** -->
     <!--   PERMISSIONS  -->
     <!-- ************** -->
 
-    <string name="permission_location">We need your permission to get your precise location in order to get forecast </string>
+    <string name="permission_location_standard">We need your permission to get your precise location in order to get forecast</string>
+    <string name="permission_location_for_users_that_heck_never_ask_again">We REALLY need location permission in order to get forecast. You can check it in your app properties</string>
 </resources>

@@ -13,48 +13,124 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/screen_home_main_text"
-            style="@style/BigText"
+        <LinearLayout
+            android:id="@+id/screen_home_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/screen_home_status_layout"
-            android:gravity="center"/>
-
-        <LinearLayout
-            android:id="@+id/screen_home_status_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="@dimen/global_layout_padding">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/badass_padding_gargantua">
 
             <TextView
-                android:id="@+id/screen_home_status_text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/screen_home_forecast_text"
+                style="@style/homescreen_big_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/NominalText"/>
+                android:gravity="center"/>
 
-            <Button
-                android:id="@+id/screen_home_status_resolve"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/screen_home_more_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:id="@+id/screen_home_more_text"
+                    style="@style/homescreen_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    />
+
+                <FrameLayout android:layout_width="match_parent"
+                    android:layout_height="@dimen/badass_padding_tiny"
+                    android:layout_marginTop="@dimen/badass_padding_gargantua"
+                    android:layout_marginRight="@dimen/badass_padding_gargantua"
+                    android:layout_marginBottom="@dimen/badass_padding_gargantua"
+                    android:background="@color/app_primary_text" />
+
+                <TextView
+                    android:id="@+id/screen_home_about_text"
+                    style="@style/homescreen_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="@string/home_about"
+                    />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/classicButton"
-                android:text="@string/check"/>
+                android:orientation="horizontal"
+                android:padding="@dimen/global_layout_padding"
+                android:gravity="center">
 
-            <FrameLayout
-                android:layout_width="@dimen/global_layout_padding"
-                android:layout_height="0dp"/>
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/screen_home_switch_notification"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_notification_switch"
+                    style="@style/homescreen_text"/>
 
-            <Button
-                android:id="@+id/screen_home_status_dismiss"
-                android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="@dimen/global_layout_padding"
+                    android:layout_height="0dp"/>
+
+                <Button
+                    android:id="@+id/screen_home_about_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/classicButton"
+                    android:text="?"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/screen_home_state_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/classicButton"
-                android:layout_marginRight="@dimen/global_layout_padding"
-                android:text="X"/>
+                android:padding="@dimen/global_layout_padding"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/screen_home_state_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    style="@style/homescreen_text"/>
+
+                <FrameLayout
+                    android:layout_width="@dimen/global_layout_padding"
+                    android:layout_height="0dp"/>
+
+                <Button
+                    android:id="@+id/screen_home_state_resolve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/classicButton"
+                    android:text="@string/check"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

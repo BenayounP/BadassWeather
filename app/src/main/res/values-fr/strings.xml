@@ -5,34 +5,107 @@
 
     <!--<string name="app_name" translatable="false">BadassWeather</string>-->
 
+    <!-- ************** -->
+    <!--   UI    -->
+    <!-- ************** -->
+
+    <string name="no_data">Pas de données...pour l\'instant !</string>
 
     <!-- ************** -->
-    <!-- APP STATUS  -->
+    <!--        HOME    -->
     <!-- ************** -->
-    <string name="app_status_init">Initialisation</string>
-    <string name="app_status_bgnd_update_start">Récupération des données en arrière-plan</string>
-    <string name="app_status_problem_no_server_response">Pas de réponse serveur</string>
-    <string name="app_status_loading_data">Chargement de vos données</string>
+    <string name="home_notification_switch">Notification\u0020</string>
+    <string name="home_about">Cette application est un exemple d\'utilisation du framework <a href="http://bit.ly/badass_android">BADASS</a>\n\nPrévisions météorologiques issues de <a href="https://www.yr.no/?spr=">Yr</a>, fournies par l\'Institut météorologique norvégien et NRK\n\nPour toute question, n\'hesitez pas à m\'envoyer un mail : <a href="mailto:pierre.benayoun@cabnum.fr">pierre.benayoun@cabnum.fr</a></string>
+    <string name ="location_update_empty">La Localisation n\'a pas encore été faite</string>
+    <string name ="location_update_nominal">Dernière MAJ de la localisation : %1$s</string>
+    <string name ="forecast_update_empty">Les prévisions météo n\'ont pas encore été faite</string>
+    <string name ="forecast_update_nominal">Dernière MAJ des prévisions météo : %1$s</string>
 
-    <string name="app_status_problem_no_internet">Pas de connection internet</string>
-    <string name="app_status_forecast_problem_server_null_data">Le serveur distant de prévisions météo a rénvoyé une donnée vide</string>
-    <string name="app_status_problem_server_compute">Ne peut décoder les données du serveur</string>
+    <!-- ************** -->
+    <!--     WEATHER    -->
+    <!-- ************** -->
 
-    <string name="app_status_getting_location">Récupération de votre position</string>
-    <string name="app_status_problem_location">Impossible de vous localiser</string>
-    <string name="app_status_problem_location_null">pas de donnée disponible</string>
+    <string name="now_weather">Maintenant :\n%1$s</string>
+    <string name="next_weather">Prochain %1$s</string>
 
 
-    <string name="app_status_getting_weather_report">Recherche de votre bulletin météo</string>
-    <string name="app_status_problem_forecast">Impossible de récupérer le bulletin météo</string>
-    <string name="app_status_display_forecast_report">Mise à jour des informations météo</string>
-    <string name="app_status_next_weather_report">Prochain bulletin metéo : %1$s</string>
+    <!-- ************** -->
+    <!-- APP STATE  -->
+    <!-- ************** -->
+    <string name="app_state_init">Initialisation</string>
+    <string name="app_state_bgnd_update_start">Récupération des données en arrière-plan</string>
+    <string name="app_state_loading_data">Chargement de vos données</string>
 
+    <string name="app_state_problem_no_internet">Pas de connection internet</string>
+    <string name="app_state_forecast_problem_server_null_data">Le serveur distant de prévisions météo a rénvoyé une donnée vide</string>
+    <string name="app_state_problem_server_compute">Ne peut décoder les données du serveur</string>
+
+    <string name="app_state_connect_api">Connection au système android de localisation</string>
+
+    <string name="app_state_getting_location">Récupération de votre position</string>
+    <string name="app_state_problem_location">Impossible de vous localiser</string>
+
+
+    <string name="app_state_getting_weather_report">Recherche de votre bulletin météo</string>
+    <string name="app_state_problem_forecast">Impossible de récupérer le bulletin météo</string>
+    <string name="app_state_next_weather_report">Prochain bulletin metéo : %1$s</string>
+
+    <!-- ****** -->
+    <!-- YR NO  -->
+    <!-- ****** -->
+
+    <string name="Sun">Clair</string>
+    <string name="LightCloud">Légèrement nuageux</string>
+    <string name="PartlyCloud">Partiellement nuageux</string>
+    <string name="Cloud">Nuageux</string>
+    <string name="LightRainSun">Pluies légères avec éclaircies</string>
+    <string name="LightRainThunderSun">Orageux avec pluies légères et éclaircies</string>
+    <string name="SleetSun">Neige fondue avec éclaircies</string>
+    <string name="SnowSun">Neige avec éclaircies</string>
+    <string name="LightRain">Pluies légères</string>
+    <string name="Rain">Pluvieux</string>
+    <string name="RainThunder">Orages avec pluies</string>
+    <string name="Sleet">Neige fondue</string>
+    <string name="Snow">Neige</string>
+    <string name="SnowThunder">Orages avec neige</string>
+    <string name="Fog">Brouillard</string>
+    <string name="SleetSunThunder">Orages avec neige fondue et éclaircies</string>
+    <string name="SnowSunThunder">Orage avec neige et éclaircies</string>
+    <string name="LightRainThunder">Orages avec Pluies légères</string>
+    <string name="SleetThunder">Orages avec neige fondue</string>
+    <string name="DrizzleThunderSun">Orages avec bruines et éclaircies</string>
+    <string name="RainThunderSun">Orage avec pluies et éclaircies</string>
+    <string name="LightSleetThunderSun">Orage avec légères neige fondues et éclaircies</string>
+    <string name="HeavySleetThunderSun">Orage avec importantes neiges fondues et éclaircies</string>
+    <string name="LightSnowThunderSun">Orage avec légères neiges et éclaircies</string>
+    <string name="HeavySnowThunderSun">Orage avec neige importante et éclaircies</string>
+    <string name="DrizzleThunder">Orage avec bruines</string>
+    <string name="LightSleetThunder">Orage avec légères neiges fondues</string>
+    <string name="HeavySleetThunder">Orage avec importantes neiges fondues</string>
+    <string name="LightSnowThunder">Orage avec légères neiges</string>
+    <string name="HeavySnowThunder">Orage avec importantes neiges</string>
+    <string name="DrizzleSun">Bruines avec éclaircies</string>
+    <string name="RainSun">Pluvieux avec éclaircies</string>
+    <string name="LightSleetSun">Légères neiges fondues avec éclaircies</string>
+    <string name="HeavySleetSun">Importantes neiges fondues avec éclaircies</string>
+    <string name="LightSnowSun">Légères neige avec éclaircies</string>
+    <string name="HeavySnowSun">Importantes neiges avec éclaircies</string>
+    <string name="Drizzle">Bruines</string>
+    <string name="LightSleet">Légères neiges fondues</string>
+    <string name="HeavySleet">Importantes neiges fondues</string>
+    <string name="LightSnow">Légères neiges</string>
+    <string name="HeavySnow">Importantes neiges</string>
+
+    <!-- ************** -->
+    <!-- NOTIFICATIONS  -->
+    <!-- ************** -->
+    <!--<string name="notification_channel_ID">%1$s_NOTIFICATIONS_ID</string>-->
 
     <!-- ************** -->
     <!--   PERMISSIONS  -->
     <!-- ************** -->
 
-    <string name="permission_location">Nous avons besoin de votre permission pour connaître votre localisation et donc les prévisions</string>
+    <string name="permission_location_standard">Nous avons besoin de votre permission pour connaître votre localisation et donc les prévisions</string>
+    <string name="permission_location_for_users_that_heck_never_ask_again">Nous avons VRAIMENT besoin de connaître votre localisation. Vous pouvez gérer la permission sur la page de votre application. </string>
 
 </resources>

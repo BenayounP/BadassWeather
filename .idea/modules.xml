@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../...iml" filepath="$PROJECT_DIR$/../...iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Badass/Badass.iml" filepath="$PROJECT_DIR$/../Badass/Badass.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Badass/app/Badass-app.iml" filepath="$PROJECT_DIR$/../Badass/app/Badass-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/BadassWeather.iml" filepath="$PROJECT_DIR$/BadassWeather.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/BadassWeather-app.iml" filepath="$PROJECT_DIR$/app/BadassWeather-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../Dropbox.iml" filepath="$PROJECT_DIR$/../../../Dropbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

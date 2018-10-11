@@ -1,1 +1,1 @@
-include ':app','..:Badass:app'
+include ':app'
