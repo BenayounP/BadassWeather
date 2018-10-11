@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorage;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
@@ -15,7 +15,7 @@ import eu.benayoun.badassweather.ui.events.UIEvents;
 
 public class UIModel implements BadassSharedPreferencesStorageContract
 {
-	private SharedPreferencesStorage sharedPreferencesStorage;
+	private BadassSharedPreferencesStorage sharedPreferencesStorage;
 
 	private String currentWeather;
 	private String nextWeather;
@@ -23,7 +23,7 @@ public class UIModel implements BadassSharedPreferencesStorageContract
 
 	public UIModel()
 	{
-		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new BadassSharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		currentWeather ="";
 		nextWeather="";
 		noData = Badass.getString(R.string.no_data);

@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.activity.BadassActivity;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.ui.activity.receivers.ActivityReceiverManager;
@@ -72,14 +72,14 @@ public class MainActivity extends BadassActivity
 				Badass.requestPermission(this,logInFilePermissionManager);
 			}
 		}
-		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassUtilsTime.getCurrentTimeInMs());
 	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassUtilsTime.getCurrentTimeInMs());
 	}
 
 	public void onEvent(int eventId, long onEventTimeInMs)

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.layout.ReactiveLayout;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
@@ -135,7 +135,7 @@ public class HomeScreen extends ReactiveLayout
         }
         else
         {
-            return Badass.getString(R.string.location_update_nominal, BadassTimeUtils.getNiceTimeString(lastLocationUpdateInMs));
+            return Badass.getString(R.string.location_update_nominal, BadassUtilsTime.getNiceTimeString(lastLocationUpdateInMs));
         }
     }
 
@@ -148,7 +148,7 @@ public class HomeScreen extends ReactiveLayout
         }
         else
         {
-            return Badass.getString(R.string.forecast_update_nominal, BadassTimeUtils.getNiceTimeString(lastForecastUpdateInMs));
+            return Badass.getString(R.string.forecast_update_nominal, BadassUtilsTime.getNiceTimeString(lastForecastUpdateInMs));
         }
     }
 

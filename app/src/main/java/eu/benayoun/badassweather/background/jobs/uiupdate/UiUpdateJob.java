@@ -7,8 +7,9 @@ import java.util.Calendar;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
+import eu.benayoun.badass.utility.math.MathUtils;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.background.jobs.forecast.YrNoWeather.YrNoForecastUtils;
@@ -29,7 +30,7 @@ public class UiUpdateJob extends BadassJob
     @Override
     public void work()
     {
-        long                               nowInMs = BadassTimeUtils.getCurrentTimeInMs();
+        long                               nowInMs = BadassUtilsTime.getCurrentTimeInMs();
         ArrayList<AtomicBareForecastModel> oneHourBareForecastList = ThisApp.getModel().bareModel.forecastBareCache.getOneHourBareForecastList();
 
         String bareCurrentWeather="";
@@ -65,9 +66,9 @@ public class UiUpdateJob extends BadassJob
                     if (processedWeather.equals(bareCurrentWeather) == false)
                     {
                         nextWeather = Badass.getString(R.string.next_weather,
-                                BadassTimeUtils.getNiceTimeString(atomicBareForecastModel.getUTCDurationInMs().startTime)
+                                BadassUtilsTime.getNiceTimeString(atomicBareForecastModel.getUTCDurationInMs().startTime)
                                         + Badass.getString(R.string.colon_with_spaces) + "\n" + processedWeather);
-                        nextWeatherStartInMs = atomicBareForecastModel.getUTCDurationInMs().startTime;
+                        nextWeatherStartInMs = atomicBareForecastModel.getUTCDurationInMs().startTime+DateUtils.MINUTE_IN_MILLIS;
                         break;
                     }
                     else
@@ -79,7 +80,7 @@ public class UiUpdateJob extends BadassJob
                 ThisApp.getModel().uIModel.setWeather(uiCurrentWeather, nextWeather);
                if (nextWeatherStartInMs!=-1)
                {
-                   schedule(nextStartTimeInMs);
+                   schedule(nextWeatherStartInMs);
                    goToSleep = false;
                }
             }

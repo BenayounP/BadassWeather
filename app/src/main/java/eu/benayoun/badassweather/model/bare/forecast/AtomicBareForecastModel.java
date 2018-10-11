@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.text.format.DateUtils;
 
 import eu.benayoun.badass.utility.model.DurationInMs;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.background.jobs.forecast.YrNoWeather.YrNoForecastUtils;
 
 
@@ -51,7 +51,7 @@ public class AtomicBareForecastModel
 
 	public int getStartTimeInHour()
 	{
-		return BadassTimeUtils.getHourOfDay24(UTCDurationInMs.startTime);
+		return BadassUtilsTime.getHourOfDay24(UTCDurationInMs.startTime);
 	}
 
 	public void setEndTime(long endTime)
@@ -76,7 +76,7 @@ public class AtomicBareForecastModel
 	public long getDeltaDayToToday(long startOfToday)
 	{
 		long startOfReadCache = UTCDurationInMs.startTime;
-		long                    startOfDAYOfReadCache = BadassTimeUtils.getStartOfTheDayInMs(startOfReadCache);
+		long                    startOfDAYOfReadCache = BadassUtilsTime.getStartOfTheDayInMs(startOfReadCache);
 		return (startOfDAYOfReadCache-startOfToday)/ DateUtils.HOUR_IN_MILLIS;
 	}
 

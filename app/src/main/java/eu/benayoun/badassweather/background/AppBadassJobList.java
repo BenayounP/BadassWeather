@@ -59,23 +59,23 @@ public class AppBadassJobList
     public void manageFusedLocationAPI()
 	{
 		fusedLocationAPIConnectionCtrl.getBadassJob().askToStartAsap();
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	public void onFusedLocationAPIProblem()
 	{
 		fusedLocationAPIConnectionCtrl.getBadassJob().askToStartAsap();
-        Badass.startBadassThread();
+        Badass.launchBadassThread();
 	}
 
 	public void onScreenOn()
 	{
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	public void onConnectedToInternet()
 	{
-        Badass.startBadassThread();
+        Badass.launchBadassThread();
 	}
 
 
@@ -88,13 +88,13 @@ public class AppBadassJobList
 	{
 		locationJob.askToStartAsap();
 		forecastJob.askToStartAsap();
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	public void updateUI()
 	{
 		uiUpdateJob.askToStartAsap();
-        Badass.startBadassThread();
+        Badass.launchBadassThread();
 	}
 
 

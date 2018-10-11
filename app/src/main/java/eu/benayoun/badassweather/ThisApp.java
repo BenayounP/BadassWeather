@@ -6,7 +6,7 @@ import android.os.StrictMode;
 import com.crashlytics.android.Crashlytics;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.background.AppBadassJobList;
 import eu.benayoun.badassweather.background.AppThreadListener;
 import eu.benayoun.badassweather.model.Model;
@@ -56,7 +56,7 @@ public class ThisApp extends Application
 						.penaltyLog()
 						.build());
 			}
-			Badass.finalLog("%%(model)##(bgnd)$$(UI)!!!******* INITIALISATION "+ BadassTimeUtils.getDateString(BadassTimeUtils.getCurrentTimeInMs())+" ***********************************************");
+			Badass.finalLog("%%(model)##(bgnd)$$(UI)!!!******* INITIALISATION "+ BadassUtilsTime.getDateString(BadassUtilsTime.getCurrentTimeInMs())+" ***********************************************");
 
 			// Crashlytics
 			Fabric.with(this, new Crashlytics());
@@ -65,7 +65,7 @@ public class ThisApp extends Application
 		// THREAD
 		appBadassJobList = new AppBadassJobList();
 		Badass.setThreadMngr(appBadassJobList.getBadassJobsCtrl(),new AppThreadListener());
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	public static AppBadassJobList getAppBadassJobList()

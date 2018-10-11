@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
 import eu.benayoun.badass.utility.model.XmlParser;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassLog;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
@@ -57,7 +57,7 @@ public class YrNoForecastJob
 		{
 			// MAIN METHOD
 			setForecastData(websiteStringResponse);
-			UTCOffsetInMs = BadassTimeUtils.getUTCOffsetInMs();
+			UTCOffsetInMs = BadassUtilsTime.getUTCOffsetInMs();
 		}
 	}
 
@@ -175,11 +175,11 @@ public class YrNoForecastJob
 			if (xmlParser.getAttributeName(i).equals("nextrun"))
 			{
                 long scheduleTimeInMs = getTimeInMs(xmlParser.getAttributeValue(i));
-                long currentTimeInMs = BadassTimeUtils.getCurrentTimeInMs();
+                long currentTimeInMs = BadassUtilsTime.getCurrentTimeInMs();
                 if (scheduleTimeInMs <= currentTimeInMs)
                 {
                     Calendar calendar = Calendar.getInstance();
-                    BadassTimeUtils.setStartOfHour(calendar);
+                    BadassUtilsTime.setStartOfHour(calendar);
                     scheduleTimeInMs = calendar.getTimeInMillis()+DateUtils.HOUR_IN_MILLIS;
                 }
                 nextWeatherReportInMs = scheduleTimeInMs;

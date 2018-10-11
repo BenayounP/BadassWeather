@@ -7,7 +7,7 @@ import com.google.android.gms.location.LocationListener;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.background.AppBadassJobList;
@@ -55,7 +55,7 @@ public class LocationJob extends BadassJob implements LocationListener
 		Badass.logInFile("** on location changed");
 		setLastFusedLocation(location);
 		askToStartAsap();
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class LocationJob extends BadassJob implements LocationListener
 				Badass.log("## last location is NOT away of last one -> update only time");
                 ThisApp.getModel().bareModel.locationBareCache.updateLocationSetTime();
 			}
-			schedule(BadassTimeUtils.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
+			schedule(BadassUtilsTime.getCurrentTimeInMs()+ LOCATION_CHECK_INTERVAL);
 		}
 		else
 		{

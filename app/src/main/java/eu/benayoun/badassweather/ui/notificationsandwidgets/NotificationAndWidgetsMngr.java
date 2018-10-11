@@ -2,7 +2,7 @@ package eu.benayoun.badassweather.ui.notificationsandwidgets;
 
 
 import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.ui.events.UIEvents;
 
@@ -30,6 +30,6 @@ public class NotificationAndWidgetsMngr
     public void onNotificationSwitchClick()
     {
         ThisApp.getModel().appPreferencesAndAssets.toggleUserWantsToDisplayNotification();
-        AppNotificationCtrl.onEvent(UIEvents.USER_NOTIFICATION_PREFERENCE, BadassTimeUtils.getCurrentTimeInMs());
+        AppNotificationCtrl.onEvent(UIEvents.USER_NOTIFICATION_PREFERENCE, BadassUtilsTime.getCurrentTimeInMs());
     }
 }

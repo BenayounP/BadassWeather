@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import eu.benayoun.badass.ui.layout.ReactiveLayout;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassViewUtils;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ui.activity.screens.home.HomeScreen;
@@ -54,6 +54,6 @@ public class ScreenManager
 		}
 		homeScreen.setVisible();
 		currentLayout = homeScreen;
-		onEvent(UIEvents.RESUME, BadassTimeUtils.getCurrentTimeInMs());
+		onEvent(UIEvents.RESUME, BadassUtilsTime.getCurrentTimeInMs());
 	}
 }

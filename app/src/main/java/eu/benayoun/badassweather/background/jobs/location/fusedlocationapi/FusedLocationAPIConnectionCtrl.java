@@ -74,7 +74,7 @@ public class FusedLocationAPIConnectionCtrl
 	{
 		Badass.broadcastUIEvent(UIEvents.PERMISSION_STATUS_CHANGE_RESULT);
 		fusedLocationAPIConnectionJob.askToStartAsap();
-		Badass.startBadassThread();
+		Badass.launchBadassThread();
 	}
 
 	@Override

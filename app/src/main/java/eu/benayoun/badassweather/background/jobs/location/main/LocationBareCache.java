@@ -5,9 +5,9 @@ import android.location.Location;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.math.MathUtils;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorage;
 import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
 import eu.benayoun.badassweather.ThisApp;
 
 
@@ -22,7 +22,7 @@ public class LocationBareCache implements BadassSharedPreferencesStorageContract
 
 	public static float DELTA_DISTANCE_IN_METERS = 5000;
 
-	private SharedPreferencesStorage sharedPreferencesStorage;
+	private BadassSharedPreferencesStorage sharedPreferencesStorage;
 
 	private double   lastLatitude;
 	private double   lastLongitude;
@@ -33,7 +33,7 @@ public class LocationBareCache implements BadassSharedPreferencesStorageContract
 
 	public LocationBareCache()
 	{
-		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new BadassSharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		lastLatitude = INVALID_LATITUDE_VALUE;
 		lastLongitude =INVALID_LONGITUDE_VALUE;
 		lastLocationUpdateInMs=-1;
@@ -55,14 +55,14 @@ public class LocationBareCache implements BadassSharedPreferencesStorageContract
 	{
 		this.lastLatitude = location.getLatitude();
 		this.lastLongitude = location.getLongitude();
-		lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
+		lastLocationUpdateInMs = BadassUtilsTime.getCurrentTimeInMs();
 		sharedPreferencesStorage.save();
 		ThisApp.getAppBadassJobList().setForecast();
 	}
 
     public void updateLocationSetTime()
     {
-        lastLocationUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
+        lastLocationUpdateInMs = BadassUtilsTime.getCurrentTimeInMs();
         sharedPreferencesStorage.save();
         ThisApp.getAppBadassJobList().setForecast();
     }

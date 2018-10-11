@@ -2,7 +2,7 @@ package eu.benayoun.badassweather.model.application;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionsMngr;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badassweather.R;
 import eu.benayoun.badassweather.ThisApp;
 import eu.benayoun.badassweather.background.AppBadassJobList;
@@ -96,7 +96,7 @@ public class AppStateCtrl
             String statusString ="";
             if (nextWeatherReportInMs!=-1)
             {
-                statusString = Badass.getString(R.string.app_state_next_weather_report, BadassTimeUtils.getNiceTimeString(nextWeatherReportInMs));
+                statusString = Badass.getString(R.string.app_state_next_weather_report, BadassUtilsTime.getNiceTimeString(nextWeatherReportInMs));
             }
             setOkStatus(statusString);
         }

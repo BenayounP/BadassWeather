@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorageContract;
-import eu.benayoun.badass.utility.storage.SharedPreferencesStorage;
+import eu.benayoun.badass.utility.storage.BadassSharedPreferencesStorage;
 
 
 /**
@@ -20,7 +20,7 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 
 	private final String KEY = "ForecastBareCacheContainer_";
 
-	private SharedPreferencesStorage sharedPreferencesStorage;
+	private BadassSharedPreferencesStorage sharedPreferencesStorage;
 
 	// setNextWorkInTheBackground
     private long lastForecastUpdateInMs;
@@ -32,7 +32,7 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
 
 	public ForecastBareCache()
 	{
-		sharedPreferencesStorage = new SharedPreferencesStorage(Badass.getSimpleClassName(),this);
+		sharedPreferencesStorage = new BadassSharedPreferencesStorage(Badass.getSimpleClassName(),this);
 		oneHourBareForecastList = new ArrayList<>();
 	}
 
@@ -43,7 +43,7 @@ public class ForecastBareCache implements BadassSharedPreferencesStorageContract
         oneHourBareForecastList = newOneHourBareForecastList;
 		nextWeatherReportInMs = nextWeatherReportInMsArg;
 		sharedPreferencesStorage.save();
-		lastForecastUpdateInMs = BadassTimeUtils.getCurrentTimeInMs();
+		lastForecastUpdateInMs = BadassUtilsTime.getCurrentTimeInMs();
 	}
 
 
