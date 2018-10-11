@@ -20,7 +20,7 @@ BADASS (Benayoun's Asynchronous Data Android Simple System) is a framework that 
 ### Repository
 Badass repository is available <a href="https://github.com/BenayounP/BADASS">here</a>.
 
-### Introcuction to Framework
+### Introduction to Framework
 You can learn more about the framework with a bunch of medium posts that starts <a href="https://medium.com/p/d45c5b0f0304/edit">here</a>.
 
 
