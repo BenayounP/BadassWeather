@@ -24,7 +24,7 @@ Badass repository is available <a href="https://github.com/BenayounP/BADASS">her
 You can learn more about the framework with a bunch of medium posts that starts <a href="https://medium.com/p/d45c5b0f0304/edit">here</a>.
 
 ## Contributing
-if you want to help in any way, just send me an [email](mailto:pierre<àcabnum.fr)
+If you want to help in any way, just send me an [email](mailto:pierre<àcabnum.fr)
 
 ## Issues
 ### Known ones
